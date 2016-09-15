@@ -1,48 +1,84 @@
-import { Component } from '@angular/core';
-
-import { ActionSheet, ActionSheetController, NavController } from 'ionic-angular';
-import { InAppBrowser } from 'ionic-native';
-
-import { ConferenceData } from '../../providers/conference-data';
-import { SessionDetailPage } from '../session-detail/session-detail';
-import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
-
+import {Component} from "@angular/core";
+import {ActionSheetController, NavController} from "ionic-angular";
+import {InAppBrowser} from "ionic-native";
+import {SessionDetailPage} from "../session-detail/session-detail";
+import {SpeakerDetailPage} from "../speaker-detail/speaker-detail";
+import {InfoService} from "../../services/info.service";
+import {Speaker} from "../../entities/speaker.entity";
+import {Session} from "../../entities/session.entity";
 
 @Component({
-  templateUrl: 'build/pages/speaker-list/speaker-list.html'
+  template: `    
+    <ion-header>
+      <ion-navbar>
+        <button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Speakers</ion-title>
+      </ion-navbar>
+    </ion-header>
+    <ion-content class="outer-content speaker-list">
+      <ion-card *ngFor="let speaker of speakers$|async" class="speaker">
+        <ion-card-header>
+          <ion-item>
+            <ion-avatar item-left>
+              <img [src]="speaker.img">
+            </ion-avatar>
+            {{speaker.firstName}} {{speaker.lastName}}
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content class="outer-content">
+          <ion-list>
+            <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
+              <h3>{{session.title}}</h3>
+            </button>
+            <button ion-item (click)="goToSpeakerDetail(speaker)">
+              <h3>About {{speaker.firstName}} {{speaker.lastName}}</h3>
+            </button>
+          </ion-list>
+        </ion-card-content>
+        <ion-item>
+          <button (click)="goToSpeakerTwitter(speaker)" clear item-left>
+            <ion-icon name="logo-twitter"></ion-icon>
+            Tweet
+          </button>
+          <button (click)="openSpeakerShare(speaker)" clear item-right>
+            <ion-icon name="share"></ion-icon>
+            Share
+          </button>
+        </ion-item>
+      </ion-card>
+    </ion-content>
+`
 })
 export class SpeakerListPage {
-  actionSheet: ActionSheet;
-  speakers = [];
+  speakers$ = this.infoService.rpSpeakers$;
 
-  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, confData: ConferenceData) {
-    confData.getSpeakers().then(speakers => {
-      this.speakers = speakers;
-    });
+  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, private infoService: InfoService) {
   }
 
-  goToSessionDetail(session) {
+  goToSessionDetail(session: Session): void {
     this.navCtrl.push(SessionDetailPage, session);
   }
 
-  goToSpeakerDetail(speakerName: string) {
-    this.navCtrl.push(SpeakerDetailPage, speakerName);
+  goToSpeakerDetail(speaker: Speaker): void {
+    this.navCtrl.push(SpeakerDetailPage, speaker);
   }
 
-  goToSpeakerTwitter(speaker) {
-    new InAppBrowser(`https://twitter.com/${speaker.twitter}`, '_system');
+  goToSpeakerTwitter(speaker: Speaker): void {
+    new InAppBrowser(`https://twitter.com/${speaker.tweetName.replace("@", "")}`, '_system');
   }
 
-  openSpeakerShare(speaker) {
+  openSpeakerShare(speaker: Speaker): void {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Share ' + speaker.name,
+      title: 'Share ' + speaker.firstName + " " + speaker.lastName,
       buttons: [
         {
           text: 'Copy Link',
           handler: () => {
-            console.log('Copy link clicked on https://twitter.com/' + speaker.twitter);
+            console.log('Copy link clicked on https://twitter.com/' + speaker.tweetName.replace("@", ""));
             if (window['cordova'] && window['cordova'].plugins.clipboard) {
-              window['cordova'].plugins.clipboard.copy('https://twitter.com/' + speaker.twitter);
+              window['cordova'].plugins.clipboard.copy('https://twitter.com/' + speaker.tweetName.replace("@", ""));
             }
           }
         },
@@ -56,31 +92,6 @@ export class SpeakerListPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-
-    actionSheet.present();
-  }
-
-  openContact(speaker) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact with ' + speaker.name,
-      buttons: [
-        {
-          text: `Email ( ${speaker.email} )`,
-          icon: 'mail',
-          handler: () => {
-            window.open('mailto:' + speaker.email);
-          }
-        },
-        {
-          text: `Call ( ${speaker.phone} )`,
-          icon: 'call',
-          handler: () => {
-            window.open('tel:' + speaker.phone);
           }
         }
       ]

@@ -1,132 +1,83 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
-
-import { ConferenceData } from '../../providers/conference-data';
-import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
-import { SessionDetailPage } from '../session-detail/session-detail';
-import { UserData } from '../../providers/user-data';
-
+import {Component} from "@angular/core";
+import {App, NavController} from "ionic-angular";
+import {SessionDetailPage} from "../session-detail/session-detail";
+import {UserData} from "../../providers/user-data";
+import {DayOverview} from "./day-overview";
+import {InfoService} from "../../services/info.service";
+import {Session} from "../../entities/session.entity";
+import {SessionGroup} from "../../entities/sessionGroup.entity";
+import {Observable, BehaviorSubject} from "rxjs";
 
 @Component({
-  templateUrl: 'build/pages/schedule/schedule.html'
+  directives: [DayOverview],
+  template: `
+    <ion-header>
+      <ion-navbar no-border-bottom>
+        <button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-segment [(ngModel)]="segment" (ionChange)="segment$.next($event.value)">
+          <ion-segment-button value="all">
+            All
+          </ion-segment-button>
+          <ion-segment-button value="favorites">
+            Favorites
+          </ion-segment-button>
+        </ion-segment>
+      </ion-navbar>
+      <ion-toolbar no-border-top>
+        <ion-searchbar primary (ionInput)="searchTerm$.next($event.srcElement.value)" placeholder="Search">
+        </ion-searchbar>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <day-overview [sessionsByGroups]="filteredSessionGroupBySegment$|async" (addFavorite)="onAddFavorite($event)" 
+      (removeFavorite)="onRemoveFavorite($event)" (goToSessionDetail)="onGoToSessionDetail($event)"></day-overview>
+    </ion-content>
+`
 })
 export class SchedulePage {
-  // the list is a child of the schedule page
-  // @ViewChild('scheduleList') gets a reference to the list
-  // with the variable #scheduleList, `read: List` tells it to return
-  // the List and not a reference to the element
-  @ViewChild('scheduleList', {read: List}) scheduleList: List;
+  segment = "all";
+  segment$ = new BehaviorSubject(this.segment);
+  searchTerm$ = new BehaviorSubject("");
+  sessionGroups$ = this.infoService.rpSessionGroups$;
+  filteredSessionGroups$ = Observable.combineLatest(this.searchTerm$, this.sessionGroups$,
+    (searchTerm: string, sessionGroups: Array<SessionGroup>) => {
+      searchTerm = searchTerm.toLowerCase();
+      return sessionGroups.map(sessionGroup => {
+        let sessions = sessionGroup.sessions.filter((session: Session) => {
+          return session.title.toLowerCase().indexOf(searchTerm) > -1
+        });
+        return Object.assign({}, sessionGroup, {sessions})
+      });
+    });
+  filteredSessionGroupBySegment$ = Observable.combineLatest(this.segment$, this.filteredSessionGroups$,
+    (segment: string, sessionGroups: Array<SessionGroup>) => {
+      return segment === "all" ? sessionGroups : sessionGroups.map(sessionGroup => {
+        let sessions = sessionGroup.sessions.filter(session => session.favorite != null);
+        return Object.assign({}, sessionGroup, {sessions})
+      });
+    });
 
-  dayIndex = 0;
-  queryText = '';
-  segment = 'all';
-  excludeTracks = [];
-  shownSessions = [];
-  groups = [];
-
-  constructor(
-    public alertCtrl: AlertController,
-    public app: App,
-    public modalCtrl: ModalController,
-    public navCtrl: NavController,
-    public confData: ConferenceData,
-    public user: UserData
-  ) {
-
+  constructor(private infoService: InfoService,
+              public app: App,
+              public navCtrl: NavController,
+              public user: UserData) {
   }
 
   ionViewDidEnter() {
     this.app.setTitle('Schedule');
   }
 
-  ngAfterViewInit() {
-    this.updateSchedule();
+  onAddFavorite(session: Session): void {
+    this.infoService.setFavorite(session);
   }
 
-  updateSchedule() {
-    // Close any open sliding items when the schedule updates
-    this.scheduleList && this.scheduleList.closeSlidingItems();
-
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
-    });
+  onRemoveFavorite(session: Session): void {
+    this.infoService.removeFavorite(session.favorite);
   }
 
-  presentFilter() {
-    let modal = this.modalCtrl.create(ScheduleFilterPage, this.excludeTracks);
-    modal.present();
-
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.excludeTracks = data;
-        this.updateSchedule();
-      }
-    });
-
-  }
-
-  goToSessionDetail(sessionData) {
-    // go to the session detail page
-    // and pass in the session data
+  onGoToSessionDetail(sessionData) {
     this.navCtrl.push(SessionDetailPage, sessionData);
-  }
-
-  addFavorite(slidingItem: ItemSliding, sessionData) {
-
-    if (this.user.hasFavorite(sessionData.name)) {
-      // woops, they already favorited it! What shall we do!?
-      // prompt them to remove it
-      this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
-    } else {
-      // remember this session as a user favorite
-      this.user.addFavorite(sessionData.name);
-
-      // create an alert instance
-      let alert = this.alertCtrl.create({
-        title: 'Favorite Added',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // close the sliding item
-            slidingItem.close();
-          }
-        }]
-      });
-      // now present the alert on top of all other content
-      alert.present();
-    }
-
-  }
-
-  removeFavorite(slidingItem: ItemSliding, sessionData, title) {
-    let alert = this.alertCtrl.create({
-      title: title,
-      message: 'Would you like to remove this session from your favorites?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            // they clicked the cancel button, do not remove the session
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        },
-        {
-          text: 'Remove',
-          handler: () => {
-            // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
-            this.updateSchedule();
-
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        }
-      ]
-    });
-    // now present the alert on top of all other content
-    alert.present();
   }
 }

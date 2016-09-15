@@ -1,15 +1,19 @@
 import { Component } from '@angular/core';
-
 import { NavParams } from 'ionic-angular';
-
 import { AboutPage } from '../about/about';
 import { MapPage } from '../map/map';
 import { SchedulePage } from '../schedule/schedule';
 import { SpeakerListPage } from '../speaker-list/speaker-list';
 
-
 @Component({
-  templateUrl: 'build/pages/tabs/tabs.html'
+  template: `    
+    <ion-tabs [selectedIndex]="mySelectedIndex">
+      <ion-tab [root]="tab1Root" tabTitle="Schedule" tabIcon="calendar"></ion-tab>
+      <ion-tab [root]="tab2Root" tabTitle="Speakers" tabIcon="contacts"></ion-tab>
+      <ion-tab [root]="tab3Root" tabTitle="Map" tabIcon="map"></ion-tab>
+      <ion-tab [root]="tab4Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
+    </ion-tabs>
+`
 })
 export class TabsPage {
   // set the root pages for each tab
