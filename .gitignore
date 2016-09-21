@@ -27,6 +27,8 @@ www/build/
 $RECYCLE.BIN/
 typings
 out
+app/**/*.js
+app/**/*.css
 
 .DS_Store
 Thumbs.db
