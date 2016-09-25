@@ -10,9 +10,12 @@ import { UserData } from '../../providers/user-data';
   templateUrl: 'build/pages/account/account.html',
 })
 export class AccountPage {
+
   username: string;
 
-  constructor(public alertCtrl: AlertController, public nav: NavController, public userData: UserData) {
+  constructor(public alertCtrl: AlertController,
+              public nav: NavController,
+              public userData: UserData) {
 
   }
 
@@ -64,4 +67,5 @@ export class AccountPage {
     this.userData.logout();
     this.nav.setRoot(LoginPage);
   }
+
 }

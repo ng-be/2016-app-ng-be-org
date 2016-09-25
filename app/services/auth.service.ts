@@ -9,15 +9,16 @@ import {Account} from '../entities/account.entity';
 
 @Injectable()
 export class AuthService {
-  auth$: Observable<FirebaseAuthState> = this.af.auth.asObservable();
+
+  auth$: Observable<FirebaseAuthState> = this._af.auth.asObservable();
   isAuthenticated$ = this.auth$.map(auth => auth === null ? false : true).startWith(false);
 
-  constructor(private af: AngularFire) {
+  constructor(private _af: AngularFire) {
   }
 
   authenticate(credentials: Credentials): Observable<Boolean> {
     let subject = new Subject<boolean>();
-    this.af.auth.login({email: credentials.login, password: credentials.password}).then(
+    this._af.auth.login({email: credentials.login, password: credentials.password}).then(
       () => {
         subject.next(true);
       },
@@ -30,11 +31,11 @@ export class AuthService {
 
   register(account: Account): Observable<Boolean> {
     let subject = new Subject<boolean>();
-    this.af.auth.createUser(Object.assign({}, account, {email: account.login})).then(
+    this._af.auth.createUser(Object.assign({}, account, {email: account.login})).then(
       (resp: any) => {
         let {login} = account;
-        this.af.database.object(`/users/${resp.uid}`).set({login});
-        this.af.auth.login({email: account.login, password: account.password})
+        this._af.database.object(`/users/${resp.uid}`).set({login});
+        this._af.auth.login({email: account.login, password: account.password})
           .then(() => {
             subject.next(true);
           })
@@ -50,6 +51,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.af.auth.logout();
+    this._af.auth.logout();
   }
+
 }

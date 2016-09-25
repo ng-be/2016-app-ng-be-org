@@ -11,6 +11,7 @@ import { Session } from "../../entities/session.entity";
   templateUrl: 'build/pages/schedule/day-overview.html'
 })
 export class DayOverview {
+
   @Input() sessionsByGroups: Array<SessionGroup>;
   @Output() addFavorite = new EventEmitter<Session>();
   @Output() removeFavorite = new EventEmitter<Session>();
@@ -25,4 +26,5 @@ export class DayOverview {
     slidingItem.close();
     this.addFavorite.emit(session);
   }
+
 }

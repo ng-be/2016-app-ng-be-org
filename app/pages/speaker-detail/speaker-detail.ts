@@ -9,9 +9,12 @@ import { Speaker } from "../../entities/speaker.entity";
   templateUrl: 'build/pages/speaker-detail/speaker-detail.html'
 })
 export class SpeakerDetailPage {
+
   speaker: Speaker;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams) {
     this.speaker = this.navParams.data;
   }
+
 }

@@ -14,9 +14,12 @@ import { Session } from "../../entities/session.entity";
   templateUrl: 'build/pages/speaker-list/speaker-list.html'
 })
 export class SpeakerListPage {
-  speakers$ = this.infoService.rpSpeakers$;
 
-  constructor(public actionSheetCtrl: ActionSheetController, public navCtrl: NavController, private infoService: InfoService) {
+  speakers$ = this._infoService.rpSpeakers$;
+
+  constructor(public actionSheetCtrl: ActionSheetController,
+              public navCtrl: NavController,
+              private _infoService: InfoService) {
   }
 
   goToSessionDetail(session: Session): void {
@@ -61,4 +64,5 @@ export class SpeakerListPage {
 
     actionSheet.present();
   }
+
 }

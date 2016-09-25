@@ -10,11 +10,14 @@ import { Session } from "../../entities/session.entity";
   templateUrl: 'build/pages/session-details/session-details.html'
 })
 export class SessionDetailPage {
-  session: Session;
-  speaker$ = this.infoService.rpSpeakers$.map(speakers => speakers.filter(speaker => Number(speaker.$key) === this.session.speakerId)[0]).cache();
-  room$ = this.infoService.rpRooms$.map(rooms => rooms.filter(room => Number(room.$key) === this.session.roomId)[0]).cache();
 
-  constructor(public navParams: NavParams, private infoService: InfoService) {
+  session: Session;
+  speaker$ = this._infoService.rpSpeakers$.map(speakers => speakers.filter(speaker => Number(speaker.$key) === this.session.speakerId)[0]).cache();
+  room$ = this._infoService.rpRooms$.map(rooms => rooms.filter(room => Number(room.$key) === this.session.roomId)[0]).cache();
+
+  constructor(public navParams: NavParams,
+              private _infoService: InfoService) {
     this.session = navParams.data;
   }
+
 }

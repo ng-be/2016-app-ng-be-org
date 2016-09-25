@@ -13,18 +13,21 @@ import { AuthService } from "../../services/auth.service";
   templateUrl: 'build/pages/login/login.html'
 })
 export class LoginPage implements OnDestroy {
+
   login: {username?: string, password?: string} = {};
   submitted = false;
+
   private subscriptions: Array<Subscription> = [];
 
-  constructor(public navCtrl: NavController, private authService: AuthService) {
+  constructor(public navCtrl: NavController,
+              private _authService: AuthService) {
   }
 
   onLogin(form) {
     this.submitted = true;
 
     if (form.valid) {
-      this.subscriptions.push(this.authService.authenticate({
+      this.subscriptions.push(this._authService.authenticate({
         login: this.login.username,
         password: this.login.password
       }).subscribe(() => {
@@ -42,4 +45,5 @@ export class LoginPage implements OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
 }

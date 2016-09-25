@@ -16,11 +16,14 @@ import { SessionGroup } from "../../entities/sessionGroup.entity";
   templateUrl: 'build/pages/schedule/schedule.html'
 })
 export class SchedulePage {
+
   segment = "all";
   segment$ = new BehaviorSubject(this.segment);
   searchTerm$ = new BehaviorSubject("");
-  sessionGroups$ = this.infoService.rpSessionGroups$;
-  filteredSessionGroups$ = Observable.combineLatest(this.searchTerm$, this.sessionGroups$,
+  sessionGroups$ = this._infoService.rpSessionGroups$;
+  filteredSessionGroups$ = Observable.combineLatest(
+    this.searchTerm$,
+    this.sessionGroups$,
     (searchTerm: string, sessionGroups: Array<SessionGroup>) => {
       searchTerm = searchTerm.toLowerCase();
       return sessionGroups.map(sessionGroup => {
@@ -29,19 +32,23 @@ export class SchedulePage {
         });
         return Object.assign({}, sessionGroup, {sessions})
       });
-    });
-  filteredSessionGroupBySegment$ = Observable.combineLatest(this.segment$, this.filteredSessionGroups$,
+    }
+  );
+  filteredSessionGroupBySegment$ = Observable.combineLatest(
+    this.segment$,
+    this.filteredSessionGroups$,
     (segment: string, sessionGroups: Array<SessionGroup>) => {
       return segment === "all" ? sessionGroups : sessionGroups.map(sessionGroup => {
         let sessions = sessionGroup.sessions.filter(session => session.favorite != null);
         return Object.assign({}, sessionGroup, {sessions})
       });
-    });
+    }
+  );
 
-  constructor(private infoService: InfoService,
-              public app: App,
+  constructor(public app: App,
               public navCtrl: NavController,
-              public user: UserData) {
+              public user: UserData,
+              private _infoService: InfoService,) {
   }
 
   ionViewDidEnter() {
@@ -49,14 +56,15 @@ export class SchedulePage {
   }
 
   onAddFavorite(session: Session): void {
-    this.infoService.setFavorite(session);
+    this._infoService.setFavorite(session);
   }
 
   onRemoveFavorite(session: Session): void {
-    this.infoService.removeFavorite(session.favorite);
+    this._infoService.removeFavorite(session.favorite);
   }
 
   onGoToSessionDetail(sessionData) {
     this.navCtrl.push(SessionDetailPage, sessionData);
   }
+
 }

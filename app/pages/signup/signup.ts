@@ -12,19 +12,24 @@ import { AuthService } from "../../services/auth.service";
   templateUrl: 'build/pages/signup/signup.html'
 })
 export class SignupPage implements OnDestroy {
-  signup: {email?: string, password?: string} = {};
+
+  signup: {
+    email?: string,
+    password?: string
+  } = {};
   submitted = false;
 
   private subscriptions: Array<Subscription> = [];
 
-  constructor(public navCtrl: NavController, private authService: AuthService) {
+  constructor(public navCtrl: NavController,
+              private _authService: AuthService) {
   }
 
   onSignup(form) {
     this.submitted = true;
 
     if (form.valid) {
-      this.subscriptions.push(this.authService.register({
+      this.subscriptions.push(this._authService.register({
         login: this.signup.email,
         password: this.signup.password
       }).subscribe(() => {
@@ -35,7 +40,8 @@ export class SignupPage implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
 }

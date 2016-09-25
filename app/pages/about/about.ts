@@ -20,13 +20,14 @@ class PopoverPage {
   close() {
     this.viewCtrl.dismiss();
   }
-}
 
+}
 
 @Component({
   templateUrl: 'build/pages/about/about.html'
 })
 export class AboutPage {
+
   conferenceDate = '2047-05-17';
 
   constructor(public popoverCtrl: PopoverController) {
@@ -36,4 +37,5 @@ export class AboutPage {
     let popover = this.popoverCtrl.create(PopoverPage);
     popover.present({ev: event});
   }
+
 }

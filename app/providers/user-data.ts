@@ -4,6 +4,7 @@ import { Events, LocalStorage, Storage } from 'ionic-angular';
 
 @Injectable()
 export class UserData {
+
   _favorites = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
   storage = new Storage(LocalStorage);
@@ -60,4 +61,5 @@ export class UserData {
       return value;
     });
   }
+
 }

@@ -8,6 +8,7 @@ import { ConferenceData } from '../../providers/conference-data';
   templateUrl: 'build/pages/map/map.html'
 })
 export class MapPage {
+
   constructor(public confData: ConferenceData) {
   }
 
@@ -42,4 +43,5 @@ export class MapPage {
 
     });
   }
+
 }
