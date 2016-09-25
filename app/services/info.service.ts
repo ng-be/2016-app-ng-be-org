@@ -15,14 +15,14 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class InfoService {
 
-  public rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
-  public rpRooms$ = new ReplaySubject<Array<Room>>();
-  public rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
+  rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
+  rpRooms$ = new ReplaySubject<Array<Room>>();
+  rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
 
-  private rooms$: Observable<Array<Room>> = this._af.database.list(`rooms`);
-  private isAuthenticated$ = this._authService.isAuthenticated$;
+  private _rooms$: Observable<Array<Room>> = this._af.database.list(`rooms`);
+  private _isAuthenticated$ = this._authService.isAuthenticated$;
 
-  private sessions$: Observable<Array<Session>> = this._af.database.list(`sessions`).map((sessions: Array<any>) => {
+  private _sessions$: Observable<Array<Session>> = this._af.database.list(`sessions`).map((sessions: Array<any>) => {
     return sessions.map((session: any) => {
       // map dates
       let startDate = moment(session.startDate, "DD-MM-YYYY, h:mm");
@@ -30,13 +30,13 @@ export class InfoService {
       return Object.assign(session, {startDate, endDate});
     });
   });
-  private favoriteSessionsIds$: Observable<{$key: string, sessionId: string}> = <any> this.isAuthenticated$
+  private _favoriteSessionsIds$: Observable<{$key: string, sessionId: string}> = <any> this._isAuthenticated$
     .flatMap((authenticated: boolean) => {
       return authenticated ? this._af.database.list(`users/${this._uid}/favoriteSessions`) : [];
     })
     .startWith([]);
-  private speakers$: Observable<Array<Speaker>> = this._af.database.list(`speakers`);
-  private sessionsWithFavoriteFlag$ = Observable.combineLatest(this.sessions$, this.favoriteSessionsIds$,
+  private _speakers$: Observable<Array<Speaker>> = this._af.database.list(`speakers`);
+  private _sessionsWithFavoriteFlag$ = Observable.combineLatest(this._sessions$, this._favoriteSessionsIds$,
     (sessions: Array<Session>, favoriteSessionsIds: Array<{$key: string, sessionId: string}>) => {
       return sessions.map((session: Session) => {
         let matchingSessionKeys = favoriteSessionsIds.filter((item: {$key: string, sessionId: string}) => item.sessionId === session.$key);
@@ -44,14 +44,14 @@ export class InfoService {
       })
     });
 
-  private speakersWithSessions$ = Observable.combineLatest(this.speakers$, this.sessions$,
+  private _speakersWithSessions$ = Observable.combineLatest(this._speakers$, this._sessions$,
     (speakers: Array<Speaker>, sessions: Array<Session>) => {
       speakers.forEach((speaker: Speaker) => {
         speaker.sessions = sessions.filter((session: Session) => session.speakerId === Number(speaker.$key));
       });
       return speakers;
     });
-  private sessionGroups$: Observable<Array<SessionGroup>> = this.sessionsWithFavoriteFlag$.map((sessions: Array<Session>) => {
+  private _sessionGroups$: Observable<Array<SessionGroup>> = this._sessionsWithFavoriteFlag$.map((sessions: Array<Session>) => {
     let sessionsByHours: Array<SessionGroup> = [];
     let startHour = 7;
     let endHour = 20;
@@ -65,13 +65,13 @@ export class InfoService {
   // for every public stream we had to create a replay subject (otherwise it would only listen to it once)
   constructor(private _af: AngularFire,
               private _authService: AuthService) {
-    this.speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
+    this._speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
       this.rpSpeakers$.next(speakers);
     });
-    this.sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
+    this._sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
       this.rpSessionGroups$.next(sessionGroups);
     });
-    this.rooms$.subscribe((rooms: Array<Room>) => {
+    this._rooms$.subscribe((rooms: Array<Room>) => {
       this.rpRooms$.next(rooms);
     })
   }
