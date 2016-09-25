@@ -1,10 +1,10 @@
 {
-  "name": "ionic-conference-app",
-  "description": "Ionic Conference App",
+  "name": "app-ng-be.org",
+  "description": "NG-BE 2016 Conference application",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/driftyco/ionic-conference-app.git"
+    "url": "https://github.com/ng-be/app-ng-be-org.git"
   },
   "scripts": {
     "postinstall": "typings install"
