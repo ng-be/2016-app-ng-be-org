@@ -1,5 +1,5 @@
 {
-  "name": "ionic-conference-app",
+  "name": "ng-be-2016",
   "dependencies": {
     "moment": "file:node_modules/moment/moment.d.ts"
   },

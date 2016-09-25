@@ -56,23 +56,6 @@ See [CONTRIBUTING.md](https://github.com/driftyco/ionic-conference-app/blob/mast
 * Using Angular HTTP for JSON - [ [code](https://github.com/driftyco/ionic-conference-app/blob/master/app/providers/conference-data.ts) | [usage](https://github.com/driftyco/ionic-conference-app/blob/master/app/pages/schedule/schedule.ts) ]
 
 
-## App Preview
-
-All app preview screenshots were taken by running `ionic serve --lab` on a retina display.
-
-- [Schedule Page](https://github.com/driftyco/ionic-conference-app/blob/master/app/pages/schedule/schedule.html)
-
-  <img src="resources/screenshots/SchedulePage.png" alt="Schedule">
-
-
-- [About Page](https://github.com/driftyco/ionic-conference-app/blob/master/app/pages/about/about.html)
-
-  <img src="resources/screenshots/AboutPage.png" alt="Schedule">
-
-
-- To see more images of the app, check out the [screenshots directory](https://github.com/driftyco/ionic-conference-app/tree/master/resources/screenshots)!
-
-
 ## File Structure of App
 
 ```

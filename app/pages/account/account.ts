@@ -1,18 +1,21 @@
+// 3d party imports
 import { Component } from '@angular/core';
-
 import { AlertController, NavController } from 'ionic-angular';
 
+// app imports
 import { LoginPage } from '../login/login';
 import { UserData } from '../../providers/user-data';
-
 
 @Component({
   templateUrl: 'build/pages/account/account.html',
 })
 export class AccountPage {
+
   username: string;
 
-  constructor(public alertCtrl: AlertController, public nav: NavController, public userData: UserData) {
+  constructor(public alertCtrl: AlertController,
+              public nav: NavController,
+              public userData: UserData) {
 
   }
 
@@ -64,4 +67,5 @@ export class AccountPage {
     this.userData.logout();
     this.nav.setRoot(LoginPage);
   }
+
 }
