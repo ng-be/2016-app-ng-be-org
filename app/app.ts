@@ -1,11 +1,11 @@
 // 3d party imports
-import { ionicBootstrap } from "ionic-angular";
-import { AuthProviders, AuthMethods, firebaseAuthConfig, defaultFirebase, FIREBASE_PROVIDERS } from "angularfire2";
+import { ionicBootstrap } from 'ionic-angular';
+import { AuthProviders, AuthMethods, firebaseAuthConfig, defaultFirebase, FIREBASE_PROVIDERS } from 'angularfire2';
 
 // app imports
-import { ConferenceData } from "./providers/conference-data";
-import { UserData } from "./providers/user-data";
-import { AppContainer } from "./containers/app.container";
+import { ConferenceData } from './providers/conference-data';
+import { UserData } from './providers/user-data';
+import { AppContainer } from './containers/app.container';
 
 ionicBootstrap(AppContainer,
   [
@@ -21,8 +21,8 @@ ionicBootstrap(AppContainer,
     firebaseAuthConfig({
       provider: AuthProviders.Password,
       method: AuthMethods.Password,
-      remember: "default",
-      scope: ["email"]
+      remember: 'default',
+      scope: ['email']
     })
   ],
   {}

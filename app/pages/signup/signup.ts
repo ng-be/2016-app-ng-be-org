@@ -1,12 +1,12 @@
 // 3d party imports
-import { Component, OnDestroy } from "@angular/core";
-import { NavController } from "ionic-angular";
-import { Subscription } from "rxjs";
-import { Toast } from "ionic-native";
+import { Component, OnDestroy } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { Subscription } from 'rxjs';
+import { Toast } from 'ionic-native';
 
 // app imports
-import { TabsPage } from "../tabs/tabs";
-import { AuthService } from "../../services/auth.service";
+import { TabsPage } from '../tabs/tabs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   templateUrl: 'build/pages/signup/signup.html'
@@ -35,7 +35,7 @@ export class SignupPage implements OnDestroy {
       }).subscribe(() => {
         this.navCtrl.push(TabsPage);
       }, () => {
-        Toast.show("Failed to sign up", '5000', 'center');
+        Toast.show('Failed to sign up', '5000', 'center');
       }));
     }
   }

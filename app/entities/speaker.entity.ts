@@ -1,4 +1,6 @@
-import { Session } from "./session.entity";
+// app imports
+import { Session } from './session.entity';
+
 export interface Speaker {
   firstName: string;
   lastName: string;

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 // app imports
-import { Speaker } from "../../entities/speaker.entity";
+import { Speaker } from '../../entities/speaker.entity';
 
 @Component({
   templateUrl: 'build/pages/speaker-detail/speaker-detail.html'

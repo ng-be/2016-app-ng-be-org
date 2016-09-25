@@ -1,16 +1,16 @@
 // 3d party imports
-import { Injectable } from "@angular/core";
-import { AngularFire } from "angularfire2";
-import * as moment from "moment";
-import { Observable, ReplaySubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { AngularFire } from 'angularfire2';
+import * as moment from 'moment';
+import { Observable, ReplaySubject } from 'rxjs';
 
 // app imports
-import { Speaker } from "../entities/speaker.entity";
-import { Session } from "../entities/session.entity";
-import { Room } from "../entities/room.entity";
-import { SessionGroup } from "../entities/sessionGroup.entity";
+import { Speaker } from '../entities/speaker.entity';
+import { Session } from '../entities/session.entity';
+import { Room } from '../entities/room.entity';
+import { SessionGroup } from '../entities/sessionGroup.entity';
 
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class InfoService {
@@ -25,8 +25,8 @@ export class InfoService {
   private _sessions$: Observable<Array<Session>> = this._af.database.list(`sessions`).map((sessions: Array<any>) => {
     return sessions.map((session: any) => {
       // map dates
-      let startDate = moment(session.startDate, "DD-MM-YYYY, h:mm");
-      let endDate = moment(session.endDate, "DD-MM-YYYY, h:mm");
+      let startDate = moment(session.startDate, 'DD-MM-YYYY, h:mm');
+      let endDate = moment(session.endDate, 'DD-MM-YYYY, h:mm');
       return Object.assign(session, {startDate, endDate});
     });
   });
@@ -40,8 +40,8 @@ export class InfoService {
     (sessions: Array<Session>, favoriteSessionsIds: Array<{$key: string, sessionId: string}>) => {
       return sessions.map((session: Session) => {
         let matchingSessionKeys = favoriteSessionsIds.filter((item: {$key: string, sessionId: string}) => item.sessionId === session.$key);
-        return matchingSessionKeys.length == 0 ? Object.assign(session, {favorite: null}) : Object.assign(session, {favorite: matchingSessionKeys[0].$key});
-      })
+        return matchingSessionKeys.length === 0 ? Object.assign(session, {favorite: null}) : Object.assign(session, {favorite: matchingSessionKeys[0].$key});
+      });
     });
 
   private _speakersWithSessions$ = Observable.combineLatest(this._speakers$, this._sessions$,
@@ -73,7 +73,7 @@ export class InfoService {
     });
     this._rooms$.subscribe((rooms: Array<Room>) => {
       this.rpRooms$.next(rooms);
-    })
+    });
   }
 
   setFavorite(session: Session): void {
@@ -86,44 +86,44 @@ export class InfoService {
 
   addDemoSessions() {
     this._af.database.list('/sessions').push({
-      description: "lorem ipsum",
-      endDate: "09-12-2016 09:30",
+      description: 'lorem ipsum',
+      endDate: '09-12-2016 09:30',
       roomId: 0,
       speakerId: 0,
-      startDate: "09-12-2016 09:00",
-      title: "this is a test"
+      startDate: '09-12-2016 09:00',
+      title: 'this is a test'
     });
     this._af.database.list('/sessions').push({
-      description: "lorem ipsum",
-      endDate: "09-12-2016 10:00",
+      description: 'lorem ipsum',
+      endDate: '09-12-2016 10:00',
       roomId: 0,
       speakerId: 0,
-      startDate: "09-12-2016 10:30",
-      title: "this is a test"
+      startDate: '09-12-2016 10:30',
+      title: 'this is a test'
     });
     this._af.database.list('/sessions').push({
-      description: "lorem ipsum",
-      endDate: "09-12-2016 09:30",
+      description: 'lorem ipsum',
+      endDate: '09-12-2016 09:30',
       roomId: 1,
       speakerId: 1,
-      startDate: "09-12-2016 09:00",
-      title: "this is a test"
+      startDate: '09-12-2016 09:00',
+      title: 'this is a test'
     });
     this._af.database.list('/sessions').push({
-      description: "lorem ipsum",
-      endDate: "09-12-2016 09:30",
+      description: 'lorem ipsum',
+      endDate: '09-12-2016 09:30',
       roomId: 2,
       speakerId: 2,
-      startDate: "09-12-2016 09:00",
-      title: "this is a test"
+      startDate: '09-12-2016 09:00',
+      title: 'this is a test'
     });
     this._af.database.list('/sessions').push({
-      description: "lorem ipsum",
-      endDate: "09-12-2016 11:30",
+      description: 'lorem ipsum',
+      endDate: '09-12-2016 11:30',
       roomId: 3,
       speakerId: 3,
-      startDate: "09-12-2016 12:00",
-      title: "this is a test"
+      startDate: '09-12-2016 12:00',
+      title: 'this is a test'
     });
   }
 

@@ -1,13 +1,13 @@
 // 3d party imports
-import { Component, Input, EventEmitter, Output } from "@angular/core";
-import { ItemSliding } from "ionic-angular";
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { ItemSliding } from 'ionic-angular';
 
 // app imports
-import { SessionGroup } from "../../entities/sessionGroup.entity";
-import { Session } from "../../entities/session.entity";
+import { SessionGroup } from '../../entities/sessionGroup.entity';
+import { Session } from '../../entities/session.entity';
 
 @Component({
-  selector: "day-overview",
+  selector: 'day-overview',
   templateUrl: 'build/pages/schedule/day-overview.html'
 })
 export class DayOverview {

@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
 // app imports
-import { InfoService } from "../../services/info.service";
-import { Session } from "../../entities/session.entity";
+import { InfoService } from '../../services/info.service';
+import { Session } from '../../entities/session.entity';
 
 @Component({
   templateUrl: 'build/pages/session-details/session-details.html'
