@@ -1,12 +1,17 @@
-import {AngularFire} from "angularfire2";
-import {Speaker} from "../entities/speaker.entity";
-import {Observable, ReplaySubject, Subject} from "rxjs";
-import {Injectable} from "@angular/core";
-import {Session} from "../entities/session.entity";
-import {Room} from "../entities/room.entity";
-import {SessionGroup} from "../entities/sessionGroup.entity";
+// 3d party imports
+import { Injectable } from "@angular/core";
+import { AngularFire } from "angularfire2";
 import * as moment from "moment";
-import {AuthService} from "./auth.service";
+import { Observable, ReplaySubject, Subject } from "rxjs";
+
+// app imports
+import { Speaker } from "../entities/speaker.entity";
+import { Session } from "../entities/session.entity";
+import { Room } from "../entities/room.entity";
+import { SessionGroup } from "../entities/sessionGroup.entity";
+
+import { AuthService } from "./auth.service";
+
 @Injectable()
 export class InfoService {
   // for every public stream we had to create a replay subject (otherwise it would only listen to it once)
@@ -21,6 +26,7 @@ export class InfoService {
       this.rpRooms$.next(rooms);
     })
   }
+
   public rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
   public rpRooms$ = new ReplaySubject<Array<Room>>();
   public rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();

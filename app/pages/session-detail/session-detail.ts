@@ -1,7 +1,10 @@
+// 3d party imports
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import {InfoService} from "../../services/info.service";
-import {Session} from "../../entities/session.entity";
+
+// app imports
+import { InfoService } from "../../services/info.service";
+import { Session } from "../../entities/session.entity";
 
 @Component({
   template: `    

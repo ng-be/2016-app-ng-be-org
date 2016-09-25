@@ -1,15 +1,16 @@
+// 3d party imports
 import { Injectable } from '@angular/core';
-
 import { Http } from '@angular/http';
 
+// app imports
 import { UserData } from './user-data';
-
 
 @Injectable()
 export class ConferenceData {
   data: any;
 
-  constructor(public http: Http, public user: UserData) {}
+  constructor(public http: Http, public user: UserData) {
+  }
 
   load() {
     if (this.data) {

@@ -1,8 +1,11 @@
-import {ionicBootstrap} from "ionic-angular";
-import {ConferenceData} from "./providers/conference-data";
-import {UserData} from "./providers/user-data";
-import {AuthProviders, AuthMethods, firebaseAuthConfig, defaultFirebase, FIREBASE_PROVIDERS} from "angularfire2";
-import {AppContainer} from "./containers/app.container";
+// 3d party imports
+import { ionicBootstrap } from "ionic-angular";
+import { AuthProviders, AuthMethods, firebaseAuthConfig, defaultFirebase, FIREBASE_PROVIDERS } from "angularfire2";
+
+// app imports
+import { ConferenceData } from "./providers/conference-data";
+import { UserData } from "./providers/user-data";
+import { AppContainer } from "./containers/app.container";
 
 ionicBootstrap(AppContainer, [ConferenceData, UserData,
   FIREBASE_PROVIDERS,

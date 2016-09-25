@@ -1,6 +1,9 @@
+// 3d party imports
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {Speaker} from "../../entities/speaker.entity";
+
+// app imports
+import { Speaker } from "../../entities/speaker.entity";
 
 @Component({
   template: `    

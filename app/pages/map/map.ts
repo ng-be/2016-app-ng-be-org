@@ -1,13 +1,15 @@
+// 3d party imports
 import { Component } from '@angular/core';
 
+// app imports
 import { ConferenceData } from '../../providers/conference-data';
-
 
 @Component({
   templateUrl: 'build/pages/map/map.html'
 })
 export class MapPage {
-  constructor(public confData: ConferenceData) {}
+  constructor(public confData: ConferenceData) {
+  }
 
   ionViewLoaded() {
     this.confData.getMap().then(mapData => {

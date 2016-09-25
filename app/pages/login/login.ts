@@ -1,10 +1,13 @@
-import {Component, OnDestroy} from "@angular/core";
-import {NavController} from "ionic-angular";
-import {SignupPage} from "../signup/signup";
-import {TabsPage} from "../tabs/tabs";
-import {AuthService} from "../../services/auth.service";
-import {Subscription} from "rxjs";
-import {Toast} from "ionic-native";
+// 3d party imports
+import { Component, OnDestroy } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { Subscription } from "rxjs";
+import { Toast } from "ionic-native";
+
+// app imports
+import { SignupPage } from "../signup/signup";
+import { TabsPage } from "../tabs/tabs";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   template: `    

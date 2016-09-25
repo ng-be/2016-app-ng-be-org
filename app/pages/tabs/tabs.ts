@@ -1,5 +1,8 @@
+// 3d party imports
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+
+// app imports
 import { AboutPage } from '../about/about';
 import { MapPage } from '../map/map';
 import { SchedulePage } from '../schedule/schedule';

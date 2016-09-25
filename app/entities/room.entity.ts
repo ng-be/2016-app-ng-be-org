@@ -1,4 +1,4 @@
-export interface Room{
+export interface Room {
   name: string;
   $key: string;
 }

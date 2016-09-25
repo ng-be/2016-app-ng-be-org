@@ -1,9 +1,13 @@
-import {Component, OnDestroy} from "@angular/core";
-import {NavController} from "ionic-angular";
-import {TabsPage} from "../tabs/tabs";
-import {AuthService} from "../../services/auth.service";
-import {Subscription} from "rxjs";
-import {Toast} from "ionic-native";
+// 3d party imports
+import { Component, OnDestroy } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { Subscription } from "rxjs";
+import { Toast } from "ionic-native";
+
+// app imports
+import { TabsPage } from "../tabs/tabs";
+import { AuthService } from "../../services/auth.service";
+
 @Component({
   template: `    
     <ion-header>
@@ -49,6 +53,7 @@ export class SignupPage implements OnDestroy {
   submitted = false;
 
   private subscriptions: Array<Subscription> = [];
+
   constructor(public navCtrl: NavController, private authService: AuthService) {
   }
 

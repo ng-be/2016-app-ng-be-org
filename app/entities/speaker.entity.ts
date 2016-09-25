@@ -1,5 +1,5 @@
-import {Session} from "./session.entity";
-export interface Speaker{
+import { Session } from "./session.entity";
+export interface Speaker {
   firstName: string;
   lastName: string;
   description: string;

@@ -1,12 +1,14 @@
-import {Component, Input, EventEmitter, Output} from "@angular/core";
-import {SessionGroup} from "../../entities/sessionGroup.entity";
-import {Session} from "../../entities/session.entity";
-import {ItemSliding} from "ionic-angular";
+// 3d party imports
+import { Component, Input, EventEmitter, Output } from "@angular/core";
+import { ItemSliding } from "ionic-angular";
+
+// app imports
+import { SessionGroup } from "../../entities/sessionGroup.entity";
+import { Session } from "../../entities/session.entity";
 
 @Component({
   selector: "day-overview",
   template: `
-   
       <ion-list #scheduleList>
         <ion-item-group *ngFor="let group of sessionsByGroups">
           <ion-item-divider sticky>

@@ -1,12 +1,15 @@
-import {Component} from "@angular/core";
-import {App, NavController} from "ionic-angular";
-import {SessionDetailPage} from "../session-detail/session-detail";
-import {UserData} from "../../providers/user-data";
-import {DayOverview} from "./day-overview";
-import {InfoService} from "../../services/info.service";
-import {Session} from "../../entities/session.entity";
-import {SessionGroup} from "../../entities/sessionGroup.entity";
-import {Observable, BehaviorSubject} from "rxjs";
+// 3d party imports
+import { Component } from "@angular/core";
+import { App, NavController } from "ionic-angular";
+import { Observable, BehaviorSubject } from "rxjs";
+
+// app imports
+import { SessionDetailPage } from "../session-detail/session-detail";
+import { UserData } from "../../providers/user-data";
+import { DayOverview } from "./day-overview";
+import { InfoService } from "../../services/info.service";
+import { Session } from "../../entities/session.entity";
+import { SessionGroup } from "../../entities/sessionGroup.entity";
 
 @Component({
   directives: [DayOverview],

@@ -1,11 +1,14 @@
-import {Component} from "@angular/core";
-import {ActionSheetController, NavController} from "ionic-angular";
-import {InAppBrowser} from "ionic-native";
-import {SessionDetailPage} from "../session-detail/session-detail";
-import {SpeakerDetailPage} from "../speaker-detail/speaker-detail";
-import {InfoService} from "../../services/info.service";
-import {Speaker} from "../../entities/speaker.entity";
-import {Session} from "../../entities/session.entity";
+// 3d party imports
+import { Component } from "@angular/core";
+import { ActionSheetController, NavController } from "ionic-angular";
+import { InAppBrowser } from "ionic-native";
+
+// app imports
+import { SessionDetailPage } from "../session-detail/session-detail";
+import { SpeakerDetailPage } from "../speaker-detail/speaker-detail";
+import { InfoService } from "../../services/info.service";
+import { Speaker } from "../../entities/speaker.entity";
+import { Session } from "../../entities/session.entity";
 
 @Component({
   template: `    

@@ -1,7 +1,6 @@
+// 3d party imports
 import { Component } from '@angular/core';
-
 import { PopoverController, ViewController } from 'ionic-angular';
-
 
 @Component({
   template: `
@@ -15,7 +14,8 @@ import { PopoverController, ViewController } from 'ionic-angular';
 })
 class PopoverPage {
 
-  constructor(public viewCtrl: ViewController) { }
+  constructor(public viewCtrl: ViewController) {
+  }
 
   close() {
     this.viewCtrl.dismiss();
@@ -29,10 +29,11 @@ class PopoverPage {
 export class AboutPage {
   conferenceDate = '2047-05-17';
 
-  constructor(public popoverCtrl: PopoverController) { }
+  constructor(public popoverCtrl: PopoverController) {
+  }
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({ ev: event });
+    popover.present({ev: event});
   }
 }
