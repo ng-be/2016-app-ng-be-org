@@ -5,9 +5,9 @@ import { Events, LocalStorage, Storage } from 'ionic-angular';
 @Injectable()
 export class UserData {
 
-  favorites = [];
-  HAS_LOGGED_IN = 'hasLoggedIn';
-  storage = new Storage(LocalStorage);
+  private favorites = [];
+  private HAS_LOGGED_IN = 'hasLoggedIn';
+  private storage = new Storage(LocalStorage);
 
   constructor(public events: Events) {
   }
