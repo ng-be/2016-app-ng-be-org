@@ -4,13 +4,8 @@ import { Nav, MenuController, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 // app imports
-import { TabsPage } from '../pages/tabs/tabs';
-import { AccountPage } from '../pages/account/account';
-import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
-import { SchedulePage } from '../pages/schedule/schedule';
-import { AuthService } from '../services/auth.service';
-import { InfoService } from '../services/info.service';
+import { TabsPage, AccountPage, LoginPage, SignupPage, SchedulePage } from '../pages';
+import { AuthService, InfoService } from '../services';
 
 interface PageObj {
   title: string;

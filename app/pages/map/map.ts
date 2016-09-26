@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 
 // app imports
-import { ConferenceData } from '../../providers/conference-data';
+import { ConferenceData } from '../../providers';
 
 @Component({
   templateUrl: 'build/pages/map/map.html'

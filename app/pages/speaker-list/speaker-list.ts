@@ -4,11 +4,9 @@ import { ActionSheetController, NavController } from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
 
 // app imports
-import { SessionDetailPage } from '../session-detail/session-detail';
-import { SpeakerDetailPage } from '../speaker-detail/speaker-detail';
+import { SessionDetailPage, SpeakerDetailPage } from '../';
 import { InfoService } from '../../services/info.service';
-import { Speaker } from '../../entities/speaker.entity';
-import { Session } from '../../entities/session.entity';
+import { Speaker, Session } from '../../entities';
 
 @Component({
   templateUrl: 'build/pages/speaker-list/speaker-list.html'
