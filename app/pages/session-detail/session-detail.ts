@@ -12,11 +12,11 @@ import { Session } from '../../entities/session.entity';
 export class SessionDetailPage {
 
   session: Session;
-  speaker$ = this._infoService.rpSpeakers$.map(speakers => speakers.filter(speaker => Number(speaker.$key) === this.session.speakerId)[0]).cache();
-  room$ = this._infoService.rpRooms$.map(rooms => rooms.filter(room => Number(room.$key) === this.session.roomId)[0]).cache();
+  speaker$ = this.infoService.rpSpeakers$.map(speakers => speakers.filter(speaker => Number(speaker.$key) === this.session.speakerId)[0]).cache();
+  room$ = this.infoService.rpRooms$.map(rooms => rooms.filter(room => Number(room.$key) === this.session.roomId)[0]).cache();
 
   constructor(public navParams: NavParams,
-              private _infoService: InfoService) {
+              private infoService: InfoService) {
     this.session = navParams.data;
   }
 

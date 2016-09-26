@@ -15,11 +15,11 @@ import { Session } from '../../entities/session.entity';
 })
 export class SpeakerListPage {
 
-  speakers$ = this._infoService.rpSpeakers$;
+  speakers$ = this.infoService.rpSpeakers$;
 
   constructor(public actionSheetCtrl: ActionSheetController,
               public navCtrl: NavController,
-              private _infoService: InfoService) {
+              private infoService: InfoService) {
   }
 
   goToSessionDetail(session: Session): void {

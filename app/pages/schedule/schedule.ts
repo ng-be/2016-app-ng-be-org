@@ -20,7 +20,7 @@ export class SchedulePage {
   segment = 'all';
   segment$ = new BehaviorSubject(this.segment);
   searchTerm$ = new BehaviorSubject('');
-  sessionGroups$ = this._infoService.rpSessionGroups$;
+  sessionGroups$ = this.infoService.rpSessionGroups$;
   filteredSessionGroups$ = Observable.combineLatest(
     this.searchTerm$,
     this.sessionGroups$,
@@ -48,7 +48,7 @@ export class SchedulePage {
   constructor(public app: App,
               public navCtrl: NavController,
               public user: UserData,
-              private _infoService: InfoService) {
+              private infoService: InfoService) {
   }
 
   ionViewDidEnter() {
@@ -56,11 +56,11 @@ export class SchedulePage {
   }
 
   onAddFavorite(session: Session): void {
-    this._infoService.setFavorite(session);
+    this.infoService.setFavorite(session);
   }
 
   onRemoveFavorite(session: Session): void {
-    this._infoService.removeFavorite(session.favorite);
+    this.infoService.removeFavorite(session.favorite);
   }
 
   onGoToSessionDetail(sessionData) {

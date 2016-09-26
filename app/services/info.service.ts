@@ -19,10 +19,10 @@ export class InfoService {
   rpRooms$ = new ReplaySubject<Array<Room>>();
   rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
 
-  private _rooms$: Observable<Array<Room>> = this._af.database.list(`rooms`);
-  private _isAuthenticated$ = this._authService.isAuthenticated$;
+  private rooms$: Observable<Array<Room>> = this.af.database.list(`rooms`);
+  private isAuthenticated$ = this.authService.isAuthenticated$;
 
-  private _sessions$: Observable<Array<Session>> = this._af.database.list(`sessions`).map((sessions: Array<any>) => {
+  private sessions$: Observable<Array<Session>> = this.af.database.list(`sessions`).map((sessions: Array<any>) => {
     return sessions.map((session: any) => {
       // map dates
       let startDate = moment(session.startDate, 'DD-MM-YYYY, h:mm');
@@ -30,13 +30,13 @@ export class InfoService {
       return Object.assign(session, {startDate, endDate});
     });
   });
-  private _favoriteSessionsIds$: Observable<{$key: string, sessionId: string}> = <any> this._isAuthenticated$
+  private favoriteSessionsIds$: Observable<{$key: string, sessionId: string}> = <any> this.isAuthenticated$
     .flatMap((authenticated: boolean) => {
-      return authenticated ? this._af.database.list(`users/${this._uid}/favoriteSessions`) : [];
+      return authenticated ? this.af.database.list(`users/${this.uid}/favoriteSessions`) : [];
     })
     .startWith([]);
-  private _speakers$: Observable<Array<Speaker>> = this._af.database.list(`speakers`);
-  private _sessionsWithFavoriteFlag$ = Observable.combineLatest(this._sessions$, this._favoriteSessionsIds$,
+  private speakers$: Observable<Array<Speaker>> = this.af.database.list(`speakers`);
+  private sessionsWithFavoriteFlag$ = Observable.combineLatest(this.sessions$, this.favoriteSessionsIds$,
     (sessions: Array<Session>, favoriteSessionsIds: Array<{$key: string, sessionId: string}>) => {
       return sessions.map((session: Session) => {
         let matchingSessionKeys = favoriteSessionsIds.filter((item: {$key: string, sessionId: string}) => item.sessionId === session.$key);
@@ -44,14 +44,14 @@ export class InfoService {
       });
     });
 
-  private _speakersWithSessions$ = Observable.combineLatest(this._speakers$, this._sessions$,
+  private speakersWithSessions$ = Observable.combineLatest(this.speakers$, this.sessions$,
     (speakers: Array<Speaker>, sessions: Array<Session>) => {
       speakers.forEach((speaker: Speaker) => {
         speaker.sessions = sessions.filter((session: Session) => session.speakerId === Number(speaker.$key));
       });
       return speakers;
     });
-  private _sessionGroups$: Observable<Array<SessionGroup>> = this._sessionsWithFavoriteFlag$.map((sessions: Array<Session>) => {
+  private sessionGroups$: Observable<Array<SessionGroup>> = this.sessionsWithFavoriteFlag$.map((sessions: Array<Session>) => {
     let sessionsByHours: Array<SessionGroup> = [];
     let startHour = 7;
     let endHour = 20;
@@ -63,29 +63,29 @@ export class InfoService {
   });
 
   // for every public stream we had to create a replay subject (otherwise it would only listen to it once)
-  constructor(private _af: AngularFire,
-              private _authService: AuthService) {
-    this._speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
+  constructor(private af: AngularFire,
+              private authService: AuthService) {
+    this.speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
       this.rpSpeakers$.next(speakers);
     });
-    this._sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
+    this.sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
       this.rpSessionGroups$.next(sessionGroups);
     });
-    this._rooms$.subscribe((rooms: Array<Room>) => {
+    this.rooms$.subscribe((rooms: Array<Room>) => {
       this.rpRooms$.next(rooms);
     });
   }
 
   setFavorite(session: Session): void {
-    this._af.database.list(`/users/${this._uid}/favoriteSessions`).push({sessionId: session.$key});
+    this.af.database.list(`/users/${this.uid}/favoriteSessions`).push({sessionId: session.$key});
   }
 
   removeFavorite(key: string): void {
-    this._af.database.list(`/users/${this._uid}/favoriteSessions/${key}`).remove();
+    this.af.database.list(`/users/${this.uid}/favoriteSessions/${key}`).remove();
   }
 
   addDemoSessions() {
-    this._af.database.list('/sessions').push({
+    this.af.database.list('/sessions').push({
       description: 'lorem ipsum',
       endDate: '09-12-2016 09:30',
       roomId: 0,
@@ -93,7 +93,7 @@ export class InfoService {
       startDate: '09-12-2016 09:00',
       title: 'this is a test'
     });
-    this._af.database.list('/sessions').push({
+    this.af.database.list('/sessions').push({
       description: 'lorem ipsum',
       endDate: '09-12-2016 10:00',
       roomId: 0,
@@ -101,7 +101,7 @@ export class InfoService {
       startDate: '09-12-2016 10:30',
       title: 'this is a test'
     });
-    this._af.database.list('/sessions').push({
+    this.af.database.list('/sessions').push({
       description: 'lorem ipsum',
       endDate: '09-12-2016 09:30',
       roomId: 1,
@@ -109,7 +109,7 @@ export class InfoService {
       startDate: '09-12-2016 09:00',
       title: 'this is a test'
     });
-    this._af.database.list('/sessions').push({
+    this.af.database.list('/sessions').push({
       description: 'lorem ipsum',
       endDate: '09-12-2016 09:30',
       roomId: 2,
@@ -117,7 +117,7 @@ export class InfoService {
       startDate: '09-12-2016 09:00',
       title: 'this is a test'
     });
-    this._af.database.list('/sessions').push({
+    this.af.database.list('/sessions').push({
       description: 'lorem ipsum',
       endDate: '09-12-2016 11:30',
       roomId: 3,
@@ -127,8 +127,8 @@ export class InfoService {
     });
   }
 
-  private get _uid(): string {
-    return this._af.auth.getAuth().uid;
+  private get uid(): string {
+    return this.af.auth.getAuth().uid;
   }
 
 }
