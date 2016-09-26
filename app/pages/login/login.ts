@@ -20,14 +20,14 @@ export class LoginPage implements OnDestroy {
   private subscriptions: Array<Subscription> = [];
 
   constructor(public navCtrl: NavController,
-              private _authService: AuthService) {
+              private authService: AuthService) {
   }
 
   onLogin(form) {
     this.submitted = true;
 
     if (form.valid) {
-      this.subscriptions.push(this._authService.authenticate({
+      this.subscriptions.push(this.authService.authenticate({
         login: this.login.username,
         password: this.login.password
       }).subscribe(() => {

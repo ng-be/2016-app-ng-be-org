@@ -22,14 +22,14 @@ export class SignupPage implements OnDestroy {
   private subscriptions: Array<Subscription> = [];
 
   constructor(public navCtrl: NavController,
-              private _authService: AuthService) {
+              private authService: AuthService) {
   }
 
   onSignup(form) {
     this.submitted = true;
 
     if (form.valid) {
-      this.subscriptions.push(this._authService.register({
+      this.subscriptions.push(this.authService.register({
         login: this.signup.email,
         password: this.signup.password
       }).subscribe(() => {

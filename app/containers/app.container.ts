@@ -41,19 +41,20 @@ export class AppContainer {
     {title: 'Signup', component: SignupPage, icon: 'person-add'}
   ];
   rootPage: any = SchedulePage;
-  isAuthenticated$ = this._authService.isAuthenticated$;
+  isAuthenticated$ = this.authService.isAuthenticated$;
 
-  constructor(private _authService: AuthService,
-              private _infoService: InfoService,
-              public menu: MenuController,
+  constructor(public menu: MenuController,
+              private authService: AuthService,
+              private infoService: InfoService,
               platform: Platform) {
+
     // Call any initial plugins when ready
     platform.ready().then(() => {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
 
-    this._authService.isAuthenticated$.subscribe((hasLoggedIn: boolean) => {
+    this.authService.isAuthenticated$.subscribe((hasLoggedIn: boolean) => {
       this.enableMenu(hasLoggedIn);
 
     });
@@ -73,7 +74,7 @@ export class AppContainer {
     if (page.title === 'Logout') {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
-        this._authService.logout();
+        this.authService.logout();
       }, 1000);
     }
   }
