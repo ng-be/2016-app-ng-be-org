@@ -5,9 +5,8 @@ import { Subscription } from 'rxjs';
 import { Toast } from 'ionic-native';
 
 // app imports
-import { SignupPage } from '../signup/signup';
-import { TabsPage } from '../tabs/tabs';
-import { AuthService } from '../../services/auth.service';
+import { SignupPage, TabsPage } from '../';
+import { AuthService } from '../../services';
 
 @Component({
   templateUrl: 'build/pages/login/login.html'

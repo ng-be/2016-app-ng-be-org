@@ -1,5 +1,5 @@
 // app imports
-import { Session } from './session.entity';
+import { Session } from './';
 
 export interface SessionGroup {
   startHour: number;
