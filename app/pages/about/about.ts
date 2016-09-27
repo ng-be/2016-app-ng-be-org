@@ -4,11 +4,9 @@ import { PopoverController, ViewController } from 'ionic-angular';
 
 @Component({
   template: `
-    <ion-list>
-      <button ion-item (click)="close()">Learn Ionic</button>
-      <button ion-item (click)="close()">Documentation</button>
-      <button ion-item (click)="close()">Showcase</button>
-      <button ion-item (click)="close()">GitHub Repo</button>
+    <ion-list style="margin-bottom:0;">
+      <button ion-item (click)="openUp('https://ng-be.org')">NG-BE 2016 website</button>
+      <button ion-item (click)="openUp('https://github.com/ng-be')">Github repositories</button>
     </ion-list>
   `
 })
@@ -17,7 +15,8 @@ class PopoverPage {
   constructor(public viewCtrl: ViewController) {
   }
 
-  close() {
+  openUp(url) {
+    window.open(url, '_system');
     this.viewCtrl.dismiss();
   }
 
