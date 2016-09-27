@@ -337,24 +337,19 @@
     }
   ],
 
-
   "map": [
     {
-      "name": "Monona Terrace Convention Center",
-      "lat": 43.071584,
-      "lng": -89.380120,
+      "name": "Holiday Inn - Ghent expo",
+      "lat": 51.0259671,
+      "lng": 3.6895503,
       "center": true
     },
     {
-      "name": "Ionic HQ",
-      "lat": 43.074395,
-      "lng": -89.381056
-    },
-    {
-      "name": "Afterparty - Brocach Irish Pub",
-      "lat": 43.07336,
-      "lng": -89.38335
+      "name": "Ghent - St Pieters - Railway Station",
+      "lat": 51.0303589,
+      "lng": 3.689181
     }
   ]
+
 
 }
