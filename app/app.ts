@@ -12,10 +12,10 @@ ionicBootstrap(AppContainer,
     UserData,
     FIREBASE_PROVIDERS,
     defaultFirebase({
-      apiKey: 'AIzaSyDJ9fpXQhzbZSn7LVIUZ1fbv7yOqNz6gXw',
-      authDomain: 'ngbe-3a883.firebaseapp.com',
-      databaseURL: 'https://ngbe-3a883.firebaseio.com',
-      storageBucket: 'ngbe-3a883.appspot.com',
+      apiKey: 'xxx',          // ask core member for details
+      authDomain: 'xxx',      // ask core member for details
+      databaseURL: 'xxx',     // ask core member for details
+      storageBucket: 'xxx',   // ask core member for details
     }),
     firebaseAuthConfig({
       provider: AuthProviders.Password,
