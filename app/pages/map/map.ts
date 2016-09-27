@@ -18,7 +18,7 @@ export class MapPage {
 
       let map = new google.maps.Map(mapEle, {
         center: mapData.find(d => d.center),
-        zoom: 16
+        zoom: 14
       });
 
       mapData.forEach(markerData => {
