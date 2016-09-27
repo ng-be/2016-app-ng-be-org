@@ -4,7 +4,7 @@ import { Nav, MenuController, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 
 // app imports
-import { TabsPage, AccountPage, LoginPage, SignupPage, SchedulePage } from '../pages';
+import { TabsPage, AccountPage, LoginPage, SignupPage, SchedulePage, SpeakerListPage } from '../pages';
 import { AuthService, InfoService } from '../services';
 
 interface PageObj {
@@ -16,15 +16,17 @@ interface PageObj {
 
 @Component({
   providers: [AuthService, InfoService],
+
   templateUrl: 'build/containers/app.container.html'
 })
 export class AppContainer {
 
   @ViewChild(Nav) nav: Nav;
   appPages: PageObj[] = [
-    {title: 'Schedule', component: TabsPage, index: 0, icon: 'calendar'},
+    //{title: 'Schedule', component: TabsPage, index: 0, icon: 'calendar'},
     {title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts'},
     {title: 'Map', component: TabsPage, index: 2, icon: 'map'},
+
     {title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
   ];
   loggedInPages: PageObj[] = [
@@ -35,7 +37,7 @@ export class AppContainer {
     {title: 'Login', component: LoginPage, icon: 'log-in'},
     {title: 'Signup', component: SignupPage, icon: 'person-add'}
   ];
-  rootPage: any = SchedulePage;
+  rootPage: any = SpeakerListPage;
   isAuthenticated$ = this.authService.isAuthenticated$;
 
   constructor(public menu: MenuController,

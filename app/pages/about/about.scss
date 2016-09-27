@@ -1,5 +1,5 @@
 .about-header {
-  background-color: #434954;
+  background-color: #fafafa;;
   padding: 16px;
   width: 100%;
   min-height: 150px;
@@ -8,21 +8,34 @@
 
 .about-header img {
   max-width: 200px;
-  min-height: 115px;
+  max-height: 115px;
   margin-left: -15px;
-  padding: 25px 0 20px 0;
 }
 
-.about-info p {
-  color: #697072;
-  text-align: left;
+.about-info {
+  p {
+    color: #697072;
+    text-align: left;
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  ion-list {
+    margin-bottom: 0;
+  }
+
+  ion-icon {
+    color: color($colors, primary);
+    width: 20px;
+  }
+
 }
 
-.about-info ion-icon {
-  color: color($colors, primary);
-  width: 20px;
+.about-info-full {
+  background-color: #fafafa;;
 }
 
+.about-info
 .md,
 .wp {
   .about-info [text-right] {
