@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Toast } from 'ionic-native';
 
 // app imports
-import { SignupPage, TabsPage } from '../';
+import { TabsPage } from '../';
 import { AuthService } from '../../services';
 
 @Component({
@@ -35,10 +35,6 @@ export class LoginPage implements OnDestroy {
         Toast.show('Failed to log in', '5000', 'center');
       }));
     }
-  }
-
-  onSignup() {
-    this.navCtrl.push(SignupPage);
   }
 
   ngOnDestroy(): void {

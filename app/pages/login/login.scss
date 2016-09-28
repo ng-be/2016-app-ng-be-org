@@ -1,10 +1,66 @@
-
-.login-page .logo {
-  padding: 20px 0;
-  min-height: 200px;
+.login-header {
+  background-color: #fafafa;;
+  padding: 16px;
+  width: 100%;
+  min-height: 75px;
   text-align: center;
 }
 
-.login-page .logo img {
-  max-width: 150px;
+.login-header img {
+  max-width: 200px;
+  max-height: 75px;
+}
+
+.login-info {
+  p {
+    color: #444;
+    text-align: left;
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  ul {
+    li {
+      color: #444;
+      font-size: 15px;
+      line-height: 20px;
+    }
+  }
+
+  ion-list {
+    margin-bottom: 0;
+  }
+
+  ion-icon {
+    color: color($colors, primary);
+    width: 20px;
+  }
+
+}
+
+.login-warning {
+  ion-icon {
+    color: color($colors, secondary);
+  }
+}
+
+.login-info-full {
+  background-color: #fafafa;;
+}
+
+.login-info
+.md,
+.wp {
+  .login-info [text-right] {
+    margin-right: 0;
+  }
+}
+
+.ios .login-info {
+  text-align: center;
+}
+
+.ios .login-info ion-icon {
+  width: auto;
+  margin-right: 10px;
 }

@@ -34,5 +34,28 @@ $colors: (
   favorite:   #d52533,
   twitter:    #53ACEB,
   github:     #000000,
-  instagram:  #235D8D
+  instagram:  #235D8D,
+  facebook:   #3b5a9a,
+  google:     #e04a39
 );
+
+// NGBE Specifics
+.ngbutton{
+
+  &.facebook{
+    background: color($colors, facebook);
+  }
+
+  &.twitter{
+    background: color($colors, twitter);
+  }
+
+  &.github{
+    background: color($colors, github);
+  }
+
+  &.google{
+    background: color($colors, google);
+  }
+
+}

@@ -5,7 +5,6 @@ export * from './map/map';
 export * from './schedule/schedule';
 export * from './schedule/day-overview';
 export * from './session-detail/session-detail';
-export * from './signup/signup';
 export * from './speaker-detail/speaker-detail';
 export * from './speaker-list/speaker-list';
 export * from './tabs/tabs';
