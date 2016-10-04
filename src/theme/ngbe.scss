@@ -1,0 +1,19 @@
+.ngbutton{
+
+  &.facebook{
+    background: color($colors, facebook);
+  }
+
+  &.twitter{
+    background: color($colors, twitter);
+  }
+
+  &.github{
+    background: color($colors, github);
+  }
+
+  &.google{
+    background: color($colors, google);
+  }
+
+}

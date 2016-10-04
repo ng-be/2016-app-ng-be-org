@@ -1,0 +1,21 @@
+page-speaker-list {
+
+  ion-card.speaker {
+
+    ion-card-header,
+    ion-card-content,
+    ion-card-content .list ion-item-content {
+      padding: 0;
+    }
+
+    ion-card-header .item {
+      padding: 12px;
+    }
+
+    ion-card-content .list {
+      margin: 0;
+    }
+
+  }
+
+}
