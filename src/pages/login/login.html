@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login / register</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <div class="header">
+    <img src="assets/img/ngbe-logo.svg">
+  </div>
+  <div padding class="actions">
+
+    <ion-row responsive-sm>
+      <ion-col>
+        <button ion-button (click)="onLogin(loginForm)" type="submit" class="ngbutton facebook" block>
+          Login with Facebook
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="onLogin(loginForm)" type="submit" class="ngbutton twitter" block>
+          Login with Twitter
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="onLogin(loginForm)" type="submit" class="ngbutton google" block>
+          Login with Google
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button (click)="onLogin(loginForm)" type="submit" class="ngbutton github" block>
+          Login with Github
+        </button>
+      </ion-col>
+      <!--
+      <ion-col>
+        <button ion-button (click)="onSignup()" light block>Signup</button>
+      </ion-col>
+      -->
+    </ion-row>
+
+  </div>
+  <div class="info full" padding>
+
+    <h5>Why login</h5>
+    <p>
+      You can login using your favorite social provider to enable extra functionality on the app. By logging in you'll be able to
+    </p>
+    <ul>
+      <li>Save your preferred sessions</li>
+      <li>Rate the speakers/sessions</li>
+      <li>...</li>
+    </ul>
+
+    <p class="warning">
+      <ion-icon name="warning"></ion-icon>
+      <strong>Important:</strong> we don't ever save your details or anything personal. We just use this information to identify you as a registered user.
+    </p>
+
+  </div>
+
+  <!--
+  <ion-list>
+    <!--
+    <form #loginForm="ngForm" novalidate>
+      <ion-item>
+        <ion-label floating primary>Username</ion-label>
+        <ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false"
+                   autocapitalize="off" required>
+        </ion-input>
+      </ion-item>
+      <p [hidden]="username.valid || submitted == false" danger padding-left>
+        Username is required
+      </p>
+      <ion-item>
+        <ion-label floating primary>Password</ion-label>
+        <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
+        </ion-input>
+      </ion-item>
+    </form>
+
+
+  </ion-list>
+  -->
+</ion-content>
