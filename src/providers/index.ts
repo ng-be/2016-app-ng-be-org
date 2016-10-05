@@ -1,2 +1,4 @@
-export * from './conference-data';
-export * from './user-data';
+export * from './conference-data.service';
+export * from './user-data.service';
+export * from './auth.service';
+export * from './info.service';
