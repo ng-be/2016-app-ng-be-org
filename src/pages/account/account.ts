@@ -4,7 +4,7 @@ import { AlertController, NavController } from 'ionic-angular';
 
 // app imports
 import { LoginPage } from '../';
-import { UserData } from '../../providers';
+import { UserDataService } from '../../providers';
 
 @Component({
   selector: 'page-account',
@@ -15,7 +15,7 @@ export class AccountPage {
   username: string;
 
   constructor(public nav: NavController,
-              public userData: UserData) {
+              public userData: UserDataService) {
 
   }
 

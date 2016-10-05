@@ -5,7 +5,7 @@ import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
 import { AccountPage, LoginPage, TabsPage } from '../pages';
-import { ConferenceData, UserData } from '../providers';
+import { ConferenceDataService, UserDataService } from '../providers';
 
 export interface PageObj {
   title: string;
@@ -42,11 +42,12 @@ export class ConferenceApp {
   rootPage: any = TabsPage;
 
   constructor(private events: Events,
-              private userData: UserData,
+              private userData: UserDataService,
               private menu: MenuController,
               private platform: Platform,
-              private confData: ConferenceData) {
+              private confData: ConferenceDataService) {
 
+    this.initApplication();
   }
 
   initApplication() {

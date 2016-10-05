@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 
 // app imports
-import { ConferenceData } from '../../providers';
+import { ConferenceDataService } from '../../providers';
 
 declare var google;
 
@@ -12,7 +12,7 @@ declare var google;
 })
 export class MapPage {
 
-  constructor(public confData: ConferenceData) {
+  constructor(public confData: ConferenceDataService) {
   }
 
   ionViewDidLoad() {
