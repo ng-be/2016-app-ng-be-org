@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 
 
 @Injectable()
-export class UserData {
+export class UserDataService {
   _favorites = [];
   HAS_LOGGED_IN = 'hasLoggedIn';
 

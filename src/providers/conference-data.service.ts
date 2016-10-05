@@ -1,15 +1,15 @@
+// 3d party imports
 import { Injectable } from '@angular/core';
-
 import { Http } from '@angular/http';
 
-import { UserData } from './user-data';
-
+// app import
+import { UserDataService } from './';
 
 @Injectable()
-export class ConferenceData {
+export class ConferenceDataService {
   data: any;
 
-  constructor(public http: Http, public user: UserData) {}
+  constructor(public http: Http, public user: UserDataService) {}
 
   load() {
     if (this.data) {
