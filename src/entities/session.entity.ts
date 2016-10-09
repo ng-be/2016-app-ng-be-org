@@ -5,13 +5,15 @@ import { Moment } from 'moment';
 import { Room, Speaker } from './';
 
 export interface Session {
-  room?: number|Room;
+  roomId: number;
+  room?: Room;
   $key: string;
   title: string;
   description: string;
   startDate: Moment;
   endDate: Moment;
   tags?: Array<string>;
-  speakers?: Array<number|Speaker>;
+  speakerIds: Array<number>;
+  speakers?: Array<Speaker>;
   favorite?: boolean;
 }

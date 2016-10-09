@@ -10,5 +10,6 @@ export interface Speaker {
   twitter: string;
   github: string;
   avatar: string;
+  sessionIds: Array<number>;
   sessions?: Array<Session>;
 }

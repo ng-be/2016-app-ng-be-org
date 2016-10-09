@@ -23,6 +23,7 @@ export class SchedulePage {
   segment = 'all';
   numberOfShownSessions = 0;
   groups = [];
+  excludeTracks = [];
 
   sessionGroups$: ReplaySubject<any> = this.conferenceData.rpSessionGroups$;
 
@@ -64,6 +65,7 @@ export class SchedulePage {
   }
 
   presentFilter() {
+
     let modal = this.modalCtrl.create(ScheduleFilterPage, this.excludeTracks);
     modal.present();
 

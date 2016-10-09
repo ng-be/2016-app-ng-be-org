@@ -4,21 +4,21 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <pre>
-  {{
-  session | json
-  }}
-    </pre>
+
   <h1>{{session.title}}</h1>
+
+  <!--
   <h4>
-    {{(speaker$|async)?.firstName}}
-    {{(speaker$|async)?.lastName}}
+    <pre>
+    {{session.speakers | json}}
+    </pre>
   </h4>
+  -->
   <p>
-    {{session.startDate}} - {{session.endDate}}
+    {{session.startDate.format('HH:mm')}} -  {{session.endDate.format('HH:mm')}}
   </p>
 
-  <p><strong>Room:</strong> {{(room$|async)?.name}}</p>
+  <p><strong>Room:</strong> {{session.room.name}}</p>
   <h3>Description:</h3>
   <div [innerHtml]="session.description"></div>
 </ion-content>

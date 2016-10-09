@@ -33,7 +33,7 @@
 
 <ion-content>
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
+  <ion-list #scheduleList *ngIf="numberOfShownSessions !== 0">
 
     <ion-item-group *ngFor="let group of sessionGroups$ | async" [hidden]="group.sessions.length === 0">
 

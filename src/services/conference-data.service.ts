@@ -36,7 +36,7 @@ export class ConferenceDataService {
       sessions.forEach((session: Session) => {
 
         let sessionRooms = rooms.filter((room: Room) => {
-          return session.room === Number(room.$key);
+          return session.roomId === Number(room.$key);
         });
         if (sessionRooms.length) {
           session.room = sessionRooms[0];
@@ -45,7 +45,7 @@ export class ConferenceDataService {
         let sessionSpeakers = [];
         if (session.speakers) {
           sessionSpeakers = speakers.filter((speaker: Speaker) => {
-            return session.speakers.indexOf(Number(speaker.$key)) > -1;
+            return session.speakerIds.indexOf(Number(speaker.$key)) > -1;
           });
         }
         session.speakers = sessionSpeakers;
@@ -62,7 +62,7 @@ export class ConferenceDataService {
         let speakerSessions = [];
         if (speaker.sessions) {
           speakerSessions = sessions.filter((session: Session) => {
-            return session.speakers.indexOf(Number(speaker.$key)) > -1;
+            return session.speakerIds.indexOf(Number(speaker.$key)) > -1;
           });
         }
         speaker.sessions = speakerSessions
@@ -80,18 +80,7 @@ export class ConferenceDataService {
 
     for (var i = startHour; i < endHour; i++) {
       let sessionsIngroup = sessions.filter((session) => {
-        // console.log(i, i+1);
-        // console.log(session.title, session.startDate.hours(), session.endDate.hours());
         return session.startDate.hours() >= i && session.startDate.hours() < (i + 1);
-        /*
-
-        start: 8:30
-        end: 9:30
-
-        i : 8
-        i+1: 9
-
-         */
       });
       sessionsByHours.push({
         startHour: i,
@@ -121,7 +110,7 @@ export class ConferenceDataService {
       this.rpSessionGroups$.next(sessionGroups);
     });
 
-    // this.addDemoSessions();
+    //this.addDemoSessions();
   }
 
   setFavorite(session: Session): void {
@@ -132,23 +121,6 @@ export class ConferenceDataService {
     this.af.database.list(`/users/${this.uid}/favoriteSessions/${key}`).remove();
   }
 
-  getMap() {
-    let mapData = [
-      {
-        "name": "Holiday Inn - Ghent expo",
-        "lat": 51.0259671,
-        "lng": 3.6895503,
-        "center": true
-      },
-      {
-        "name": "Ghent - St Pieters - Railway Station",
-        "lat": 51.036043,
-        "lng": 3.710872
-      }
-    ];
-    return Promise.resolve(mapData);
-  }
-
   addDemoSessions() {
 
     // breakfast
@@ -156,7 +128,7 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 07:30',
       endDate: '09-12-2016 08:25',
-      room: 0,
+      roomId: 0,
       tags: ['food'],
       title: 'Continental Angular breakfast'
     });
@@ -166,8 +138,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 08:30',
       endDate: '09-12-2016 08:50',
-      room: 1,
-      speakers: [0, 1],
+      roomId: 1,
+      speakerIds: [0, 1],
       tags: ['angular'],
       title: 'Keynote about Angular 2'
     });
@@ -177,8 +149,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 09:00',
       endDate: '09-12-2016 09:25',
-      room: 0,
-      speakers: [1],
+      roomId: 0,
+      speakerIds: [1],
       tags: ['angular'],
       title: 'Talking about Angular 2 #1'
     });
@@ -186,8 +158,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 09:30',
       endDate: '09-12-2016 09:55',
-      room: 0,
-      speakers: [2],
+      roomId: 0,
+      speakerIds: [2],
       tags: ['angular', 'testing'],
       title: 'Talking about Angular 2 #2'
     });
@@ -195,8 +167,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 10:00',
       endDate: '09-12-2016 10:25',
-      room: 0,
-      speakers: [3],
+      roomId: 0,
+      speakerIds: [3],
       tags: ['angular', 'tooling'],
       title: 'Talking about Angular 2 #3'
     });
@@ -204,8 +176,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 10:30',
       endDate: '09-12-2016 10:55',
-      room: 0,
-      speakers: [4],
+      roomId: 0,
+      speakerIds: [4],
       tags: ['react', 'security'],
       title: 'Talking about Angular 2 #4'
     });
@@ -213,8 +185,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 11:00',
       endDate: '09-12-2016 11:25',
-      room: 0,
-      speakers: [5],
+      roomId: 0,
+      speakerIds: [5],
       tags: ['react', 'design'],
       title: 'Talking about Angular 2 #5'
     });
@@ -222,8 +194,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 11:30',
       endDate: '09-12-2016 11:55',
-      room: 0,
-      speakers: [6],
+      roomId: 0,
+      speakerIds: [6],
       tags: ['angular', 'tooling'],
       title: 'Talking about Angular 2 #6'
     });
@@ -233,7 +205,7 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 12:30',
       endDate: '09-12-2016 13:55',
-      room: 1,
+      roomId: 1,
       tags: ['food'],
       title: 'Lunch with healthy food!'
     });
@@ -243,8 +215,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 14:00',
       endDate: '09-12-2016 14:25',
-      room: 0,
-      speakers: [6],
+      roomId: 0,
+      speakerIds: [6],
       tags: ['nativescript', 'mobile'],
       title: 'Talking about Angular 2 #7'
     });
@@ -252,8 +224,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 14:30',
       endDate: '09-12-2016 14:55',
-      room: 0,
-      speakers: [7],
+      roomId: 0,
+      speakerIds: [7],
       tags: ['angular','mobile'],
       title: 'Talking about Angular 2 #8'
     });
@@ -261,8 +233,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 15:00',
       endDate: '09-12-2016 15:25',
-      room: 0,
-      speakers: [8],
+      roomId: 0,
+      speakerIds: [8],
       tags: ['ionic', 'angular'],
       title: 'Talking about Angular 2 #9'
     });
@@ -270,8 +242,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 15:30',
       endDate: '09-12-2016 15:55',
-      room: 0,
-      speakers: [4, 5],
+      roomId: 0,
+      speakerIds: [4, 5],
       tags: ['testing', 'mobile'],
       title: 'Talking about Angular 2 #10'
     });
@@ -279,8 +251,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 16:00',
       endDate: '09-12-2016 16:25',
-      room: 0,
-      speakers: [0, 7],
+      roomId: 0,
+      speakerIds: [0, 7],
       tags: ['mobile'],
       title: 'Talking about Angular 2 #11'
     });
@@ -288,8 +260,8 @@ export class ConferenceDataService {
       description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
       startDate: '09-12-2016 16:30',
       endDate: '09-12-2016 16:55',
-      room: 0,
-      speakers: [5, 7],
+      roomId: 0,
+      speakerIds: [5, 7],
       tags: ['nativescript', 'angular'],
       title: 'Talking about Angular 2 #12'
     });
