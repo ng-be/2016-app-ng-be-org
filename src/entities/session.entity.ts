@@ -9,5 +9,5 @@ export interface Session {
   description: string;
   startDate: Moment;
   endDate: Moment;
-  favorite: string;
+  favorite?: boolean;
 }

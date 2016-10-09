@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
 
 // app imports
-import { ConferenceDataService, UserDataService } from '../../services';
+import { ConferenceDataService, UserDataService, InfoService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage } from '../';
 
 @Component({
@@ -25,14 +25,13 @@ export class SchedulePage {
   shownSessions: any = [];
   groups = [];
 
-  constructor(
-    public alertCtrl: AlertController,
-    public app: App,
-    public modalCtrl: ModalController,
-    public navCtrl: NavController,
-    public confData: ConferenceDataService,
-    public user: UserDataService
-  ) {
+  constructor(private alertCtrl: AlertController,
+              private app: App,
+              private modalCtrl: ModalController,
+              private navCtrl: NavController,
+              private confData: ConferenceDataService,
+              private user: UserDataService,
+              private info: InfoService) {
 
   }
 
