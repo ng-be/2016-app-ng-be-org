@@ -10,26 +10,28 @@ import { ConferenceDataService } from '../../services';
   templateUrl: 'schedule-filter.html'
 })
 export class ScheduleFilterPage {
+
   tracks: Array<{name: string, isChecked: boolean}> = [];
 
-  constructor(
-    public confData: ConferenceDataService,
-    public navParams: NavParams,
-    public viewCtrl: ViewController
-  ) {
+  constructor(private conferenceData: ConferenceDataService,
+              private navParams: NavParams,
+              private viewCtrl: ViewController) {
+
     // passed in array of track names that should be excluded (unchecked)
-    let excludedTrackNames = this.navParams.data;
+    //let excludedTrackNames = this.navParams.data;
 
-    this.confData.getTracks().then((trackNames: string[]) => {
+    /*
+     this.confData.getTracks().then((trackNames: string[]) => {
 
-      trackNames.forEach(trackName => {
-        this.tracks.push({
-          name: trackName,
-          isChecked: (excludedTrackNames.indexOf(trackName) === -1)
-        });
-      });
+     trackNames.forEach(trackName => {
+     this.tracks.push({
+     name: trackName,
+     isChecked: (excludedTrackNames.indexOf(trackName) === -1)
+     });
+     });
 
-    });
+     });
+     */
   }
 
   resetFilters() {

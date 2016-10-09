@@ -13,8 +13,8 @@ export class SpeakerDetailPage {
 
   speaker: Speaker;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
+  constructor(private navCtrl: NavController,
+              private navParams: NavParams) {
     this.speaker = this.navParams.data;
   }
 

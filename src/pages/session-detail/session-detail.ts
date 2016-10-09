@@ -4,7 +4,7 @@ import { NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 // app imports
-import { InfoService } from '../../services';
+import { ConferenceDataService } from '../../services';
 import { Session, Room, Speaker } from '../../entities';
 
 @Component({
@@ -14,14 +14,14 @@ import { Session, Room, Speaker } from '../../entities';
 export class SessionDetailPage {
 
   session: Session;
+  speaker$: Observable<Speaker> = this.conferenceData.rpSpeakers$.map(speakers => speakers.filter(speaker => this.session.speakers.indexOf(Number(speaker.$key)) > -1)[0]).cache();
+  room$: Observable<Room> = this.conferenceData.rpRooms$.map(rooms => rooms.filter(room => Number(room.$key) === this.session.roomId)[0]).cache();
 
-  speaker$: Observable<Speaker> = this.infoService.rpSpeakers$.map(speakers => speakers.filter(speaker => Number(speaker.$key) === this.session.speakerId)[0]).cache();
-  room$: Observable<Room> = this.infoService.rpRooms$.map(rooms => rooms.filter(room => Number(room.$key) === this.session.roomId)[0]).cache();
+  constructor(private navParams: NavParams,
+              private conferenceData: ConferenceDataService) {
 
-  constructor(public navParams: NavParams,
-              private infoService: InfoService) {
     this.session = navParams.data;
-    console.log(this.session);
+
   }
 
 }

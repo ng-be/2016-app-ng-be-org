@@ -1,11 +1,11 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { ActionSheet, ActionSheetController, Config, NavController } from 'ionic-angular';
+import { ActionSheet, ActionSheetController, NavController } from 'ionic-angular';
 import { ReplaySubject } from 'rxjs';
 
 // app imports
 import { SessionDetailPage, SpeakerDetailPage } from '../';
-import { InfoService } from '../../services';
+import { ConferenceDataService } from '../../services';
 import { Speaker, Session } from '../../entities';
 
 @Component({
@@ -15,12 +15,11 @@ import { Speaker, Session } from '../../entities';
 export class SpeakerListPage {
 
   actionSheet: ActionSheet;
-  speakers$: ReplaySubject<any> = this.infoService.rpSpeakers$;
+  speakers$: ReplaySubject<any> = this.conferenceData.rpSpeakers$;
 
   constructor(private actionSheetCtrl: ActionSheetController,
               private navCtrl: NavController,
-              private config: Config,
-              private infoService: InfoService) {
+              private conferenceData: ConferenceDataService) {
 
   }
 

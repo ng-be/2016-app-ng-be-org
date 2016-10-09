@@ -1,13 +1,11 @@
 import {
   UserDataService,
+  AuthService,
   ConferenceDataService,
-  InfoService,
-  AuthService
 } from '../services';
 
 export const APP_PROVIDERS = [
   UserDataService,
+  AuthService,
   ConferenceDataService,
-  InfoService,
-  AuthService
 ];

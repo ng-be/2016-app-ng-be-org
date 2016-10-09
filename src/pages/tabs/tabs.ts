@@ -15,9 +15,10 @@ export class TabsPage {
   tab2Root: any = SpeakerListPage;
   tab3Root: any = MapPage;
   tab4Root: any = AboutPage;
+
   mySelectedIndex: number;
 
-  constructor(navParams: NavParams) {
+  constructor(private navParams: NavParams) {
     this.mySelectedIndex = navParams.data.tabIndex || 0;
   }
 

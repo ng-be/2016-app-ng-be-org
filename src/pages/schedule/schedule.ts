@@ -1,9 +1,10 @@
 // 3d party imports
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
+import { ReplaySubject, Subscription } from 'rxjs';
 
 // app imports
-import { ConferenceDataService, UserDataService, InfoService } from '../../services';
+import { ConferenceDataService, UserDataService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage } from '../';
 
 @Component({
@@ -18,20 +19,27 @@ export class SchedulePage {
   // the List and not a reference to the element
   @ViewChild('scheduleList', {read: List}) scheduleList: List;
 
-  dayIndex = 0;
   queryText = '';
   segment = 'all';
-  excludeTracks = [];
-  shownSessions: any = [];
+  numberOfShownSessions = 0;
   groups = [];
+
+  sessionGroups$: ReplaySubject<any> = this.conferenceData.rpSessionGroups$;
+
+  private subscriptions = Array<Subscription>();
 
   constructor(private alertCtrl: AlertController,
               private app: App,
               private modalCtrl: ModalController,
               private navCtrl: NavController,
-              private confData: ConferenceDataService,
-              private user: UserDataService,
-              private info: InfoService) {
+              private conferenceData: ConferenceDataService,
+              private user: UserDataService) {
+
+    this.conferenceData.rpSessionGroups$.subscribe((data) => {
+      data.forEach((group)=>{
+        this.numberOfShownSessions += group.sessions.length;
+      })
+    });
 
   }
 
@@ -44,6 +52,7 @@ export class SchedulePage {
   }
 
   updateSchedule() {
+    /*
     // Close any open sliding items when the schedule updates
     this.scheduleList && this.scheduleList.closeSlidingItems();
 
@@ -51,6 +60,7 @@ export class SchedulePage {
       this.shownSessions = data.shownSessions;
       this.groups = data.groups;
     });
+    */
   }
 
   presentFilter() {
@@ -128,4 +138,9 @@ export class SchedulePage {
     // now present the alert on top of all other content
     alert.present();
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
 }

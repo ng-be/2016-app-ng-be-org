@@ -1,168 +1,302 @@
 // 3d party imports
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { AngularFire } from 'angularfire2';
+import moment from 'moment';
+import { Observable, ReplaySubject } from 'rxjs';
 
-// app import
-import { UserDataService } from './';
+// app imports
+import { Room, Speaker, Session, SessionGroup } from '../entities';
+import { AuthService } from './';
 
 @Injectable()
 export class ConferenceDataService {
-  data: any;
 
-  constructor(private http: Http,
-              private user: UserDataService) {}
+  rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
+  rpSessions$ = new ReplaySubject<Array<Session>>();
+  rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
 
-  load() {
-    if (this.data) {
-      // already loaded data
-      return Promise.resolve(this.data);
-    }
+  //private isAuthenticated$ = this.authService.isAuthenticated$;
 
-    // don't have the data yet
-    return new Promise(resolve => {
-      // We're using Angular Http provider to request the data,
-      // then on the response it'll map the JSON data to a parsed JS object.
-      // Next we process the data and resolve the promise with the new data.
-      this.http.get('assets/data/data.json').subscribe(res => {
-        // we've got back the raw data, now generate the core schedule data
-        // and save the data for later reference
-        this.data = this.processData(res.json());
-        resolve(this.data);
-      });
+  // basic entities
+  private rooms$: Observable<Array<Room>> = this.af.database.list(`rooms`);
+  private speakers$: Observable<Array<Speaker>> = this.af.database.list(`speakers`);
+  private sessions$: Observable<Array<Session>> = this.af.database.list(`sessions`).map((sessions: Array<any>) => {
+    return sessions.map((session: any) => {
+      // map dates
+      let startDate = moment(session.startDate, 'DD-MM-YYYY, h:mm');
+      let endDate = moment(session.endDate, 'DD-MM-YYYY, h:mm');
+      return Object.assign({}, session, {startDate: startDate, endDate: endDate});
     });
-  }
+  });
 
-  processData(data) {
-    // just some good 'ol JS fun with objects and arrays
-    // build up the data by linking speakers to sessions
+  // combined entities
+  private sessionsWithRoomAndSpeakers$ = Observable.combineLatest(
+    this.sessions$, this.rooms$, this.speakers$,
+    (sessions: Array<Session>, rooms: Array<Room>, speakers: Array<Speaker>) => {
+      sessions.forEach((session: Session) => {
 
-    data.tracks = [];
-
-    // loop through each day in the schedule
-    data.schedule.forEach(day => {
-      // loop through each timeline group in the day
-      day.groups.forEach(group => {
-        // loop through each session in the timeline group
-        group.sessions.forEach(session => {
-          this.processSession(data, session);
+        let sessionRooms = rooms.filter((room: Room) => {
+          return session.room === Number(room.$key);
         });
-      });
-    });
-
-    return data;
-  }
-
-  processSession(data, session) {
-    // loop through each speaker and load the speaker data
-    // using the speaker name as the key
-    session.speakers = [];
-    if (session.speakerNames) {
-      session.speakerNames.forEach(speakerName => {
-        let speaker = data.speakers.find(s => s.name === speakerName);
-        if (speaker) {
-          session.speakers.push(speaker);
-          speaker.sessions = speaker.sessions || [];
-          speaker.sessions.push(session);
+        if (sessionRooms.length) {
+          session.room = sessionRooms[0];
         }
-      });
-    }
 
-    if (session.tracks) {
-      session.tracks.forEach(track => {
-        if (data.tracks.indexOf(track) < 0) {
-          data.tracks.push(track);
+        let sessionSpeakers = [];
+        if (session.speakers) {
+          sessionSpeakers = speakers.filter((speaker: Speaker) => {
+            return session.speakers.indexOf(Number(speaker.$key)) > -1;
+          });
         }
+        session.speakers = sessionSpeakers;
+
       });
+      return sessions;
     }
-  }
+  );
 
-  getTimeline(dayIndex, queryText = '', excludeTracks = [], segment = 'all') {
-    return this.load().then(data => {
-      let day = data.schedule[dayIndex];
-      day.shownSessions = 0;
+  private speakersWithSessions$ = Observable.combineLatest(this.speakers$, this.sessions$,
+    (speakers: Array<Speaker>, sessions: Array<Session>, rooms: Array<Room>) => {
+      speakers.forEach((speaker: Speaker) => {
 
-      queryText = queryText.toLowerCase().replace(/,|\.|-/g, ' ');
-      let queryWords = queryText.split(' ').filter(w => !!w.trim().length);
-
-      day.groups.forEach(group => {
-        group.hide = true;
-
-        group.sessions.forEach(session => {
-          // check if this session should show or not
-          this.filterSession(session, queryWords, excludeTracks, segment);
-
-          if (!session.hide) {
-            // if this session is not hidden then this group should show
-            group.hide = false;
-            day.shownSessions++;
-          }
-        });
-
-      });
-
-      return day;
-    });
-  }
-
-  filterSession(session, queryWords, excludeTracks, segment) {
-
-    let matchesQueryText = false;
-    if (queryWords.length) {
-      // of any query word is in the session name than it passes the query test
-      queryWords.forEach(queryWord => {
-        if (session.name.toLowerCase().indexOf(queryWord) > -1) {
-          matchesQueryText = true;
+        let speakerSessions = [];
+        if (speaker.sessions) {
+          speakerSessions = sessions.filter((session: Session) => {
+            return session.speakers.indexOf(Number(speaker.$key)) > -1;
+          });
         }
+        speaker.sessions = speakerSessions
+
       });
-    } else {
-      // if there are no query words then this session passes the query test
-      matchesQueryText = true;
+      return speakers;
+    }
+  );
+
+  private sessionGroups$: Observable<Array<SessionGroup>> = this.sessionsWithRoomAndSpeakers$.map((sessions: Array<Session>) => {
+
+    let sessionsByHours: Array<SessionGroup> = [];
+    let startHour = 7;
+    let endHour = 20;
+
+    for (var i = startHour; i < endHour; i++) {
+      let sessionsIngroup = sessions.filter((session) => {
+        // console.log(i, i+1);
+        // console.log(session.title, session.startDate.hours(), session.endDate.hours());
+        return session.startDate.hours() >= i && session.startDate.hours() < (i + 1);
+        /*
+
+        start: 8:30
+        end: 9:30
+
+        i : 8
+        i+1: 9
+
+         */
+      });
+      sessionsByHours.push({
+        startHour: i,
+        endHour: (i + 1),
+        sessions: sessionsIngroup
+      });
     }
 
-    // if any of the sessions tracks are not in the
-    // exclude tracks then this session passes the track test
-    let matchesTracks = false;
-    session.tracks.forEach(trackName => {
-      if (excludeTracks.indexOf(trackName) === -1) {
-        matchesTracks = true;
-      }
+    return sessionsByHours;
+
+  });
+
+
+  // for every public stream we had to create a replay subject (otherwise it would only listen to it once)
+  constructor(private af: AngularFire,
+              private authService: AuthService) {
+
+    this.speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
+      this.rpSpeakers$.next(speakers);
     });
 
-    // if the segement is 'favorites', but session is not a user favorite
-    // then this session does not pass the segment test
-    let matchesSegment = false;
-    if (segment === 'favorites') {
-      if (this.user.hasFavorite(session.name)) {
-        matchesSegment = true;
-      }
-    } else {
-      matchesSegment = true;
-    }
+    this.sessions$.subscribe((sessions: Array<Session>) => {
+      this.rpSessions$.next(sessions);
+    });
 
-    // all tests must be true if it should not be hidden
-    session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
+    this.sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
+      this.rpSessionGroups$.next(sessionGroups);
+    });
+
+    // this.addDemoSessions();
   }
 
-  getSpeakers() {
-    return this.load().then(data => {
-      return data.speakers.sort((a, b) => {
-        let aName = a.name.split(' ').pop();
-        let bName = b.name.split(' ').pop();
-        return aName.localeCompare(bName);
-      });
-    });
+  setFavorite(session: Session): void {
+    this.af.database.list(`/users/${this.uid}/favoriteSessions`).push({sessionId: session.$key});
   }
 
-  getTracks() {
-    return this.load().then(data => {
-      return data.tracks.sort();
-    });
+  removeFavorite(key: string): void {
+    this.af.database.list(`/users/${this.uid}/favoriteSessions/${key}`).remove();
   }
 
   getMap() {
-    return this.load().then(data => {
-      return data.map;
+    let mapData = [
+      {
+        "name": "Holiday Inn - Ghent expo",
+        "lat": 51.0259671,
+        "lng": 3.6895503,
+        "center": true
+      },
+      {
+        "name": "Ghent - St Pieters - Railway Station",
+        "lat": 51.036043,
+        "lng": 3.710872
+      }
+    ];
+    return Promise.resolve(mapData);
+  }
+
+  addDemoSessions() {
+
+    // breakfast
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 07:30',
+      endDate: '09-12-2016 08:25',
+      room: 0,
+      tags: ['food'],
+      title: 'Continental Angular breakfast'
     });
+
+    // opening
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 08:30',
+      endDate: '09-12-2016 08:50',
+      room: 1,
+      speakers: [0, 1],
+      tags: ['angular'],
+      title: 'Keynote about Angular 2'
+    });
+
+    // before noon
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 09:00',
+      endDate: '09-12-2016 09:25',
+      room: 0,
+      speakers: [1],
+      tags: ['angular'],
+      title: 'Talking about Angular 2 #1'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 09:30',
+      endDate: '09-12-2016 09:55',
+      room: 0,
+      speakers: [2],
+      tags: ['angular', 'testing'],
+      title: 'Talking about Angular 2 #2'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 10:00',
+      endDate: '09-12-2016 10:25',
+      room: 0,
+      speakers: [3],
+      tags: ['angular', 'tooling'],
+      title: 'Talking about Angular 2 #3'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 10:30',
+      endDate: '09-12-2016 10:55',
+      room: 0,
+      speakers: [4],
+      tags: ['react', 'security'],
+      title: 'Talking about Angular 2 #4'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 11:00',
+      endDate: '09-12-2016 11:25',
+      room: 0,
+      speakers: [5],
+      tags: ['react', 'design'],
+      title: 'Talking about Angular 2 #5'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 11:30',
+      endDate: '09-12-2016 11:55',
+      room: 0,
+      speakers: [6],
+      tags: ['angular', 'tooling'],
+      title: 'Talking about Angular 2 #6'
+    });
+
+    // lunch
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 12:30',
+      endDate: '09-12-2016 13:55',
+      room: 1,
+      tags: ['food'],
+      title: 'Lunch with healthy food!'
+    });
+
+    // afternoon
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 14:00',
+      endDate: '09-12-2016 14:25',
+      room: 0,
+      speakers: [6],
+      tags: ['nativescript', 'mobile'],
+      title: 'Talking about Angular 2 #7'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 14:30',
+      endDate: '09-12-2016 14:55',
+      room: 0,
+      speakers: [7],
+      tags: ['angular','mobile'],
+      title: 'Talking about Angular 2 #8'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 15:00',
+      endDate: '09-12-2016 15:25',
+      room: 0,
+      speakers: [8],
+      tags: ['ionic', 'angular'],
+      title: 'Talking about Angular 2 #9'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 15:30',
+      endDate: '09-12-2016 15:55',
+      room: 0,
+      speakers: [4, 5],
+      tags: ['testing', 'mobile'],
+      title: 'Talking about Angular 2 #10'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 16:00',
+      endDate: '09-12-2016 16:25',
+      room: 0,
+      speakers: [0, 7],
+      tags: ['mobile'],
+      title: 'Talking about Angular 2 #11'
+    });
+    this.af.database.list('/sessions').push({
+      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>',
+      startDate: '09-12-2016 16:30',
+      endDate: '09-12-2016 16:55',
+      room: 0,
+      speakers: [5, 7],
+      tags: ['nativescript', 'angular'],
+      title: 'Talking about Angular 2 #12'
+    });
+  }
+
+  private get uid(): string {
+    return this.af.auth.getAuth().uid;
   }
 
 }

@@ -29,8 +29,6 @@ export class PopoverPage {
 })
 export class AboutPage {
 
-  conferenceDate = '2047-05-17';
-
   constructor(public popoverCtrl: PopoverController) {
   }
 

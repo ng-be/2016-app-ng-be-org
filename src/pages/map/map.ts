@@ -12,11 +12,11 @@ declare var google;
 })
 export class MapPage {
 
-  constructor(public confData: ConferenceDataService) {
+  constructor(public conferenceData: ConferenceDataService) {
   }
 
   ionViewDidLoad() {
-    this.confData.getMap().then(mapData => {
+    this.conferenceData.getMap().then(mapData => {
       let mapEle = document.getElementById('map');
 
       let map = new google.maps.Map(mapEle, {

@@ -5,7 +5,7 @@ import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
 import { AccountPage, LoginPage, TabsPage } from '../pages';
-import { ConferenceDataService, UserDataService } from '../services';
+import { UserDataService } from '../services';
 
 export interface PageObj {
   title: string;
@@ -44,8 +44,7 @@ export class ConferenceApp {
   constructor(private events: Events,
               private userData: UserDataService,
               private menu: MenuController,
-              private platform: Platform,
-              private confData: ConferenceDataService) {
+              private platform: Platform) {
 
     this.initApplication();
   }
@@ -55,9 +54,6 @@ export class ConferenceApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
     });
-
-    // load the conference data
-    this.confData.load();
 
     // decide which menu items should be hidden by current login status stored in local storage
     this.userData.hasLoggedIn().then((hasLoggedIn) => {
