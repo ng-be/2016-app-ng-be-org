@@ -2,14 +2,13 @@
 import { Session } from './';
 
 export interface Speaker {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  name: string;
   description: string;
   $key: string;
   role: string;
-  tweetName: string;
-  img: string;
-  sessions: Array<Session>;
-  phone?: string;
-  email?: string;
+  twitter: string;
+  github: string;
+  avatar: string;
+  sessions?: Array<Session>;
 }

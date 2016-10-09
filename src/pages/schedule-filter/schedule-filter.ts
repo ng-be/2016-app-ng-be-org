@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 
 // app imports
-import { ConferenceDataService } from '../../providers';
+import { ConferenceDataService } from '../../services';
 
 @Component({
   selector: 'page-schedule-filter',

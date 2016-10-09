@@ -15,10 +15,11 @@
 
     <ion-row responsive-sm>
       <ion-col>
-        <button ion-button (click)="onLogin(loginForm)" type="submit" class="ngbutton facebook" block>
+        <button ion-button (click)="loginFacebook($event)" type="submit" class="ngbutton facebook" block>
           Login with Facebook
         </button>
       </ion-col>
+      <!--
       <ion-col>
         <button ion-button (click)="onLogin(loginForm)" type="submit" class="ngbutton twitter" block>
           Login with Twitter
@@ -34,6 +35,7 @@
           Login with Github
         </button>
       </ion-col>
+      -->
       <!--
       <ion-col>
         <button ion-button (click)="onSignup()" light block>Signup</button>

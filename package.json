@@ -22,10 +22,10 @@
     "ionic-angular": "2.0.0-rc.0",
     "ionic-native": "^2.0.3",
     "ionicons": "^3.0.0",
-    "moment": "^2.15.0"
+    "moment": "^2.15.1"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "^0.0.23",
+    "@ionic/app-scripts": "latest",
     "@types/request": "0.0.30",
     "typescript": "^2.0.3"
   },

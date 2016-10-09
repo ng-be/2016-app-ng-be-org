@@ -3,6 +3,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 import { Toast } from 'ionic-native';
+import { AngularFire, AuthMethods, AuthProviders } from 'angularfire2';
 
 // app imports
 import { TabsPage } from '../';
@@ -14,28 +15,35 @@ import { AuthService } from '../../services';
 })
 export class LoginPage implements OnDestroy {
 
-  login: {username?: string, password?: string} = {};
-  submitted = false;
-
   private subscriptions: Array<Subscription> = [];
 
-  constructor(public navCtrl: NavController,
-              private authService: AuthService) {
+  constructor(private navCtrl: NavController,
+              private authService: AuthService,
+              private af: AngularFire) {
   }
 
-  onLogin(form) {
-    this.submitted = true;
+  loginFacebook(event) {
+    this.af.auth.login({
+      provider: AuthProviders.Facebook,
+      method: AuthMethods.Redirect,
+    }).then((res)=> {
+      console.log(res);
+      this.navCtrl.push(TabsPage);
+    }, (err)=>{
+      Toast.show('Failed to log in', '5000', 'center');
+    });
+  }
 
-    if (form.valid) {
-      this.subscriptions.push(this.authService.authenticate({
-        login: this.login.username,
-        password: this.login.password
-      }).subscribe(() => {
-        this.navCtrl.push(TabsPage);
-      }, () => {
-        Toast.show('Failed to log in', '5000', 'center');
-      }));
-    }
+  loginTwitter(event) {
+
+  }
+
+  loginGithub(event) {
+
+  }
+
+  loginGoogle(event) {
+
   }
 
   ngOnDestroy(): void {

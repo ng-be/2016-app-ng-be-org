@@ -1,21 +1,27 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{speaker.firstName}} {{speaker.lastName}}</ion-title>
+    <ion-title>{{speaker.firstname}} {{speaker.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <div text-center>
-    <img [src]="speaker.img" [alt]="speaker.firstName + ' ' + speaker.lastName"><br>
-    <button clear small twitter>
+
+  <div>
+
+    <img [src]="speaker.avatar" [alt]="speaker.firstname + ' ' + speaker.name">
+
+    <button ion-button clear twitter class="social twitter">
       <ion-icon name="logo-twitter"></ion-icon>
     </button>
-    <button clear small github>
+
+    <button ion-button clear github class="social github">
       <ion-icon name="logo-github"></ion-icon>
     </button>
-    <button clear small instagram>
-      <ion-icon name="logo-instagram"></ion-icon>
-    </button>
+
   </div>
+
   <h2>{{speaker.role}}</h2>
   <p>{{speaker.description}}</p>
+
+  <h3>Sessions</h3>
+
 </ion-content>

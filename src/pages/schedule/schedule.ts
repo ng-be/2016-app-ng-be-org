@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
 
 // app imports
-import { ConferenceDataService, UserDataService } from '../../providers';
+import { ConferenceDataService, UserDataService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage } from '../';
 
 @Component({
@@ -11,6 +11,7 @@ import { ScheduleFilterPage, SessionDetailPage } from '../';
   templateUrl: 'schedule.html'
 })
 export class SchedulePage {
+
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
   // with the variable #scheduleList, `read: List` tells it to return

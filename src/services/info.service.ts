@@ -1,14 +1,12 @@
 // 3d party imports
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
-import moment from 'moment';
+//import moment from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
 
 // app imports
-import { Speaker } from '../entities/speaker.entity';
-import { Session } from '../entities/session.entity';
+import { Speaker, Session } from '../entities';
 import { Room } from '../entities/room.entity';
-import { SessionGroup } from '../entities/sessionGroup.entity';
 
 import { AuthService } from './auth.service';
 
@@ -17,11 +15,13 @@ export class InfoService {
 
   rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
   rpRooms$ = new ReplaySubject<Array<Room>>();
-  rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
+  //rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
 
   private rooms$: Observable<Array<Room>> = this.af.database.list(`rooms`);
-  private isAuthenticated$ = this.authService.isAuthenticated$;
+  private speakers$: Observable<Array<Speaker>> = this.af.database.list(`speakers`);
+  //private isAuthenticated$ = this.authService.isAuthenticated$;
 
+  /*
   private sessions$: Observable<Array<Session>> = this.af.database.list(`sessions`).map((sessions: Array<any>) => {
     return sessions.map((session: any) => {
       // map dates
@@ -35,7 +35,7 @@ export class InfoService {
       return authenticated ? this.af.database.list(`users/${this.uid}/favoriteSessions`) : [];
     })
     .startWith([]);
-  private speakers$: Observable<Array<Speaker>> = this.af.database.list(`speakers`);
+
   private sessionsWithFavoriteFlag$ = Observable.combineLatest(this.sessions$, this.favoriteSessionsIds$,
     (sessions: Array<Session>, favoriteSessionsIds: Array<{$key: string, sessionId: string}>) => {
       return sessions.map((session: Session) => {
@@ -51,6 +51,7 @@ export class InfoService {
       });
       return speakers;
     });
+
   private sessionGroups$: Observable<Array<SessionGroup>> = this.sessionsWithFavoriteFlag$.map((sessions: Array<Session>) => {
     let sessionsByHours: Array<SessionGroup> = [];
     let startHour = 7;
@@ -61,18 +62,25 @@ export class InfoService {
     }
     return sessionsByHours;
   });
+  */
 
   // for every public stream we had to create a replay subject (otherwise it would only listen to it once)
   constructor(private af: AngularFire,
               private authService: AuthService) {
+    /*
     this.speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
       this.rpSpeakers$.next(speakers);
     });
     this.sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
       this.rpSessionGroups$.next(sessionGroups);
     });
+    */
     this.rooms$.subscribe((rooms: Array<Room>) => {
       this.rpRooms$.next(rooms);
+    });
+
+    this.speakers$.subscribe((speakers: Array<Speaker>) => {
+      this.rpSpeakers$.next(speakers);
     });
   }
 
@@ -84,6 +92,7 @@ export class InfoService {
     this.af.database.list(`/users/${this.uid}/favoriteSessions/${key}`).remove();
   }
 
+  /*
   addDemoSessions() {
     this.af.database.list('/sessions').push({
       description: 'lorem ipsum',
@@ -126,6 +135,7 @@ export class InfoService {
       title: 'this is a test'
     });
   }
+  */
 
   private get uid(): string {
     return this.af.auth.getAuth().uid;

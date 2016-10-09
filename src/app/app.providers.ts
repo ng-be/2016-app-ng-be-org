@@ -3,7 +3,7 @@ import {
   ConferenceDataService,
   InfoService,
   AuthService
-} from '../providers';
+} from '../services';
 
 export const APP_PROVIDERS = [
   UserDataService,

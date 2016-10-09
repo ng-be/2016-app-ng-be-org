@@ -5,7 +5,7 @@ import { ReplaySubject } from 'rxjs';
 
 // app imports
 import { SessionDetailPage, SpeakerDetailPage } from '../';
-import { InfoService } from '../../services/info.service';
+import { InfoService } from '../../services';
 import { Speaker, Session } from '../../entities';
 
 @Component({
@@ -17,9 +17,9 @@ export class SpeakerListPage {
   actionSheet: ActionSheet;
   speakers$: ReplaySubject<any> = this.infoService.rpSpeakers$;
 
-  constructor(public actionSheetCtrl: ActionSheetController,
-              public navCtrl: NavController,
-              public config: Config,
+  constructor(private actionSheetCtrl: ActionSheetController,
+              private navCtrl: NavController,
+              private config: Config,
               private infoService: InfoService) {
 
   }
@@ -65,32 +65,6 @@ export class SpeakerListPage {
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-
-    actionSheet.present();
-  }
-
-  openContact(speaker) {
-    let mode = this.config.get('mode');
-
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Contact with ' + speaker.firstName + speaker.lastName,
-      buttons: [
-        {
-          text: `Email ( ${speaker.email} )`,
-          icon: mode !== 'ios' ? 'mail' : null,
-          handler: () => {
-            window.open('mailto:' + speaker.email);
-          }
-        },
-        {
-          text: `Call ( ${speaker.phone} )`,
-          icon: mode !== 'ios' ? 'call' : null,
-          handler: () => {
-            window.open('tel:' + speaker.phone);
           }
         }
       ]

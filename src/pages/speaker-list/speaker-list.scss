@@ -8,12 +8,21 @@ page-speaker-list {
       padding: 0;
     }
 
-    ion-card-header .item {
-      padding: 12px;
+    ion-card-header {
+      .item {
+        padding: 12px;
+      }
+      h3 {
+        font-size: 1.7rem;
+      }
     }
 
     ion-card-content .list {
       margin: 0;
+    }
+
+    ion-card-content p {
+      padding: 0 16px 16px 16px;
     }
 
   }

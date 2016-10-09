@@ -1,13 +1,34 @@
-
 page-speaker-detail {
 
   img {
     max-width: 140px;
     border-radius: 50%;
+    border: 10px solid #eee;
   }
 
   p {
     color: #60646B;
+  }
+
+  ion-content {
+
+    text-align: center;
+
+    img {
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    .social {
+      padding: 0;
+      margin: 0 5px;
+      font-size: 1.6em;
+    }
+
+    .twitter{
+      color: #1da1f2;
+    }
+
   }
 
 }

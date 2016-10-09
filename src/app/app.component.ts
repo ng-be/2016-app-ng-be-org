@@ -5,7 +5,7 @@ import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
 import { AccountPage, LoginPage, TabsPage } from '../pages';
-import { ConferenceDataService, UserDataService } from '../providers';
+import { ConferenceDataService, UserDataService } from '../services';
 
 export interface PageObj {
   title: string;
@@ -81,7 +81,7 @@ export class ConferenceApp {
     if (page.title === 'Logout') {
       // Give the menu time to close before changing to logged out
       setTimeout(() => {
-        this.userData.logout();
+        //this.userData.logout();
       }, 1000);
     }
   }

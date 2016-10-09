@@ -1,10 +1,10 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 // app imports
 import { LoginPage } from '../';
-import { UserDataService } from '../../providers';
+import { UserDataService } from '../../services';
 
 @Component({
   selector: 'page-account',
@@ -24,7 +24,7 @@ export class AccountPage {
   }
 
   logout() {
-    this.userData.logout();
+    //this.userData.logout();
     this.nav.setRoot(LoginPage);
   }
 

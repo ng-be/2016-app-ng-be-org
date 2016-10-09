@@ -9,7 +9,8 @@ import { UserDataService } from './';
 export class ConferenceDataService {
   data: any;
 
-  constructor(public http: Http, public user: UserDataService) {}
+  constructor(private http: Http,
+              private user: UserDataService) {}
 
   load() {
     if (this.data) {

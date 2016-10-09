@@ -8,13 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { ConferenceApp } from './app.component';
 import { APP_PAGES } from './app.pages';
 import { APP_PROVIDERS } from './app.providers';
-
-export const firebaseConfig = {
-  apiKey: 'AIzaSyDJ9fpXQhzbZSn7LVIUZ1fbv7yOqNz6gXw',
-  authDomain: 'ngbe-3a883.firebaseapp.com',
-  databaseURL: 'https://ngbe-3a883.firebaseio.com',
-  storageBucket: 'ngbe-3a883.appspot.com',
-};
+import { firebaseConfig } from './app.firebase';
 
 @NgModule({
   declarations: [

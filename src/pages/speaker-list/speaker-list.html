@@ -8,27 +8,28 @@
 </ion-header>
 
 <ion-content class="outer-content speaker-list">
+
   <ion-card *ngFor="let speaker of speakers$ | async" class="speaker">
 
     <ion-card-header>
       <ion-item>
         <ion-avatar item-left>
-          <img [src]="speaker.img">
+          <img [src]="speaker.avatar">
         </ion-avatar>
-        <h3>About {{speaker.firstName}} {{speaker.lastName}}</h3>
-        <button ion-button icon-only (click)="openContact(speaker)" clear item-right>
-          <ion-icon name="help-circle"></ion-icon>
-        </button>
+        <h3>{{speaker.firstname}} {{speaker.name}}</h3>
       </ion-item>
     </ion-card-header>
 
     <ion-card-content class="outer-content">
+      <p>
+        {{speaker.description}}
+      </p>
       <ion-list>
         <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
           <h3>{{session.title}}</h3>
         </button>
         <button ion-item (click)="goToSpeakerDetail(speaker)">
-          <h3>About {{speaker.firstName}} {{speaker.lastName}}</h3>
+          <h3>Read more about {{speaker.firstname}} {{speaker.name}}</h3>
         </button>
       </ion-list>
     </ion-card-content>

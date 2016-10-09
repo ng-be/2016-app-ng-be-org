@@ -1,4 +1,7 @@
+import { AuthProviders } from 'angularfire2';
+
 export interface Account {
-  login: string;
-  password?: string;
+  provider: AuthProviders;
+  email?: string;
+  name?: string;
 }
