@@ -1,7 +1,7 @@
 // 3d party imports
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
-import { ReplaySubject, Subscription, Observable } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 // app imports
 import { ConferenceDataService, UserDataService } from '../../services';
@@ -11,7 +11,7 @@ import { ScheduleFilterPage, SessionDetailPage } from '../';
   selector: 'page-schedule',
   templateUrl: 'schedule.html'
 })
-export class SchedulePage {
+export class SchedulePage implements OnDestroy, AfterViewInit {
 
   // the list is a child of the schedule page
   // @ViewChild('scheduleList') gets a reference to the list
@@ -64,7 +64,7 @@ export class SchedulePage {
      // Close any open sliding items when the schedule updates
      this.scheduleList && this.scheduleList.closeSlidingItems();
 
-    this.sessionGroups$ = data;
+     this.sessionGroups$ = data;
 
      this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
      this.shownSessions = data.shownSessions;
