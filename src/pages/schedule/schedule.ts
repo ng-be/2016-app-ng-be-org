@@ -1,7 +1,7 @@
 // 3d party imports
 import { Component, ViewChild } from '@angular/core';
 import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subscription, Observable } from 'rxjs';
 
 // app imports
 import { ConferenceDataService, UserDataService } from '../../services';
@@ -25,7 +25,8 @@ export class SchedulePage {
   groups = [];
   excludeTracks = [];
 
-  sessionGroups$: ReplaySubject<any> = this.conferenceData.rpSessionGroups$;
+  originalSessionGroup$: Observable<any>;
+  sessionGroups$: Observable<any>;
 
   private subscriptions = Array<Subscription>();
 
@@ -37,9 +38,14 @@ export class SchedulePage {
               private user: UserDataService) {
 
     this.conferenceData.rpSessionGroups$.subscribe((data) => {
-      data.forEach((group)=>{
+
+      this.originalSessionGroup$ = data;
+      this.updateSchedule();
+
+      data.forEach((group)=> {
         this.numberOfShownSessions += group.sessions.length;
-      })
+      });
+
     });
 
   }
@@ -53,15 +59,18 @@ export class SchedulePage {
   }
 
   updateSchedule() {
-    /*
-    // Close any open sliding items when the schedule updates
-    this.scheduleList && this.scheduleList.closeSlidingItems();
 
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
-    });
-    */
+    /*
+     // Close any open sliding items when the schedule updates
+     this.scheduleList && this.scheduleList.closeSlidingItems();
+
+    this.sessionGroups$ = data;
+
+     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
+     this.shownSessions = data.shownSessions;
+     this.groups = data.groups;
+     });
+     */
   }
 
   presentFilter() {

@@ -4,9 +4,9 @@ page-schedule-filter {
     color: color($colors, danger);
   }
 
-  @each $track, $value in auxiliary-categories() {
+  @each $tag, $value in auxiliary-categories() {
 
-    ion-item[track=#{$track}] .dot {
+    ion-item[tag=#{$tag}] .dot {
       height: 10px;
       display: inline-block;
       width: 10px;

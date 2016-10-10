@@ -17,12 +17,12 @@
 <ion-content class="outer-content">
 
   <ion-list>
-    <ion-list-header>Tracks</ion-list-header>
+    <ion-list-header>Tags</ion-list-header>
 
-    <ion-item *ngFor="let track of tracks" [attr.track]="track.name | lowercase">
+    <ion-item *ngFor="let tag of tags" [attr.tag]="tag.name | lowercase">
       <span item-left class="dot"></span>
-      <ion-label>{{track.name}}</ion-label>
-      <ion-toggle [(ngModel)]="track.isChecked" color="secondary"></ion-toggle>
+      <ion-label>{{tag.name}}</ion-label>
+      <ion-toggle [(ngModel)]="tag.isChecked" color="secondary"></ion-toggle>
     </ion-item>
 
   </ion-list>
