@@ -14,6 +14,7 @@ export class ConferenceDataService {
   rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
   rpSessions$ = new ReplaySubject<Array<Session>>();
   rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
+  rpTags$ = new ReplaySubject<Array<String>>();
 
   //private isAuthenticated$ = this.authService.isAuthenticated$;
 
@@ -103,6 +104,8 @@ export class ConferenceDataService {
     });
 
     this.sessions$.subscribe((sessions: Array<Session>) => {
+      console.log(sessions);
+      this.handleTags(sessions);
       this.rpSessions$.next(sessions);
     });
 
@@ -119,6 +122,18 @@ export class ConferenceDataService {
 
   removeFavorite(key: string): void {
     this.af.database.list(`/users/${this.uid}/favoriteSessions/${key}`).remove();
+  }
+
+  handleTags(sessions: Array<Session>) {
+    let tags = [];
+    sessions.forEach((session) => {
+      session.tags.forEach((tag) => {
+        if (tags.indexOf(tag) === -1) {
+          tags.push(tag);
+        }
+      });
+    });
+    this.rpTags$.next(tags);
   }
 
   addDemoSessions() {
@@ -226,7 +241,7 @@ export class ConferenceDataService {
       endDate: '09-12-2016 14:55',
       roomId: 0,
       speakerIds: [7],
-      tags: ['angular','mobile'],
+      tags: ['angular', 'mobile'],
       title: 'Talking about Angular 2 #8'
     });
     this.af.database.list('/sessions').push({

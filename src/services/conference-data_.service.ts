@@ -143,21 +143,6 @@ export class ConferenceData_Service {
     session.hide = !(matchesQueryText && matchesTracks && matchesSegment);
   }
 
-  getSpeakers() {
-    return this.load().then(data => {
-      return data.speakers.sort((a, b) => {
-        let aName = a.name.split(' ').pop();
-        let bName = b.name.split(' ').pop();
-        return aName.localeCompare(bName);
-      });
-    });
-  }
-
-  getTracks() {
-    return this.load().then(data => {
-      return data.tracks.sort();
-    });
-  }
 
   getMap() {
     return this.load().then(data => {
