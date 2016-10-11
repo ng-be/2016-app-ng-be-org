@@ -27,11 +27,10 @@ export class MapPage {
     }
   ];
 
-  constructor(public conferenceData: ConferenceDataService) {
+  constructor() {
   }
 
   ionViewDidLoad() {
-
 
     let mapEle = document.getElementById('map');
 

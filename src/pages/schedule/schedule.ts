@@ -37,10 +37,12 @@ export class SchedulePage implements OnDestroy, AfterViewInit {
               private conferenceData: ConferenceDataService,
               private user: UserDataService) {
 
+    this.sessionGroups$ = this.conferenceData.rpSessionGroups$;
     this.conferenceData.rpSessionGroups$.subscribe((data) => {
 
       this.originalSessionGroup$ = data;
-      this.updateSchedule();
+      //this.sessionGroups$ = data;
+      //his.updateSchedule();
 
       data.forEach((group)=> {
         this.numberOfShownSessions += group.sessions.length;
