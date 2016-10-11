@@ -6,6 +6,7 @@ import { Subscription, Observable } from 'rxjs';
 // app imports
 import { ConferenceDataService, UserDataService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage } from '../';
+import { SessionGroup } from '../../entities';
 
 @Component({
   selector: 'page-schedule',
@@ -26,7 +27,7 @@ export class SchedulePage implements OnDestroy, AfterViewInit {
   excludeTracks = [];
 
   originalSessionGroup$: Observable<any>;
-  sessionGroups$: Observable<any>;
+  sessionGroups$: Observable<Array<SessionGroup>>;
 
   private subscriptions = Array<Subscription>();
 
@@ -40,7 +41,7 @@ export class SchedulePage implements OnDestroy, AfterViewInit {
     this.sessionGroups$ = this.conferenceData.rpSessionGroups$;
     this.conferenceData.rpSessionGroups$.subscribe((data) => {
 
-      this.originalSessionGroup$ = data;
+      //this.originalSessionGroup$ = data;
       //this.sessionGroups$ = data;
       //his.updateSchedule();
 

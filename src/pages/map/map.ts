@@ -2,7 +2,6 @@
 import { Component } from '@angular/core';
 
 // app imports
-import { ConferenceDataService } from '../../services';
 
 declare var google;
 
