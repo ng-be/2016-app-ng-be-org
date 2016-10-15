@@ -17,3 +17,20 @@
   }
 
 }
+
+$tags: (
+  ionic: color($colors, primary),
+  angular: #AC282B,
+  react: #8E8D93,
+  tooling: #FE4C52,
+  nativescript: #FD8B2D,
+  design: #FED035,
+  mobile: #69BB7B,
+  food: #3BC7C4,
+  security: #B16BE3,
+  testing: #6600CC
+);
+
+@function auxiliary-categories() {
+  @return map-remove($tags);
+}

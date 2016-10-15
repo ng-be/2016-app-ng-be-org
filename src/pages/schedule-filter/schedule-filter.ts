@@ -17,18 +17,16 @@ export class ScheduleFilterPage {
               private navParams: NavParams,
               private viewCtrl: ViewController) {
 
-    // passed in array of track names that should be excluded (unchecked)
-    let excludedTagNames = this.navParams.data;
+    // passed in array of track names that should be shown (check)
+    let shownTags = this.navParams.data.shownTags;
 
     this.conferenceData.rpTags$.subscribe((tagNames: string[]) => {
-
-      console.log(tagNames);
 
       let newTags = [];
       tagNames.forEach(tagName => {
         newTags.push({
           name: tagName,
-          isChecked: (excludedTagNames.indexOf(tagName) === -1)
+          isChecked: (shownTags.indexOf(tagName) > -1)
         });
       });
       this.tags = newTags;
@@ -40,14 +38,14 @@ export class ScheduleFilterPage {
   resetFilters() {
     // reset all of the toggles to be checked
     this.tags.forEach(track => {
-      track.isChecked = true;
+      track.isChecked = false;
     });
   }
 
   applyFilters() {
-    // Pass back a new array of track names to exclude
-    let excludedTagNames = this.tags.filter(c => !c.isChecked).map(c => c.name);
-    this.dismiss(excludedTagNames);
+    // Pass back a new array of tags to show
+    let shownTags = this.tags.filter(c => c.isChecked).map(c => c.name);
+    this.dismiss(shownTags);
   }
 
   dismiss(data?: any) {

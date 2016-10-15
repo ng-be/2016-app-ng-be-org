@@ -1,20 +1,3 @@
-$tags: (
-  ionic: color($colors, primary),
-  angular: #AC282B,
-  react: #8E8D93,
-  tooling: #FE4C52,
-  nativescript: #FD8B2D,
-  design: #FED035,
-  mobile: #69BB7B,
-  food: #3BC7C4,
-  security: #B16BE3,
-  testing: #6600CC
-);
-
-@function auxiliary-categories() {
-  @return map-remove($tags);
-}
-
 page-schedule {
 
   @each $tag, $value in auxiliary-categories() {
@@ -30,7 +13,7 @@ page-schedule {
 
   }
 
-  ion-item-sliding ul {
+  ul.tags {
     list-style: none;
     margin: 5px 0 0 0;
     padding: 0;
@@ -42,6 +25,14 @@ page-schedule {
       color: #fff;
       &:first-child {
         margin-left: 0;
+      }
+    }
+  }
+
+  .currentFilter {
+    ul.tags {
+      li {
+        font-size: 1em;
       }
     }
   }

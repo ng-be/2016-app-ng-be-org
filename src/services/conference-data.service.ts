@@ -126,7 +126,6 @@ export class ConferenceDataService {
         }
       });
     });
-    console.log(tags);
     this.rpTags$.next(tags);
   }
 

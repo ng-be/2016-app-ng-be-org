@@ -16,4 +16,5 @@ export interface Session {
   speakerIds: Array<number>;
   speakers?: Array<Speaker>;
   favorite?: boolean;
+  hidden?: boolean;
 }

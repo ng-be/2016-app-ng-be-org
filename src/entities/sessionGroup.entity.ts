@@ -5,4 +5,5 @@ export interface SessionGroup {
   startHour: number;
   endHour: number;
   sessions: Array<Session>;
+  hidden?: boolean;
 }

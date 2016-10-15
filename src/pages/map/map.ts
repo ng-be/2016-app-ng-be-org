@@ -34,9 +34,6 @@ export class MapPage {
     setTimeout(() => {
       let mapEle = document.getElementById('map');
 
-      console.log(mapEle);
-      console.log(this.mapData);
-
       let map = new google.maps.Map(mapEle, {
         center: this.mapData.find(d => d.center),
         zoom: 13
@@ -61,9 +58,7 @@ export class MapPage {
       google.maps.event.addListenerOnce(map, 'idle', () => {
         mapEle.classList.add('show-map');
       });
-    }, 500);
-
-
+    }, 0);
 
   }
 

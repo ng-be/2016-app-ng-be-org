@@ -1,6 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Session</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="toggleFavorite()">
+        <ion-icon name="bookmark"></ion-icon>
+      </button>
+      <button ion-button (click)="openRatingModal()">
+        <ion-icon name="star-half"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
@@ -27,6 +35,18 @@
       </td>
     </tr>
   </table>
+
+  <p>
+    <button ion-button icon-left small color="favorite" (click)="toggleFavorite()">
+      <ion-icon name='bookmark'></ion-icon>
+      Favorite session
+    </button>
+
+    <button ion-button icon-left small color="favorite" (click)="openRatingModal()">
+      <ion-icon name='star-half'></ion-icon>
+      Rate session
+    </button>
+  </p>
 
   <h3>Description:</h3>
   <div [innerHtml]="session.description"></div>

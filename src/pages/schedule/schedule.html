@@ -20,7 +20,6 @@
     </ion-buttons>
   </ion-navbar>
 
-  <!--
   <ion-toolbar no-border-top>
     <ion-searchbar color="primary"
                    [(ngModel)]="queryText"
@@ -28,22 +27,38 @@
                    placeholder="Search">
     </ion-searchbar>
   </ion-toolbar>
-  -->
+
 </ion-header>
 
 <ion-content>
 
-  <ion-list #scheduleList *ngIf="numberOfShownSessions !== 0">
+  <ion-card *ngIf="shownTags.length > 0" class="currentFilter">
 
-    <ion-item-group *ngFor="let group of sessionGroups$ | async" [hidden]="group.sessions.length === 0">
+    <ion-card-header>
+      <strong>Current tag filters</strong> (<a href="" (click)="resetFilters($event)">clear</a>):
+    </ion-card-header>
+
+    <ion-card-content>
+      <ul class="tags">
+        <li *ngFor="let tag of shownTags" [attr.tag]="tag" class="tag">
+          {{tag}}
+        </li>
+      </ul>
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-list *ngIf="numberOfShownSessions !== 0">
+
+    <ion-item-group *ngFor="let group of sessionGroups" [hidden]="group.hidden">
 
       <ion-item-divider sticky>
         {{group.startHour}}:00h
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.tag]="session.tags[0]">
+      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.tag]="session.tags[0]" [hidden]="session.hidden">
 
-        <button ion-item (click)="goToSessionDetail(session)">
+        <ion-item (click)="goToSessionDetail(session)">
           <h3>{{session.title}}</h3>
           <p>
             {{session.startDate.format('HH:mm')}} &mdash;
@@ -51,12 +66,16 @@
             {{session.room.name}}
           </p>
 
-          <ul>
+          <ul class="tags">
             <li *ngFor="let tag of session.tags" [attr.tag]="tag" class="tag">
               {{tag}}
             </li>
           </ul>
-        </button>
+
+          <ion-icon name="bookmark" item-right color="primary" *ngIf="!session.favorited && segment ==='all'"></ion-icon>
+          <ion-icon name="bookmark" item-right color="secondary" *ngIf="session.favorited && segment ==='all'"></ion-icon>
+
+        </ion-item>
 
         <ion-item-options>
           <button ion-button color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
@@ -73,6 +92,7 @@
 
   </ion-list>
 
+  {{numberOfShownSessions}}
   <ion-list-header *ngIf="numberOfShownSessions === 0">
       No Sessions Found
   </ion-list-header>

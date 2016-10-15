@@ -1,33 +1,26 @@
 // 3d party imports
-import { Component, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { AlertController, App, ItemSliding, List, ModalController, NavController } from 'ionic-angular';
-import { Subscription, Observable } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { AlertController, App, ItemSliding, ModalController, NavController } from 'ionic-angular';
+import { Subscription } from 'rxjs';
 
 // app imports
 import { ConferenceDataService, UserDataService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage } from '../';
-import { SessionGroup } from '../../entities';
+import { SessionGroup, Session } from '../../entities';
 
 @Component({
   selector: 'page-schedule',
   templateUrl: 'schedule.html'
 })
-export class SchedulePage implements OnDestroy, AfterViewInit {
-
-  // the list is a child of the schedule page
-  // @ViewChild('scheduleList') gets a reference to the list
-  // with the variable #scheduleList, `read: List` tells it to return
-  // the List and not a reference to the element
-  @ViewChild('scheduleList', {read: List}) scheduleList: List;
+export class SchedulePage implements OnDestroy {
 
   queryText = '';
   segment = 'all';
   numberOfShownSessions = 0;
   groups = [];
-  excludeTracks = [];
+  shownTags = [];
 
-  originalSessionGroup$: Observable<any>;
-  sessionGroups$: Observable<Array<SessionGroup>>;
+  sessionGroups: Array<SessionGroup>;
 
   private subscriptions = Array<Subscription>();
 
@@ -38,18 +31,14 @@ export class SchedulePage implements OnDestroy, AfterViewInit {
               private conferenceData: ConferenceDataService,
               private user: UserDataService) {
 
-    this.sessionGroups$ = this.conferenceData.rpSessionGroups$;
-    this.conferenceData.rpSessionGroups$.subscribe((data) => {
+    this.subscriptions.push(
+      this.conferenceData.rpSessionGroups$.subscribe((data) => {
 
-      //this.originalSessionGroup$ = data;
-      //this.sessionGroups$ = data;
-      //his.updateSchedule();
+        this.sessionGroups = data;
+        this.updateSchedule();
 
-      data.forEach((group)=> {
-        this.numberOfShownSessions += group.sessions.length;
-      });
-
-    });
+      })
+    );
 
   }
 
@@ -57,37 +46,82 @@ export class SchedulePage implements OnDestroy, AfterViewInit {
     this.app.setTitle('Schedule');
   }
 
-  ngAfterViewInit() {
-    this.updateSchedule();
-  }
-
   updateSchedule() {
 
-    /*
-     // Close any open sliding items when the schedule updates
-     this.scheduleList && this.scheduleList.closeSlidingItems();
+    this.numberOfShownSessions = 0;
+    this.sessionGroups.forEach((sessionGroup: SessionGroup) => {
 
-     this.sessionGroups$ = data;
+      let hiddenSessions = 0;
 
-     this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).then(data => {
-     this.shownSessions = data.shownSessions;
-     this.groups = data.groups;
-     });
-     */
+      sessionGroup.sessions.forEach((session: Session) => {
+
+        let matchedTags = 0;
+        session.tags.forEach((tag) => {
+          if (this.shownTags.indexOf(tag) > -1) {
+            matchedTags++;
+          }
+        });
+
+        let matchedText = false;
+        if (session.title.toLowerCase().indexOf(this.queryText.toLowerCase()) > -1) {
+          matchedText = true;
+        }
+
+        if (
+          ( matchedTags > 0 || this.shownTags.length === 0 ) &&
+          ( matchedText || this.queryText.length === 0)
+        ) {
+
+          /*
+          session.hidden = false;
+          this.numberOfShownSessions++;
+          */
+
+
+          if (this.segment === 'favorites' && !session.favorite) {
+            session.hidden = true;
+            hiddenSessions++;
+          }
+          else{
+            session.hidden = false;
+            this.numberOfShownSessions++;
+          }
+
+        } else {
+          session.hidden = true;
+          hiddenSessions++;
+        }
+
+      });
+
+      sessionGroup.hidden = sessionGroup.sessions.length === hiddenSessions;
+
+    });
+
   }
 
   presentFilter() {
 
-    let modal = this.modalCtrl.create(ScheduleFilterPage, this.excludeTracks);
+    let modal = this.modalCtrl.create(ScheduleFilterPage, {
+      shownTags: this.shownTags
+    });
     modal.present();
 
     modal.onDidDismiss((data: any[]) => {
       if (data) {
-        this.excludeTracks = data;
+        this.shownTags = data;
         this.updateSchedule();
       }
     });
 
+  }
+
+  resetFilters(event?: any) {
+    if (event) {
+      event.preventDefault();
+    }
+    this.shownTags = [];
+    this.updateSchedule();
   }
 
   goToSessionDetail(session) {

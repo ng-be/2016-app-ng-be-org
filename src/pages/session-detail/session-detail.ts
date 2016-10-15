@@ -1,10 +1,10 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavParams, NavController } from 'ionic-angular';
+import { NavParams, NavController, ModalController } from 'ionic-angular';
 
 // app imports
 import { Session, Speaker } from '../../entities';
-import { SpeakerDetailPage } from '../';
+import { SpeakerDetailPage, RateSessionPage } from '../';
 
 @Component({
   selector: 'page-session-detail',
@@ -15,14 +15,27 @@ export class SessionDetailPage {
   session: Session;
 
   constructor(private navParams: NavParams,
-              private navCtrl: NavController) {
+              private navCtrl: NavController,
+              private modalCtrl: ModalController) {
 
     this.session = navParams.data.session;
+
+  }
+
+  toggleFavorite(){
 
   }
 
   goToSpeakerDetail(speaker: Speaker): void {
     this.navCtrl.push(SpeakerDetailPage, speaker);
   }
+
+  openRatingModal() {
+    let modal = this.modalCtrl.create(RateSessionPage, {
+      session: this.session
+    });
+    modal.present();
+  }
+
 
 }

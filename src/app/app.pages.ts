@@ -9,7 +9,8 @@ import {
   SessionDetailPage,
   SpeakerDetailPage,
   SpeakerListPage,
-  TabsPage
+  TabsPage,
+  RateSessionPage
 } from '../pages';
 
 export const APP_PAGES = [
@@ -23,5 +24,6 @@ export const APP_PAGES = [
   SessionDetailPage,
   SpeakerDetailPage,
   SpeakerListPage,
-  TabsPage
+  TabsPage,
+  RateSessionPage
 ];
