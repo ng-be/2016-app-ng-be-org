@@ -12,7 +12,6 @@ import { AuthService } from './';
 export class ConferenceDataService {
 
   rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
-  rpSessions$ = new ReplaySubject<Array<Session>>();
   rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
   rpTags$ = new ReplaySubject<Array<String>>();
 
@@ -34,6 +33,7 @@ export class ConferenceDataService {
   private sessionsWithRoomAndSpeakers$ = Observable.combineLatest(
     this.sessions$, this.rooms$, this.speakers$,
     (sessions: Array<Session>, rooms: Array<Room>, speakers: Array<Speaker>) => {
+
       sessions.forEach((session: Session) => {
 
         let sessionRooms = rooms.filter((room: Room) => {
@@ -43,32 +43,27 @@ export class ConferenceDataService {
           session.room = sessionRooms[0];
         }
 
-        let sessionSpeakers = [];
-        if (session.speakers) {
-          sessionSpeakers = speakers.filter((speaker: Speaker) => {
-            return session.speakerIds.indexOf(Number(speaker.$key)) > -1;
-          });
-        }
-        session.speakers = sessionSpeakers;
+        session.speakers = speakers.filter((speaker: Speaker) => {
+          return session.speakerIds && session.speakerIds.indexOf(Number(speaker.$key)) > -1;
+        });
 
       });
+
       return sessions;
     }
   );
 
-  private speakersWithSessions$ = Observable.combineLatest(this.speakers$, this.sessions$,
-    (speakers: Array<Speaker>, sessions: Array<Session>, rooms: Array<Room>) => {
+  private speakersWithSessions$ = Observable.combineLatest(this.speakers$, this.sessionsWithRoomAndSpeakers$,
+    (speakers: Array<Speaker>, sessions: Array<Session>) => {
+
       speakers.forEach((speaker: Speaker) => {
 
-        let speakerSessions = [];
-        if (speaker.sessions) {
-          speakerSessions = sessions.filter((session: Session) => {
-            return session.speakerIds.indexOf(Number(speaker.$key)) > -1;
-          });
-        }
-        speaker.sessions = speakerSessions
+        speaker.sessions = sessions.filter((session: Session) => {
+          return session.speakerIds && session.speakerIds.indexOf(Number(speaker.$key)) > -1;
+        });
 
       });
+
       return speakers;
     }
   );
@@ -104,9 +99,7 @@ export class ConferenceDataService {
     });
 
     this.sessions$.subscribe((sessions: Array<Session>) => {
-      console.log(sessions);
       this.handleTags(sessions);
-      this.rpSessions$.next(sessions);
     });
 
     this.sessionGroups$.subscribe((sessionGroups: Array<SessionGroup>) => {
@@ -133,6 +126,7 @@ export class ConferenceDataService {
         }
       });
     });
+    console.log(tags);
     this.rpTags$.next(tags);
   }
 

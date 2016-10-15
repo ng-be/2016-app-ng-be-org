@@ -25,9 +25,11 @@
         {{speaker.description}}
       </p>
       <ion-list>
+        <!--
         <button ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
           <h3>{{session.title}}</h3>
         </button>
+        -->
         <button ion-item (click)="goToSpeakerDetail(speaker)">
           <h3>Read more about {{speaker.firstname}} {{speaker.name}}</h3>
         </button>

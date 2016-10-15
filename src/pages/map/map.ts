@@ -31,32 +31,38 @@ export class MapPage {
 
   ionViewDidLoad() {
 
-    let mapEle = document.getElementById('map');
+    setTimeout(() => {
+      let mapEle = document.getElementById('map');
 
-    let map = new google.maps.Map(mapEle, {
-      center: this.mapData.find(d => d.center),
-      zoom: 13
-    });
+      console.log(mapEle);
+      console.log(this.mapData);
 
-    this.mapData.forEach(markerData => {
-      let infoWindow = new google.maps.InfoWindow({
-        content: `<h5>${markerData.name}</h5>`
+      let map = new google.maps.Map(mapEle, {
+        center: this.mapData.find(d => d.center),
+        zoom: 13
       });
 
-      let marker = new google.maps.Marker({
-        position: markerData,
-        map: map,
-        title: markerData.name
+      this.mapData.forEach(markerData => {
+        let infoWindow = new google.maps.InfoWindow({
+          content: `<h5>${markerData.name}</h5>`
+        });
+
+        let marker = new google.maps.Marker({
+          position: markerData,
+          map: map,
+          title: markerData.name
+        });
+
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker);
+        });
       });
 
-      marker.addListener('click', () => {
-        infoWindow.open(map, marker);
+      google.maps.event.addListenerOnce(map, 'idle', () => {
+        mapEle.classList.add('show-map');
       });
-    });
+    }, 500);
 
-    google.maps.event.addListenerOnce(map, 'idle', () => {
-      mapEle.classList.add('show-map');
-    });
 
 
   }

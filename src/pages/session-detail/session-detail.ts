@@ -1,10 +1,10 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavParams, NavController } from 'ionic-angular';
 
 // app imports
-import { ConferenceDataService } from '../../services';
-import { Session } from '../../entities';
+import { Session, Speaker } from '../../entities';
+import { SpeakerDetailPage } from '../';
 
 @Component({
   selector: 'page-session-detail',
@@ -15,10 +15,14 @@ export class SessionDetailPage {
   session: Session;
 
   constructor(private navParams: NavParams,
-              private conferenceData: ConferenceDataService) {
+              private navCtrl: NavController) {
 
-    this.session = navParams.data;
+    this.session = navParams.data.session;
 
+  }
+
+  goToSpeakerDetail(speaker: Speaker): void {
+    this.navCtrl.push(SpeakerDetailPage, speaker);
   }
 
 }

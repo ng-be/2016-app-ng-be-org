@@ -25,8 +25,14 @@ page-speaker-detail {
       font-size: 1.6em;
     }
 
-    .twitter{
+    .twitter {
       color: #1da1f2;
+    }
+
+    ion-list {
+      ion-item:nth-child(odd) {
+        background: #eee;
+      }
     }
 
   }

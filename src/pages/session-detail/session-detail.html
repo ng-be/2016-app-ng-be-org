@@ -7,18 +7,45 @@
 
   <h1>{{session.title}}</h1>
 
-  <!--
-  <h4>
-    <pre>
-    {{session.speakers | json}}
-    </pre>
-  </h4>
-  -->
-  <p>
-    {{session.startDate.format('HH:mm')}} -  {{session.endDate.format('HH:mm')}}
-  </p>
+  <table>
+    <tr>
+      <th>Slot:</th>
+      <td>{{session.startDate.format('HH:mm')}} - {{session.endDate.format('HH:mm')}}</td>
+    </tr>
+    <tr>
+      <th>Room:</th>
+      <td>{{session.room.name}}</td>
+    </tr>
+    <tr>
+      <th>Tags:</th>
+      <td>
+        <ul>
+        <li *ngFor="let tag of session.tags" [attr.tag]="tag" class="tag">
+          {{tag}}
+        </li>
+      </ul>
+      </td>
+    </tr>
+  </table>
 
-  <p><strong>Room:</strong> {{session.room.name}}</p>
   <h3>Description:</h3>
   <div [innerHtml]="session.description"></div>
+
+  <div *ngIf="session.speakers.length">
+    <h3>Speakers:</h3>
+
+    <ion-list no-padding>
+      <button ion-item *ngFor="let speaker of session.speakers" (click)="goToSpeakerDetail(speaker)">
+        <ion-avatar item-left>
+          <img [src]="speaker.avatar" [alt]="speaker.firstname + ' ' + speaker.name">
+        </ion-avatar>
+        <h2>{{speaker.firstname}} {{speaker.name}}</h2>
+        <p>
+          {{speaker.description.substr(0, 50)}}...
+        </p>
+      </button>
+    </ion-list>
+
+  </div>
+
 </ion-content>
