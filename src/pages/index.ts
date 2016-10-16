@@ -1,5 +1,4 @@
 export * from './about/about';
-export * from './account/account';
 export * from './login/login';
 export * from './map/map';
 export * from './schedule/schedule';

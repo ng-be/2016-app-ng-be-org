@@ -6,7 +6,7 @@ page-rate-session {
 
   textarea {
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #bbb;
     font-size: 16px;
     width: 100%;
     display: block;
@@ -14,6 +14,15 @@ page-rate-session {
   }
 
   ion-content {
+
+    ion-card {
+      margin: 0 0 15px 0 !important;
+      width: 100% !important;
+      p {
+        font-size: 16px !important;
+      }
+    }
+
     & > p {
       font-size: 16px;
     }
@@ -35,11 +44,11 @@ page-rate-session {
     }
     p {
 
-      margin:{
-        top:0;
+      margin: {
+        top: 0;
         bottom: 15px
       }
     }
-    margin-bottom:20px;
+    margin-bottom: 20px;
   }
 }

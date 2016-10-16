@@ -1,11 +1,18 @@
 // 3d party imports
 import { Component, ViewChild } from '@angular/core';
-import { Events, MenuController, Nav, Platform } from 'ionic-angular';
+import {
+  MenuController,
+  Nav,
+  Platform,
+  AlertController,
+  AlertController,
+  ToastController
+} from 'ionic-angular';
 import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
-import { AccountPage, LoginPage, TabsPage } from '../pages';
-import { UserDataService } from '../services';
+import { LoginPage, TabsPage } from '../pages';
+import { AuthService } from '../services';
 
 export interface PageObj {
   title: string;
@@ -32,19 +39,14 @@ export class ConferenceApp {
     {title: 'Map', component: TabsPage, index: 2, icon: 'map'},
     {title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
   ];
-  loggedInPages: PageObj[] = [
-    {title: 'Account', component: AccountPage, icon: 'person'},
-    {title: 'Logout', component: TabsPage, icon: 'log-out'}
-  ];
-  loggedOutPages: PageObj[] = [
-    {title: 'Login', component: LoginPage, icon: 'log-in'}
-  ];
   rootPage: any = TabsPage;
+  currentUser: any;
 
-  constructor(private events: Events,
-              private userData: UserDataService,
+  constructor(private authService: AuthService,
               private menu: MenuController,
-              private platform: Platform) {
+              private platform: Platform,
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController) {
 
     this.initApplication();
   }
@@ -56,11 +58,20 @@ export class ConferenceApp {
     });
 
     // decide which menu items should be hidden by current login status stored in local storage
-    this.userData.hasLoggedIn().then((hasLoggedIn) => {
-      this.enableMenu(hasLoggedIn === 'true');
+    this.authService.rpCurrentUser$.subscribe((currentUser) => {
+      this.currentUser = currentUser;
+      if(currentUser){
+        let toast = this.toastCtrl.create({
+          message: 'Welcome ' + currentUser.displayName+'! You can now start favoriting & rating sessions!',
+          showCloseButton: true,
+          closeButtonText: 'close',
+          duration: 5000
+        });
+        toast.present();
+        this.enableMenu(currentUser);
+      }
     });
 
-    this.listenToLoginEvents();
   }
 
   openPage(page: PageObj) {
@@ -82,22 +93,48 @@ export class ConferenceApp {
     }
   }
 
-  listenToLoginEvents() {
-    this.events.subscribe('user:login', () => {
-      this.enableMenu(true);
-    });
-
-    this.events.subscribe('user:signup', () => {
-      this.enableMenu(true);
-    });
-
-    this.events.subscribe('user:logout', () => {
-      this.enableMenu(false);
-    });
-  }
-
   enableMenu(loggedIn) {
     this.menu.enable(loggedIn, 'loggedInMenu');
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
+
+  openLogin(){
+    this.nav.push(LoginPage);
+  }
+
+  signOut() {
+
+    let alert = this.alertCtrl.create({
+      title: 'Logout',
+      message: 'Are you sure you want to logout?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            return;
+          }
+        },
+        {
+          text: 'Yes, logout',
+          handler: () => {
+            this.authService.signOut();
+            let toast = this.toastCtrl.create({
+              message: 'You have been logged out',
+              showCloseButton: true,
+              closeButtonText: 'close',
+              duration: 3000
+            });
+            toast.present();
+            this.menu.close('loggedInMenu');
+            this.enableMenu(false);
+          }
+        }
+      ]
+    });
+
+    // now present the alert on top of all other content
+    alert.present();
+
+  }
+
 }

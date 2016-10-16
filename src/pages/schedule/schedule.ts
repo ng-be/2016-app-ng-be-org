@@ -1,6 +1,15 @@
 // 3d party imports
 import { Component, OnDestroy } from '@angular/core';
-import { AlertController, App, ItemSliding, ModalController, NavController } from 'ionic-angular';
+import {
+  AlertController,
+  App,
+  ItemSliding,
+  ModalController,
+  NavController,
+  LoadingController,
+  Loading,
+  ToastController
+} from 'ionic-angular';
 import { Subscription } from 'rxjs';
 
 // app imports
@@ -19,6 +28,7 @@ export class SchedulePage implements OnDestroy {
   numberOfShownSessions = 0;
   groups = [];
   shownTags = [];
+  loader: Loading;
 
   sessionGroups: Array<SessionGroup>;
 
@@ -28,7 +38,9 @@ export class SchedulePage implements OnDestroy {
               private app: App,
               private modalCtrl: ModalController,
               private navCtrl: NavController,
+              private loadingCtrl: LoadingController,
               private conferenceData: ConferenceDataService,
+              private toastCtrl: ToastController,
               private user: UserDataService) {
 
     this.subscriptions.push(
@@ -40,10 +52,72 @@ export class SchedulePage implements OnDestroy {
       })
     );
 
+    this.presentLoader();
+
   }
 
   ionViewDidEnter() {
     this.app.setTitle('Schedule');
+    this.closeLoader();
+  }
+
+  toggleFavorite(slidingItem: ItemSliding, session) {
+
+    if (session.favorite) {
+
+      let alert = this.alertCtrl.create({
+        title: 'Defavorite',
+        message: 'Would you like to remove this session from your favorites?',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+              slidingItem.close();
+            }
+          },
+          {
+            text: 'Defavorite',
+            handler: () => {
+              slidingItem.close();
+              this.toggleFavoriteToast(session);
+
+            }
+          }
+        ]
+      });
+
+      // now present the alert on top of all other content
+      alert.present();
+
+    } else {
+      slidingItem.close();
+      this.toggleFavoriteToast(session);
+    }
+
+  }
+
+  toggleFavoriteToast(session) {
+    session.favorite = !session.favorite;
+    let toast = this.toastCtrl.create({
+      message: session.favorite ? 'Session has been favorited' : 'Session has been defavorited',
+      showCloseButton: true,
+      closeButtonText: 'close',
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  presentLoader() {
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    this.loader.present();
+  }
+
+  closeLoader() {
+    if (this.loader) {
+      this.loader.dismissAll();
+    }
   }
 
   updateSchedule() {
@@ -76,7 +150,7 @@ export class SchedulePage implements OnDestroy {
             session.hidden = true;
             hiddenSessions++;
           }
-          else{
+          else {
             session.hidden = false;
             this.numberOfShownSessions++;
           }
@@ -91,6 +165,8 @@ export class SchedulePage implements OnDestroy {
       sessionGroup.hidden = sessionGroup.sessions.length === hiddenSessions;
 
     });
+
+    this.closeLoader()
 
   }
 
@@ -154,6 +230,7 @@ export class SchedulePage implements OnDestroy {
   }
 
   removeFavorite(slidingItem: ItemSliding, sessionData, title) {
+
     let alert = this.alertCtrl.create({
       title: title,
       message: 'Would you like to remove this session from your favorites?',

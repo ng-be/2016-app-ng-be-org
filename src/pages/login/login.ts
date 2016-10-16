@@ -1,9 +1,6 @@
 // 3d party imports
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Subscription } from 'rxjs';
-import { Toast } from 'ionic-native';
-import { AngularFire, AuthMethods, AuthProviders } from 'angularfire2';
 
 // app imports
 import { TabsPage } from '../';
@@ -13,41 +10,35 @@ import { AuthService } from '../../services';
   selector: 'page-login',
   templateUrl: 'login.html'
 })
-export class LoginPage implements OnDestroy {
-
-  private subscriptions: Array<Subscription> = [];
+export class LoginPage {
 
   constructor(private navCtrl: NavController,
-              private authService: AuthService,
-              private af: AngularFire) {
+              private authService: AuthService) {
   }
 
-  loginFacebook(event) {
-    this.af.auth.login({
-      provider: AuthProviders.Facebook,
-      method: AuthMethods.Redirect,
-    }).then((res)=> {
-      console.log(res);
-      this.navCtrl.push(TabsPage);
-    }, (err)=>{
-      Toast.show('Failed to log in', '5000', 'center');
-    });
+  signInWithFacebook(): void {
+    this.authService.signInWithFacebook()
+      .then(() => this.postSignIn());
   }
 
-  loginTwitter(event) {
-
+  signInWithGithub(): void {
+    this.authService.signInWithGithub()
+      .then(() => this.postSignIn());
   }
 
-  loginGithub(event) {
-
+  signInWithGoogle(): void {
+    this.authService.signInWithGoogle()
+      .then(() => this.postSignIn());
   }
 
-  loginGoogle(event) {
-
+  signInWithTwitter(): void {
+    this.authService.signInWithTwitter()
+      .then(() => this.postSignIn());
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+  private postSignIn(): void {
+    this.navCtrl.push(TabsPage);
+
   }
 
 }

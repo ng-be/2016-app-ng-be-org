@@ -1,7 +1,6 @@
 import {
   AboutPage,
   PopoverPage,
-  AccountPage,
   LoginPage,
   MapPage,
   SchedulePage,
@@ -16,7 +15,6 @@ import {
 export const APP_PAGES = [
   AboutPage,
   PopoverPage,
-  AccountPage,
   LoginPage,
   MapPage,
   SchedulePage,

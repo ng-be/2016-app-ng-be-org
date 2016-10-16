@@ -3,7 +3,7 @@
     <ion-title>Session</ion-title>
     <ion-buttons end>
       <button ion-button (click)="toggleFavorite()">
-        <ion-icon name="bookmark"></ion-icon>
+        <ion-icon name="bookmark" [color]="session.favorite ? 'secondary' : ''"></ion-icon>
       </button>
       <button ion-button (click)="openRatingModal()">
         <ion-icon name="star-half"></ion-icon>
@@ -37,9 +37,11 @@
   </table>
 
   <p>
+
     <button ion-button icon-left small color="favorite" (click)="toggleFavorite()">
       <ion-icon name='bookmark'></ion-icon>
-      Favorite session
+      <span *ngIf="!session.favorite">Favorite session</span>
+      <span *ngIf="session.favorite">Defavorite session</span>
     </button>
 
     <button ion-button icon-left small color="favorite" (click)="openRatingModal()">

@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavParams, NavController, ModalController } from 'ionic-angular';
+import { NavParams, NavController, ModalController, ToastController, AlertController } from 'ionic-angular';
 
 // app imports
 import { Session, Speaker } from '../../entities';
@@ -16,14 +16,55 @@ export class SessionDetailPage {
 
   constructor(private navParams: NavParams,
               private navCtrl: NavController,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController) {
 
     this.session = navParams.data.session;
 
   }
 
-  toggleFavorite(){
+  toggleFavorite() {
 
+    if (this.session.favorite) {
+
+      let alert = this.alertCtrl.create({
+        title: 'Defavorite',
+        message: 'Would you like to remove this session from your favorites?',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+              return;
+            }
+          },
+          {
+            text: 'Defavorite',
+            handler: () => {
+              this.toggleFavoriteToast();
+            }
+          }
+        ]
+      });
+
+      // now present the alert on top of all other content
+      alert.present();
+
+    } else {
+      this.toggleFavoriteToast();
+    }
+
+  }
+
+  toggleFavoriteToast() {
+    this.session.favorite = !this.session.favorite;
+    let toast = this.toastCtrl.create({
+      message: this.session.favorite ? 'Session has been favorited' : 'Session has been defavorited',
+      showCloseButton: true,
+      closeButtonText: 'close',
+      duration: 3000
+    });
+    toast.present();
   }
 
   goToSpeakerDetail(speaker: Speaker): void {
