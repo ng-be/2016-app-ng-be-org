@@ -1,0 +1,10 @@
+ac-stars {
+  display: block;
+
+  & > span {
+    float: right;
+    color: #777;
+    line-height: 28px;
+    font-size: 1.3rem;
+  }
+}

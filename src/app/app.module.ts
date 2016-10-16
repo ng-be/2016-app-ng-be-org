@@ -10,9 +10,17 @@ import { APP_PAGES } from './app.pages';
 import { APP_PROVIDERS } from './app.providers';
 import { firebaseConfig } from './app.firebase';
 
+import { AcStar, AcStars } from '../pages/rate-session/components'
+
+const APP_COMPONENTS = [
+  AcStar,
+  AcStars
+];
+
 @NgModule({
   declarations: [
     ConferenceApp,
+    ...APP_COMPONENTS,
     ...APP_PAGES
   ],
   imports: [
@@ -22,11 +30,13 @@ import { firebaseConfig } from './app.firebase';
   bootstrap: [IonicApp],
   entryComponents: [
     ConferenceApp,
-    ...APP_PAGES
+    ...APP_COMPONENTS,
+    ...APP_PAGES,
   ],
   providers: [
     Storage,
     ...APP_PROVIDERS
   ]
 })
-export class AppModule {}
+export class AppModule {
+}

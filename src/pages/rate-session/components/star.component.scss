@@ -1,0 +1,15 @@
+ac-star {
+  display: inline-block;
+  margin-right: 3px;
+  font-size:2.2rem;
+
+  .star {
+    color: #efefef;
+    cursor: pointer;
+    transition: color .4s ease-in-out;
+  }
+  .star.active {
+    color: #FFD600;
+  }
+
+}

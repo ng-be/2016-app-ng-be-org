@@ -1,4 +1,45 @@
 page-rate-session {
 
+  h4 {
+    margin-bottom: 10px;
+  }
 
+  textarea {
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 100%;
+    display: block;
+    margin-top: 15px;
+  }
+
+  ion-content {
+    & > p {
+      font-size: 16px;
+    }
+
+    ion-list {
+      ion-item {
+        padding-left: 0 !important;
+      }
+      margin: {
+        bottom: 0 !important;
+      }
+    }
+
+  }
+
+  .sessionrating {
+    h4 {
+      margin-bottom: 0;
+    }
+    p {
+
+      margin:{
+        top:0;
+        bottom: 15px
+      }
+    }
+    margin-bottom:20px;
+  }
 }

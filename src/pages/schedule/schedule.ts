@@ -72,12 +72,6 @@ export class SchedulePage implements OnDestroy {
           ( matchedText || this.queryText.length === 0)
         ) {
 
-          /*
-          session.hidden = false;
-          this.numberOfShownSessions++;
-          */
-
-
           if (this.segment === 'favorites' && !session.favorite) {
             session.hidden = true;
             hiddenSessions++;
