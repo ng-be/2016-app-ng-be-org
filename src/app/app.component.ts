@@ -5,7 +5,6 @@ import {
   Nav,
   Platform,
   AlertController,
-  AlertController,
   ToastController
 } from 'ionic-angular';
 import { Splashscreen, StatusBar } from 'ionic-native';

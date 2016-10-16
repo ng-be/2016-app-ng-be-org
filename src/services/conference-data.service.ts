@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
 
 // app imports
-import { Room, Speaker, Session, SessionGroup } from '../entities';
+import { Room, Speaker, Session, SessionGroup, Favorite, Rating } from '../entities';
 import { AuthService } from './';
 
 @Injectable()
@@ -14,8 +14,11 @@ export class ConferenceDataService {
   rpSpeakers$ = new ReplaySubject<Array<Speaker>>();
   rpSessionGroups$ = new ReplaySubject<Array<SessionGroup>>();
   rpTags$ = new ReplaySubject<Array<String>>();
+  rpFavorites$ = new ReplaySubject<Array<Favorite>>();
+  rpRatings$ = new ReplaySubject<Array<Rating>>();
 
   //private isAuthenticated$ = this.authService.isAuthenticated$;
+  private currentUser;
 
   // basic entities
   private rooms$: Observable<Array<Room>> = this.af.database.list(`rooms`);
@@ -106,15 +109,41 @@ export class ConferenceDataService {
       this.rpSessionGroups$.next(sessionGroups);
     });
 
-    //this.addDemoSessions();
+    this.authService.rpCurrentUser$.subscribe((currentUser) => {
+      this.currentUser = currentUser;
+      if (currentUser) {
+        console.log(currentUser);
+        this.af.database.list(`favorites/${this.currentUser.uid}`).subscribe((favorites: Array<Favorite>) => {
+          this.rpFavorites$.next(favorites);
+        });
+        this.af.database.list(`ratings/${this.currentUser.uid}`).subscribe((ratings: Array<Rating>) => {
+          this.rpRatings$.next(ratings);
+        });
+      }
+    });
+
   }
 
-  setFavorite(session: Session): void {
-    this.af.database.list(`/users/${this.uid}/favoriteSessions`).push({sessionId: session.$key});
+  setFavorite(key: string) {
+    return this.af.database.list(`/favorites/${this.currentUser.uid}`).push({sessionId: key});
   }
 
   removeFavorite(key: string): void {
-    this.af.database.list(`/users/${this.uid}/favoriteSessions/${key}`).remove();
+    this.af.database.list(`/favorites/${this.currentUser.uid}/${key}`).remove();
+  }
+
+  updateRating(rating: Rating): void {
+    this.removeRating(rating.$key);
+    delete rating.$key;
+    this.saveRating(rating);
+  }
+
+  removeRating(key: string): void {
+    this.af.database.list(`/ratings/${this.currentUser.uid}/${key}`).remove();
+  }
+
+  saveRating(rating: Rating): void {
+    this.af.database.list(`/ratings/${this.currentUser.uid}`).push(rating);
   }
 
   handleTags(sessions: Array<Session>) {

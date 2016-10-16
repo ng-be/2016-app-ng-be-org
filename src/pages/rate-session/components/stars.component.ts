@@ -30,6 +30,9 @@ export class AcStars implements OnInit {
     if(!this.rating){
       this.currentRate = 1;
     }
+    else{
+      this.currentRate = this.rating;
+    }
   }
 
   onRate(star) {

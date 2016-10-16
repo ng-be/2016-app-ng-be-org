@@ -1,9 +1,9 @@
 /**
  * Rename to `app.firebase.ts` and fill in the correct information.
  */
-import { AngularFireModule, AuthMethods } from 'angularfire2';
+import { AuthMethods } from 'angularfire2';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: '',
   authDomain: '',
   databaseURL: '',
@@ -11,9 +11,7 @@ const firebaseConfig = {
   messagingSenderId: '',
 };
 
-const firebaseAuthConfig = {
+export const firebaseAuthConfig = {
   method: AuthMethods.Popup,
   remember: 'default'
 };
-
-export const FirebaseModule = AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig);

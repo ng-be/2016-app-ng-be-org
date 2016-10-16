@@ -1,6 +1,16 @@
-export interface Rating {
-  userId: string;
-  sessionId: number;
+export interface SpeakerRating{
+  speakerId: string;
   rating: number;
-  comment?: string;
+  firstname?: string;
+  name?: string;
+  avatar?: string;
+}
+
+export interface Rating {
+  $key?: string,
+  sessionId: string;
+  speakers: SpeakerRating[];
+  rating: number;
+  remarks?: string;
+  $exists?: Function;
 }

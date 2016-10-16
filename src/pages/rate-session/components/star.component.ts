@@ -10,7 +10,11 @@ export class AcStar {
   @Input() position: number;
   @Output() rate = new EventEmitter();
 
-  handleRate() {
+  constructor() {
+
+  }
+
+  handleRate(event) {
     this.rate.emit(this.position);
   }
 }

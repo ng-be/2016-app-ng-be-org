@@ -13,9 +13,9 @@ import {
 import { Subscription } from 'rxjs';
 
 // app imports
-import { ConferenceDataService, UserDataService } from '../../services';
-import { ScheduleFilterPage, SessionDetailPage } from '../';
-import { SessionGroup, Session } from '../../entities';
+import { ConferenceDataService, AuthService } from '../../services';
+import { ScheduleFilterPage, SessionDetailPage, LoginPage } from '../';
+import { SessionGroup, Session, Favorite, Rating } from '../../entities';
 
 @Component({
   selector: 'page-schedule',
@@ -29,9 +29,13 @@ export class SchedulePage implements OnDestroy {
   groups = [];
   shownTags = [];
   loader: Loading;
+  isAuthenticated = false;
+  loading = true;
 
   sessionGroups: Array<SessionGroup>;
 
+  private favorites: Array<Favorite> = [];
+  private ratings: Array<Rating> = [];
   private subscriptions = Array<Subscription>();
 
   constructor(private alertCtrl: AlertController,
@@ -41,17 +45,9 @@ export class SchedulePage implements OnDestroy {
               private loadingCtrl: LoadingController,
               private conferenceData: ConferenceDataService,
               private toastCtrl: ToastController,
-              private user: UserDataService) {
+              private authService: AuthService) {
 
-    this.subscriptions.push(
-      this.conferenceData.rpSessionGroups$.subscribe((data) => {
-
-        this.sessionGroups = data;
-        this.updateSchedule();
-
-      })
-    );
-
+    this.setupSubscriptions();
     this.presentLoader();
 
   }
@@ -59,6 +55,9 @@ export class SchedulePage implements OnDestroy {
   ionViewDidEnter() {
     this.app.setTitle('Schedule');
     this.closeLoader();
+    if (this.sessionGroups) {
+      this.updateSchedule();
+    }
   }
 
   toggleFavorite(slidingItem: ItemSliding, session) {
@@ -79,8 +78,8 @@ export class SchedulePage implements OnDestroy {
             text: 'Defavorite',
             handler: () => {
               slidingItem.close();
+              this.conferenceData.removeFavorite(session.favorite.$key);
               this.toggleFavoriteToast(session);
-
             }
           }
         ]
@@ -92,32 +91,45 @@ export class SchedulePage implements OnDestroy {
     } else {
       slidingItem.close();
       this.toggleFavoriteToast(session);
+      this.conferenceData.setFavorite(session.$key);
     }
 
   }
 
-  toggleFavoriteToast(session) {
-    session.favorite = !session.favorite;
-    let toast = this.toastCtrl.create({
-      message: session.favorite ? 'Session has been favorited' : 'Session has been defavorited',
-      showCloseButton: true,
-      closeButtonText: 'close',
-      duration: 3000
-    });
-    toast.present();
+  openLogin() {
+    this.navCtrl.push(LoginPage);
   }
 
-  presentLoader() {
-    this.loader = this.loadingCtrl.create({
-      content: "Please wait..."
+  presentFilter() {
+
+    let modal = this.modalCtrl.create(ScheduleFilterPage, {
+      shownTags: this.shownTags
     });
-    this.loader.present();
+    modal.present();
+
+    modal.onDidDismiss((data: any[]) => {
+      if (data) {
+        this.shownTags = data;
+        this.updateSchedule();
+      }
+    });
+
   }
 
-  closeLoader() {
-    if (this.loader) {
-      this.loader.dismissAll();
+  resetFilters(event?: any) {
+    if (event) {
+      event.preventDefault();
     }
+    this.shownTags = [];
+    this.updateSchedule();
+  }
+
+  goToSessionDetail(session) {
+    // go to the session detail page
+    // and pass in the session data
+    this.navCtrl.push(SessionDetailPage, {
+      session: session
+    });
   }
 
   updateSchedule() {
@@ -128,6 +140,20 @@ export class SchedulePage implements OnDestroy {
       let hiddenSessions = 0;
 
       sessionGroup.sessions.forEach((session: Session) => {
+
+        delete session.favorite;
+        this.favorites.forEach((favorite)=> {
+          if (favorite.sessionId === session.$key) {
+            session.favorite = favorite;
+          }
+        });
+
+        delete session.rating;
+        this.ratings.forEach((rating)=> {
+          if (rating.sessionId === session.$key) {
+            session.rating = rating;
+          }
+        });
 
         let matchedTags = 0;
         session.tags.forEach((tag) => {
@@ -166,98 +192,79 @@ export class SchedulePage implements OnDestroy {
 
     });
 
-    this.closeLoader()
+    this.closeLoader();
+    this.loading = false;
 
   }
 
-  presentFilter() {
-
-    let modal = this.modalCtrl.create(ScheduleFilterPage, {
-      shownTags: this.shownTags
+  private toggleFavoriteToast(session) {
+    let message = 'Session has been favorited';
+    if (session.favorite) {
+      delete session.favorite;
+      message = 'Session has been defavorited'
+    }
+    session.favorite = !session.favorite;
+    let toast = this.toastCtrl.create({
+      message: message,
+      showCloseButton: true,
+      closeButtonText: 'close',
+      duration: 3000
     });
-    modal.present();
+    toast.present();
+  }
 
-    modal.onDidDismiss((data: any[]) => {
-      if (data) {
-        this.shownTags = data;
+  private presentLoader() {
+    this.loader = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+    this.loader.present();
+  }
+
+  private closeLoader() {
+    if (this.loader) {
+      this.loader.dismissAll();
+    }
+  }
+
+  private setupSubscriptions() {
+    this.subscriptions.push(
+      this.conferenceData.rpSessionGroups$.subscribe((data) => {
+
+        this.sessionGroups = data;
         this.updateSchedule();
-      }
-    });
 
-  }
+      })
+    );
+    this.subscriptions.push(
+      this.conferenceData.rpFavorites$.subscribe((data) => {
 
-  resetFilters(event?: any) {
-    if (event) {
-      event.preventDefault();
-    }
-    this.shownTags = [];
-    this.updateSchedule();
-  }
-
-  goToSessionDetail(session) {
-    // go to the session detail page
-    // and pass in the session data
-    this.navCtrl.push(SessionDetailPage, {
-      session: session
-    });
-  }
-
-  addFavorite(slidingItem: ItemSliding, sessionData) {
-
-    if (this.user.hasFavorite(sessionData.name)) {
-      // woops, they already favorited it! What shall we do!?
-      // prompt them to remove it
-      this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
-    } else {
-      // remember this session as a user favorite
-      this.user.addFavorite(sessionData.name);
-
-      // create an alert instance
-      let alert = this.alertCtrl.create({
-        title: 'Favorite Added',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            // close the sliding item
-            slidingItem.close();
-          }
-        }]
-      });
-      // now present the alert on top of all other content
-      alert.present();
-    }
-
-  }
-
-  removeFavorite(slidingItem: ItemSliding, sessionData, title) {
-
-    let alert = this.alertCtrl.create({
-      title: title,
-      message: 'Would you like to remove this session from your favorites?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            // they clicked the cancel button, do not remove the session
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        },
-        {
-          text: 'Remove',
-          handler: () => {
-            // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
-            this.updateSchedule();
-
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
+        this.favorites = data;
+        if (this.sessionGroups) {
+          this.updateSchedule();
         }
-      ]
-    });
-    // now present the alert on top of all other content
-    alert.present();
+
+      })
+    );
+    this.subscriptions.push(
+      this.conferenceData.rpRatings$.subscribe((data) => {
+
+        this.ratings = data;
+        if (this.sessionGroups) {
+          this.updateSchedule();
+        }
+
+      })
+    );
+    this.subscriptions.push(
+      this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated;
+        this.favorites = [];
+        this.ratings = [];
+        if (this.sessionGroups) {
+          this.updateSchedule();
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {

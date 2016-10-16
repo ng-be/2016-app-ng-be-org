@@ -37,24 +37,25 @@
     <p>
       <strong>Title:</strong> {{session.title}}
     </p>
-    <ac-stars></ac-stars>
+    <ac-stars (rate)="setSessionRate($event)" [rating]="sessionRating.rating"></ac-stars>
   </div>
 
-  <div *ngIf="session.speakers.length > 0">
+  <div *ngIf="sessionRating.speakers.length > 0">
     <h4>Rate the <strong>speaker(s):</strong></h4>
 
     <ion-list no-padding>
-      <ion-item *ngFor="let speaker of session.speakers">
+      <ion-item *ngFor="let speaker of sessionRating.speakers">
         <ion-avatar item-left>
           <img [src]="speaker.avatar" [alt]="speaker.firstname + ' ' + speaker.name">
         </ion-avatar>
         <h2>{{speaker.firstname}} {{speaker.name}}</h2>
-        <ac-stars></ac-stars>
+        <ac-stars (rate)="setSpeakerRate($event, speaker)" [rating]="speaker.rating"></ac-stars>
       </ion-item>
     </ion-list>
   </div>
 
   <textarea placeholder="Do you have any other remarks? Please add your remarks and feedback here .."
+            [(ngModel)]="sessionRating.remarks"
             rows="4"></textarea>
 
   <p>

@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
+    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()" *ngIf="isAuthenticated">
       <ion-segment-button value="all">
         All
       </ion-segment-button>
@@ -32,6 +32,11 @@
 
 <ion-content>
 
+  <button ion-button full (click)="openLogin()" *ngIf="!isAuthenticated && !loading" color="secondary">
+    <ion-icon item-left name="log-in"></ion-icon>
+    Login to favorite & rate sessions!
+  </button>
+
   <ion-card *ngIf="shownTags.length > 0" class="currentFilter">
 
     <ion-card-header>
@@ -56,7 +61,8 @@
         {{group.startHour}}:00h
       </ion-item-divider>
 
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.tag]="session.tags[0]" [hidden]="session.hidden">
+      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.tag]="session.tags[0]"
+                        [hidden]="session.hidden">
 
         <ion-item (click)="goToSessionDetail(session)">
           <h3>{{session.title}}</h3>
@@ -73,7 +79,8 @@
           </ul>
 
           <ion-icon name="bookmark" item-right color="primary" *ngIf="!session.favorite && segment ==='all'"></ion-icon>
-          <ion-icon name="bookmark" item-right color="secondary" *ngIf="session.favorite && segment ==='all'"></ion-icon>
+          <ion-icon name="bookmark" item-right color="secondary"
+                    *ngIf="session.favorite && segment ==='all'"></ion-icon>
 
         </ion-item>
 
@@ -91,7 +98,7 @@
   </ion-list>
 
   <ion-list-header *ngIf="numberOfShownSessions === 0 && !loading">
-      No Sessions Found
+    No Sessions Found
   </ion-list-header>
 
 

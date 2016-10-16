@@ -2,12 +2,13 @@
 import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { AngularFireModule } from 'angularfire2';
 
 // app imports
 import { ConferenceApp } from './app.component';
 import { APP_PAGES } from './app.pages';
 import { APP_PROVIDERS } from './app.providers';
-import { FirebaseModule } from './app.firebase';
+import { firebaseConfig, firebaseAuthConfig } from './app.firebase';
 
 import { AcStar, AcStars } from '../pages/rate-session/components'
 
@@ -24,7 +25,7 @@ const APP_COMPONENTS = [
   ],
   imports: [
     IonicModule.forRoot(ConferenceApp),
-    FirebaseModule
+    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

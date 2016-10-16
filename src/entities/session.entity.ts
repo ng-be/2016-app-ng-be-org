@@ -2,7 +2,7 @@
 import { Moment } from 'moment';
 
 // app imports
-import { Room, Speaker } from './';
+import { Room, Speaker, Favorite, Rating } from './';
 
 export interface Session {
   roomId: number;
@@ -15,6 +15,7 @@ export interface Session {
   tags?: Array<string>;
   speakerIds: Array<number>;
   speakers?: Array<Speaker>;
-  favorite?: boolean;
+  favorite?: Favorite;
   hidden?: boolean;
+  rating?: Rating;
 }

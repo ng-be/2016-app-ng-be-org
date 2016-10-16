@@ -40,8 +40,8 @@ var rollupConfig = {
     builtins(),
     commonjs({
       namedExports: {
-        'node_modules/angularfire2/node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database'],
-        'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database']
+        'node_modules/angularfire2/node_modules/firebase/firebase.js': ['initializeApp', 'auth', 'database', 'ModuleWithProviders', 'FirebaseModule'],
+        'node_modules/angularfire2/node_modules/firebase/firebase-browser.js': ['initializeApp', 'auth', 'database', 'ModuleWithProviders', 'FirebaseModule']
       }
     }),
     nodeResolve({
