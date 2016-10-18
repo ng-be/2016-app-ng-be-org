@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <div class="header">
+    <img src="assets/img/ngbe-logo.svg">
+  </div>
+  <div padding class="actions">
+
+    <form #signupForm="ngForm" novalidate>
+      <ion-item>
+        <ion-label floating color="primary">Your name</ion-label>
+        <ion-input [(ngModel)]="signup.name" name="name" type="text" #name="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p [hidden]="name.valid || submitted == false" color="danger" padding-left class="validation">
+        Your name is required
+      </p>
+
+      <ion-item>
+        <ion-label floating color="primary">Email</ion-label>
+        <ion-input [(ngModel)]="signup.email" name="email" type="email" #email="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p [hidden]="email.valid || submitted == false" color="danger" padding-left class="validation">
+        Your name is required
+      </p>
+
+      <ion-item>
+        <ion-label floating color="primary">Password</ion-label>
+        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
+        </ion-input>
+      </ion-item>
+      <p [hidden]="password.valid || submitted == false" color="danger" padding-left class="validation">
+        Password is required
+      </p>
+
+      <ion-row responsive-sm>
+        <ion-col>
+          <button ion-button (click)="onSignup(signupForm)" type="submit" block color="primary">Register profile</button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </div>
+  <div class="info full" padding>
+
+    <h5>Why register/login</h5>
+    <p>
+      You can login using your favorite social provider to enable extra functionality on the app. By logging in you'll
+      be able to
+    </p>
+    <ul>
+      <li>Save your preferred sessions</li>
+      <li>Rate the speakers/sessions</li>
+      <li>...</li>
+    </ul>
+
+    <p class="warning">
+      <ion-icon name="warning"></ion-icon>
+      <strong>Important:</strong> we don't ever save your details or anything personal. We just use this information to
+      identify you as a registered user.
+    </p>
+
+  </div>
+
+</ion-content>

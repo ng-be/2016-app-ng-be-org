@@ -32,8 +32,8 @@
 
 <ion-content>
 
-  <button ion-button full (click)="openLogin()" *ngIf="!isAuthenticated && !loading" color="secondary">
-    <ion-icon item-left name="log-in"></ion-icon>
+  <button margin ion-button full (click)="openLogin()" *ngIf="!isAuthenticated && !loading" color="secondary" class="dologin">
+    <ion-icon item-left name="log-in"></ion-icon>&nbsp;&nbsp;&nbsp;
     Login to favorite & rate sessions!
   </button>
 

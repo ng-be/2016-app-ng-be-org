@@ -112,7 +112,6 @@ export class ConferenceDataService {
     this.authService.rpCurrentUser$.subscribe((currentUser) => {
       this.currentUser = currentUser;
       if (currentUser) {
-        console.log(currentUser);
         this.af.database.list(`favorites/${this.currentUser.uid}`).subscribe((favorites: Array<Favorite>) => {
           this.rpFavorites$.next(favorites);
         });

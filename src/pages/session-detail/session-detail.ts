@@ -1,5 +1,5 @@
 // 3d party imports
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   NavParams,
   NavController,
@@ -19,7 +19,7 @@ import { ConferenceDataService, AuthService } from '../../services';
   selector: 'page-session-detail',
   templateUrl: 'session-detail.html'
 })
-export class SessionDetailPage {
+export class SessionDetailPage implements OnDestroy{
 
   session: Session;
   isAuthenticated = false;

@@ -1,4 +1,4 @@
-page-login {
+page-signup {
 
   .header {
     background-color: #fafafa;;
@@ -14,8 +14,11 @@ page-login {
 
   }
 
-  .actions {
-    padding: 0 16px 16px 16px !important;
+  form {
+    ion-item {
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+    }
   }
 
   .info {
@@ -48,13 +51,6 @@ page-login {
       width: 20px;
     }
 
-  }
-
-  form {
-    ion-item {
-      padding-left: 8px !important;
-      padding-right: 8px !important;
-    }
   }
 
   .warning {

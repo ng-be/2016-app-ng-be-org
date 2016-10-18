@@ -1,10 +1,10 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, Platform, ToastController, NavParams, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 // app imports
-import { TabsPage } from '../';
+import { TabsPage, SignupPage } from '../';
 import { AuthService } from '../../services';
 
 @Component({
@@ -14,11 +14,29 @@ import { AuthService } from '../../services';
 export class LoginPage {
 
   previousLoginMethod: string;
+  isWeb: boolean;
+  login: {email?: string, password?: string} = {};
+  submitted = false;
 
-  constructor(private navCtrl: NavController,
+  constructor(private platform: Platform,
+              private navCtrl: NavController,
+              private navParams: NavParams,
               private authService: AuthService,
-              private storage: Storage) {
+              private storage: Storage,
+              private viewCtrl: ViewController,
+              private toastCtrl: ToastController) {
+
     this.getPreviousLoginMethod();
+    this.isWeb = this.platform.is('mobileweb');
+
+    if (navParams.data.email) {
+      this.login.email = navParams.data.email;
+    }
+
+    this.authService.rpCurrentUser$.subscribe(() => {
+      this.viewCtrl.dismiss();
+    });
+
   }
 
   signInWithFacebook(): void {
@@ -43,6 +61,37 @@ export class LoginPage {
 
   postSignIn(): void {
     this.navCtrl.push(TabsPage);
+  }
+
+  onLogin(form) {
+    this.submitted = true;
+
+    if (form.valid) {
+
+      let data = {
+        email: form.controls.email.value,
+        password: form.controls.password.value
+      };
+      this.authService.loginEmailPassword(data).then(
+        (res) => {
+          this.viewCtrl.dismiss();
+        },
+        (err) => {
+          let toast = this.toastCtrl.create({
+            message: err.message,
+            showCloseButton: true,
+            closeButtonText: 'close',
+            duration: 5000
+          });
+          toast.present();
+        }
+      );
+
+    }
+  }
+
+  onSignup() {
+    this.navCtrl.push(SignupPage);
   }
 
   private getPreviousLoginMethod() {

@@ -1,5 +1,6 @@
 export * from './about/about';
 export * from './login/login';
+export * from './signup/signup';
 export * from './map/map';
 export * from './schedule/schedule';
 export * from './schedule-filter/schedule-filter';

@@ -79,7 +79,7 @@ export class SchedulePage implements OnDestroy {
             handler: () => {
               slidingItem.close();
               this.conferenceData.removeFavorite(session.favorite.$key);
-              this.toggleFavoriteToast(session);
+              this.toggleFavoriteToast(session, true);
             }
           }
         ]
@@ -90,7 +90,7 @@ export class SchedulePage implements OnDestroy {
 
     } else {
       slidingItem.close();
-      this.toggleFavoriteToast(session);
+      this.toggleFavoriteToast(session, false);
       this.conferenceData.setFavorite(session.$key);
     }
 
@@ -197,13 +197,13 @@ export class SchedulePage implements OnDestroy {
 
   }
 
-  private toggleFavoriteToast(session) {
+  private toggleFavoriteToast(session, deleted) {
     let message = 'Session has been favorited';
-    if (session.favorite) {
+    if (deleted) {
       delete session.favorite;
       message = 'Session has been defavorited'
     }
-    session.favorite = !session.favorite;
+
     let toast = this.toastCtrl.create({
       message: message,
       showCloseButton: true,

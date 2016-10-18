@@ -28,5 +28,4 @@
     "no-access-missing-member": true,
     "invoke-injectable": true
   }
-
 }

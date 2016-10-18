@@ -10,7 +10,7 @@ import {
 import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
-import { LoginPage, TabsPage } from '../pages';
+import { LoginPage, TabsPage, SignupPage } from '../pages';
 import { AuthService } from '../services';
 
 export interface PageObj {
@@ -40,6 +40,7 @@ export class ConferenceApp {
   ];
   rootPage: any = TabsPage;
   currentUser: any;
+  isWeb: boolean;
 
   constructor(private authService: AuthService,
               private menu: MenuController,
@@ -48,6 +49,8 @@ export class ConferenceApp {
               private toastCtrl: ToastController) {
 
     this.initApplication();
+    this.isWeb = this.platform.is('mobileweb');
+
   }
 
   initApplication() {
@@ -59,9 +62,9 @@ export class ConferenceApp {
     // decide which menu items should be hidden by current login status stored in local storage
     this.authService.rpCurrentUser$.subscribe((currentUser) => {
       this.currentUser = currentUser;
-      if(currentUser){
+      if (currentUser) {
         let toast = this.toastCtrl.create({
-          message: 'Welcome ' + currentUser.displayName+'! You can now start favoriting & rating sessions!',
+          message: 'Welcome ' + currentUser.displayName + '! You can now start favoriting & rating sessions!',
           showCloseButton: true,
           closeButtonText: 'close',
           duration: 5000
@@ -97,8 +100,12 @@ export class ConferenceApp {
     this.menu.enable(!loggedIn, 'loggedOutMenu');
   }
 
-  openLogin(){
+  openLogin() {
     this.nav.push(LoginPage);
+  }
+
+  openSignup() {
+    this.nav.push(SignupPage);
   }
 
   signOut() {

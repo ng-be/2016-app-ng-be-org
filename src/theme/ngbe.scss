@@ -1,21 +1,26 @@
-.ngbutton{
+.ngbutton {
 
-  &.facebook{
+  &.facebook {
     background: color($colors, facebook);
   }
 
-  &.twitter{
+  &.twitter {
     background: color($colors, twitter);
   }
 
-  &.github{
+  &.github {
     background: color($colors, github);
   }
 
-  &.google{
+  &.google {
     background: color($colors, google);
   }
 
+}
+
+.validation {
+  margin-bottom: 0 !important;
+  padding-left: 0 !important;
 }
 
 $tags: (
