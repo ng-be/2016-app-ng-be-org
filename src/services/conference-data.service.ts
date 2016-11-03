@@ -17,7 +17,6 @@ export class ConferenceDataService {
   rpFavorites$ = new ReplaySubject<Array<Favorite>>();
   rpRatings$ = new ReplaySubject<Array<Rating>>();
 
-  //private isAuthenticated$ = this.authService.isAuthenticated$;
   private currentUser;
 
   // basic entities
@@ -121,6 +120,8 @@ export class ConferenceDataService {
       }
     });
 
+    //this.addDemoSessions();
+
   }
 
   setFavorite(key: string) {
@@ -175,7 +176,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 08:30',
       endDate: '09-12-2016 08:50',
       roomId: 1,
-      speakerIds: [0, 1],
+      speakerIds: [0],
       tags: ['angular'],
       title: 'Keynote about Angular 2'
     });
@@ -186,7 +187,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 09:00',
       endDate: '09-12-2016 09:25',
       roomId: 0,
-      speakerIds: [1],
+      speakerIds: [0],
       tags: ['angular'],
       title: 'Talking about Angular 2 #1'
     });
@@ -195,7 +196,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 09:30',
       endDate: '09-12-2016 09:55',
       roomId: 0,
-      speakerIds: [2],
+      speakerIds: [0],
       tags: ['angular', 'testing'],
       title: 'Talking about Angular 2 #2'
     });
@@ -204,7 +205,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 10:00',
       endDate: '09-12-2016 10:25',
       roomId: 0,
-      speakerIds: [3],
+      speakerIds: [0],
       tags: ['angular', 'tooling'],
       title: 'Talking about Angular 2 #3'
     });
@@ -213,7 +214,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 10:30',
       endDate: '09-12-2016 10:55',
       roomId: 0,
-      speakerIds: [4],
+      speakerIds: [0],
       tags: ['react', 'security'],
       title: 'Talking about Angular 2 #4'
     });
@@ -222,7 +223,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 11:00',
       endDate: '09-12-2016 11:25',
       roomId: 0,
-      speakerIds: [5],
+      speakerIds: [0],
       tags: ['react', 'design'],
       title: 'Talking about Angular 2 #5'
     });
@@ -231,7 +232,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 11:30',
       endDate: '09-12-2016 11:55',
       roomId: 0,
-      speakerIds: [6],
+      speakerIds: [0],
       tags: ['angular', 'tooling'],
       title: 'Talking about Angular 2 #6'
     });
@@ -252,7 +253,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 14:00',
       endDate: '09-12-2016 14:25',
       roomId: 0,
-      speakerIds: [6],
+      speakerIds: [0],
       tags: ['nativescript', 'mobile'],
       title: 'Talking about Angular 2 #7'
     });
@@ -261,7 +262,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 14:30',
       endDate: '09-12-2016 14:55',
       roomId: 0,
-      speakerIds: [7],
+      speakerIds: [0],
       tags: ['angular', 'mobile'],
       title: 'Talking about Angular 2 #8'
     });
@@ -270,7 +271,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 15:00',
       endDate: '09-12-2016 15:25',
       roomId: 0,
-      speakerIds: [8],
+      speakerIds: [0],
       tags: ['ionic', 'angular'],
       title: 'Talking about Angular 2 #9'
     });
@@ -279,7 +280,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 15:30',
       endDate: '09-12-2016 15:55',
       roomId: 0,
-      speakerIds: [4, 5],
+      speakerIds: [0],
       tags: ['testing', 'mobile'],
       title: 'Talking about Angular 2 #10'
     });
@@ -288,7 +289,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 16:00',
       endDate: '09-12-2016 16:25',
       roomId: 0,
-      speakerIds: [0, 7],
+      speakerIds: [0],
       tags: ['mobile'],
       title: 'Talking about Angular 2 #11'
     });
@@ -297,7 +298,7 @@ export class ConferenceDataService {
       startDate: '09-12-2016 16:30',
       endDate: '09-12-2016 16:55',
       roomId: 0,
-      speakerIds: [5, 7],
+      speakerIds: [0],
       tags: ['nativescript', 'angular'],
       title: 'Talking about Angular 2 #12'
     });

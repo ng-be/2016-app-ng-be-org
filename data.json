@@ -1,0 +1,305 @@
+{
+  "rooms": [
+    {
+      "name": "Main"
+    },
+    {
+      "name": "Lobby"
+    },
+    {
+      "name": "Q&A"
+    }
+  ],
+  "sessions": [
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 07:30",
+      "endDate": "09-12-2016 08:25",
+      "roomId": 0,
+      "tags": [
+        "food"
+      ],
+      "title": "Continental Angular breakfast"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 08:30",
+      "endDate": "09-12-2016 08:50",
+      "roomId": 1,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "angular"
+      ],
+      "title": "Keynote about Angular 2"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 09:00",
+      "endDate": "09-12-2016 09:25",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "angular"
+      ],
+      "title": "Talking about Angular 2 #1"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 09:30",
+      "endDate": "09-12-2016 09:55",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "angular",
+        "testing"
+      ],
+      "title": "Talking about Angular 2 #2"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 10:00",
+      "endDate": "09-12-2016 10:25",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "angular",
+        "tooling"
+      ],
+      "title": "Talking about Angular 2 #3"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 10:30",
+      "endDate": "09-12-2016 10:55",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "react",
+        "security"
+      ],
+      "title": "Talking about Angular 2 #4"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 11:00",
+      "endDate": "09-12-2016 11:25",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "react",
+        "design"
+      ],
+      "title": "Talking about Angular 2 #5"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 11:30",
+      "endDate": "09-12-2016 11:55",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "angular",
+        "tooling"
+      ],
+      "title": "Talking about Angular 2 #6"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 12:30",
+      "endDate": "09-12-2016 13:55",
+      "roomId": 1,
+      "tags": [
+        "food"
+      ],
+      "title": "Lunch with healthy food!"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 14:00",
+      "endDate": "09-12-2016 14:25",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "nativescript",
+        "mobile"
+      ],
+      "title": "Talking about Angular 2 #7"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 14:30",
+      "endDate": "09-12-2016 14:55",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "angular",
+        "mobile"
+      ],
+      "title": "Talking about Angular 2 #8"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 15:00",
+      "endDate": "09-12-2016 15:25",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "ionic",
+        "angular"
+      ],
+      "title": "Talking about Angular 2 #9"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 15:30",
+      "endDate": "09-12-2016 15:55",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "testing",
+        "mobile"
+      ],
+      "title": "Talking about Angular 2 #10"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 16:00",
+      "endDate": "09-12-2016 16:25",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "mobile"
+      ],
+      "title": "Talking about Angular 2 #11"
+    },
+    {
+      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
+      "startDate": "09-12-2016 16:30",
+      "endDate": "09-12-2016 16:55",
+      "roomId": 0,
+      "speakerIds": [
+        0
+      ],
+      "tags": [
+        "nativescript",
+        "angular"
+      ],
+      "title": "Talking about Angular 2 #12"
+    }
+  ],
+  "speakers": [
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/igor-minar.jpg",
+      "description": "Igor is a lead on the Angular project, practitioner of test driven development, open source enthusiast and hacker. In his free time, Igor enjoys spending time with his wife and two kids, doing outdoor activities.",
+      "firstname": "Igor",
+      "github": "IgorMinar",
+      "name": "Minar",
+      "role": "Angular Team Lead at Google",
+      "twitter": "IgorMinar"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/pascal-precht.jpg",
+      "description": "Pascal is a front-end engineer and an Angular Developer Expert nominated by Google. He created the angular-translate module, is an Angular 2 contributor and also part of the Angular 2 Docs Authoring team.",
+      "firstname": "The awesome pascal",
+      "github": "pascalprecht",
+      "name": "Precht",
+      "role": "Trainer at @thoughtram, Google Developer Expert",
+      "twitter": "pascalprecht"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/todd-motto.jpg",
+      "description": "JavaScript, Angular, React, conference speaker. Developer Expert at Google, open source lover.",
+      "firstname": "Todd",
+      "github": "toddmotto",
+      "name": "Motto",
+      "role": "Developer Advocate @Telerik. Founder of Voux, Google Developer Expert",
+      "twitter": "ToddMotto"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/mink-gechev.jpg",
+      "description": "Minko runs training courses in JavaScript and Angular. He has developed numerous projects such as AngularJS 1.x and Angular 2 style guides, angular2-seed, codelyzer, aspect.js, angular-aop, and many others.",
+      "firstname": "Minko",
+      "github": "mgechev",
+      "name": "Gechev",
+      "role": "Web hacker. Author of 'Switching to Angular 2'",
+      "twitter": "mgechev"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/gerard-sans.jpg",
+      "description": "Gerard is a Computer Science Engineer & Google Developer Expert. As an Angular fanboy and community activist he is fighting for the JavaScript revolution. Having lived and worked for all sorts of companies over the whole world, he is always up for a good challenge. He likes running AngularZone London, mentoring students & participating in the community.",
+      "firstname": "Gerard",
+      "github": "gsans",
+      "name": "Sans",
+      "role": "Community leader. Google Developer Expert",
+      "twitter": "gerardsans"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/tero-parviainen.jpg",
+      "description": "Tero Parviainen is an independent software developer, writer of programming books and articles, and an Angular 2 docs contributor.",
+      "firstname": "Tero",
+      "github": "teropa",
+      "name": "Parviainen",
+      "role": "Independent Contractor",
+      "twitter": "teropa"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/pawel-kozlowski.jpg",
+      "description": "Pawel is a software-development addict who believes in free, open source software. He is a core contributor to the Angular framework, AngularUI, Karma-runner and several other projects. Currently obsessed with making Angular 2 the best web development platform ever. When not coding, Pawel can be spotted speaking at various software development conferences.",
+      "firstname": "Pawel",
+      "github": "pkozlowski-opensource",
+      "name": "Kozlowski",
+      "role": "Messing with the web @AmadeusITGroup. Angular team member.",
+      "twitter": "pkozlowski_os"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/manfred-steyer.jpg",
+      "description": "Trainer and Consultant with focus on Angular. Writes for O'Reilly, Hanser, windows.developer and Heise Developer. Regularly speaks at conferences.",
+      "firstname": "Manfred",
+      "github": "manfredsteyer",
+      "name": "Steyer",
+      "role": "Freelance trainer and consultant. Focus on modern Web & service architectures.",
+      "twitter": "ManfredSteyer"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/nick-trogh.jpg",
+      "description": "Nick is a technical evangelist at Microsoft Belux where he’s helping developers, startups and software companies realize their software dreams on the Microsoft platform. You can find him speaking about cloud, mobile, web and game development at conferences or meetups.",
+      "firstname": "Nick",
+      "name": "Trogh",
+      "role": "Sr. Technical Evangelist",
+      "twitter": "nicktrog"
+    },
+    {
+      "avatar": "https://ng-be.org/components/conference-day/img/philippe-deryck.jpg",
+      "description": "Philippe De Ryck is a professional speaker and trainer on software security and web security. Since he obtained his PhD at the imec-DistriNet research group (KU Leuven, Belgium), he has been running the group's Web Security Training program, which ensures a sustainable knowledge transfer of the group’s security expertise towards practitioners.",
+      "firstname": "Philippe",
+      "github": "philippederyck",
+      "name": "De Ryck",
+      "role": "Trainer in Web Security",
+      "twitter": "philippederyck"
+    }
+  ]
+}
