@@ -12,119 +12,275 @@
   ],
   "sessions": [
     {
-      "description": "",
-      "startDate": "09-12-2016 07:30",
-      "endDate": "09-12-2016 08:25",
+      "title": "Continental Angular breakfast",
+      "description": "<p>Enjoy the continental breakfast buffet together with the speakers</p>",
+      "startDate": "09-12-2016 07:00",
+      "endDate": "09-12-2016 08:30",
       "roomId": 1,
       "speakerIds": [
       ],
       "tags": [
         "food"
-      ],
-      "title": "Continental Angular breakfast"
+      ]
     },
     {
-      "description": "",
+      "title": "Opening ceremony",
+      "description": "<p>Welcome messages</p>",
       "startDate": "09-12-2016 08:30",
-      "endDate": "09-12-2016 08:45",
+      "endDate": "09-12-2016 09:00",
       "roomId": 0,
       "speakerIds": [
         10
       ],
       "tags": [
+        "angular",
         "ceremony"
-      ],
-      "title": "Opening ceremony"
+      ]
     },
     {
-      "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. Ut dignissim egestas consectetur. Morbi tincidunt ligula nunc, quis bibendum leo sagittis a. Integer ultrices elit orci, ac.</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras finibus bibendum faucibus. Aliquam a pharetra nibh. Donec quis molestie sem. Etiam in metus non dolor congue tristique. </p>",
-      "endDate": "09-12-2016 08:50",
+      "title": "Keynote about Angular 2",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 09:00",
+      "endDate": "09-12-2016 09:30",
       "roomId": 1,
       "speakerIds": [
         0
       ],
-      "startDate": "09-12-2016 08:30",
+      "tags": [
+        "angular",
+        "keynote"
+      ]
+    },
+    {
+      "title": "Reactive parenting with Angular 2",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 09:40",
+      "endDate": "09-12-2016 10:10",
+      "roomId": 1,
+      "speakerIds": [
+        6
+      ],
       "tags": [
         "angular"
-      ],
-      "title": "Keynote about Angular 2"
+      ]
     },
     {
-      "description": "",
-      "startDate": "09-12-2016 07:30",
-      "endDate": "09-12-2016 08:25",
+      "title": "Boosting the security of your Angular 2 application",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 10:15",
+      "endDate": "09-12-2016 10:45",
+      "roomId": 1,
+      "speakerIds": [
+        9
+      ],
+      "tags": [
+        "angular",
+        "security"
+      ]
+    },
+    {
+      "title": "Fresh & healty NG Break",
+      "description": "<p>Socialize - Break with coffees, teas, juices, fresh yoghurts and fruits</p>",
+      "startDate": "09-12-2016 10:45",
+      "endDate": "09-12-2016 11:10",
       "roomId": 1,
       "speakerIds": [
       ],
       "tags": [
         "food"
-      ],
-      "title": "Fresh & healty NG Break"
+      ]
     },
     {
-      "description": "",
-      "startDate": "09-12-2016 07:30",
-      "endDate": "09-12-2016 08:25",
+      "title": "Sponsor: ARHS",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 11:10",
+      "endDate": "09-12-2016 11:15",
+      "roomId": 1,
+      "speakerIds": [
+      ],
+      "tags": [
+        "angular",
+        "sponsor"
+      ]
+    },
+    {
+      "title": "Unleashing the power of GraphQL using Angular 2",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 11:20",
+      "endDate": "09-12-2016 12:00",
+      "roomId": 1,
+      "speakerIds": [
+        4
+      ],
+      "tags": [
+        "angular",
+        "graphql"
+      ]
+    },
+    {
+      "title": "Scalable Angular Application Architecture",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 12:10",
+      "endDate": "09-12-2016 12:40",
+      "roomId": 1,
+      "speakerIds": [
+        3
+      ],
+      "tags": [
+        "angular",
+        "architecture"
+      ]
+    },
+    {
+      "title": "Healthy Angular Lunch",
+      "description": "<p>Lunch time: fresh soup, salads, selections of cold and warm fish and meat dishes, dessert</p>",
+      "startDate": "09-12-2016 12:40",
+      "endDate": "09-12-2016 14:00",
       "roomId": 1,
       "speakerIds": [
       ],
       "tags": [
         "food"
-      ],
-      "title": "Healthy Angular Lunch"
+      ]
     },
     {
-      "description": "",
-      "startDate": "09-12-2016 07:30",
-      "endDate": "09-12-2016 08:25",
-      "roomId": 1,
-      "speakerIds": [
-      ],
-      "tags": [
-        "food"
-      ],
-      "title": "Fresh & healty NG Break"
-    },
-    {
+      "title": "Angular 2 and React: friends learning from each other",
       "description": "<p>React and Angular 2 share a lot of architectural decisions and have inspired each other as well. They are both component oriented, have automated changed detection and can render both on the server as well as on the client side. However, there are also quite a few differences in how they work and which philosophy they follow.</p><p>Based on advanced practical examples we will look at the most interesting differences between those two frameworks. This can help you understand your Angular 2 framework even better and gives you insights into what strengths and what weaknesses it has in certain scenarios.</p>",
-      "startDate": "09-12-2016 08:30",
-      "endDate": "09-12-2016 08:45",
-      "roomId": 0,
+      "startDate": "09-12-2016 14:05",
+      "endDate": "09-12-2016 14:40",
+      "roomId": 1,
       "speakerIds": [
-        1,
-        11
+        1,11
       ],
       "tags": [
         "angular",
         "react",
-        "universal"
-      ],
-      "title": "Angular 2 and React: friends learning from each other"
+        "architecture"
+      ]
     },
     {
-      "description": "",
-      "startDate": "09-12-2016 08:30",
-      "endDate": "09-12-2016 08:45",
+      "title": "Sponsor: Ordina",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 14:45",
+      "endDate": "09-12-2016 14:55",
+      "roomId": 1,
+      "speakerIds": [
+      ],
+      "tags": [
+        "angular",
+        "sponsor"
+      ]
+    },
+    {
+      "title": "Practical AngularJS DevOps",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 15:00",
+      "endDate": "09-12-2016 15:30",
+      "roomId": 1,
+      "speakerIds": [
+        8
+      ],
+      "tags": [
+        "angular",
+        "devops"
+      ]
+    },
+    {
+      "title": "Fresh & healty NG Break",
+      "description": "<p>Socialize - Break with coffees, teas, juices, fresh yoghurts and fruits</p>",
+      "startDate": "09-12-2016 15:40",
+      "endDate": "09-12-2016 15:55",
+      "roomId": 1,
+      "speakerIds": [
+      ],
+      "tags": [
+        "food"
+      ]
+    },
+    {
+      "title": "Step by Step: Improving Start-up Performance with Lazy Loading in Angular 2",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 16:00",
+      "endDate": "09-12-2016 16:40",
+      "roomId": 1,
+      "speakerIds": [
+        7
+      ],
+      "tags": [
+        "angular",
+        "architecture",
+        "routing"
+      ]
+    },
+    {
+      "title": "Sponsor: aariXa",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 16:40",
+      "endDate": "09-12-2016 16:45",
+      "roomId": 1,
+      "speakerIds": [
+      ],
+      "tags": [
+        "angular",
+        "sponsor"
+      ]
+    },
+    {
+      "title": "Angular 2 Forms, the hero we need but not the one we deserve.",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 16:50",
+      "endDate": "09-12-2016 17:20",
+      "roomId": 0,
+      "speakerIds": [
+        2
+      ],
+      "tags": [
+        "angular",
+        "forms"
+      ]
+    },
+    {
+      "title": "Making SVG and Canvas Graphics in Angular",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 17:30",
+      "endDate": "09-12-2016 18:00",
+      "roomId": 0,
+      "speakerIds": [
+        5
+      ],
+      "tags": [
+        "angular",
+        "canvas",
+        "svg"
+      ]
+    },
+    {
+      "title": "Closing ceremony",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 18:00",
+      "endDate": "09-12-2016 18:30",
       "roomId": 0,
       "speakerIds": [
         10
       ],
       "tags": [
+        "angular",
         "ceremony"
-      ],
-      "title": "Closing ceremony"
+      ]
     },
     {
-      "description": "",
-      "startDate": "09-12-2016 07:30",
-      "endDate": "09-12-2016 08:25",
+      "title": "Socialize & network time",
+      "description": "<p></p>",
+      "startDate": "09-12-2016 18:30",
+      "endDate": "09-12-2016 19:30",
       "roomId": 1,
       "speakerIds": [
       ],
       "tags": [
-        "food"
-      ],
-      "title": "Socialize & network time"
+        "food",
+        "drinks",
+        "socialize"
+      ]
     }
   ],
   "speakers": [
@@ -140,7 +296,7 @@
     {
       "avatar": "https://ng-be.org/components/conference-day/img/pascal-precht.jpg",
       "description": "Pascal is a front-end engineer and an Angular Developer Expert nominated by Google. He created the angular-translate module, is an Angular 2 contributor and also part of the Angular 2 Docs Authoring team.",
-      "firstname": "The awesome pascal",
+      "firstname": "Pascal",
       "github": "pascalprecht",
       "name": "Precht",
       "role": "Trainer at @thoughtram, Google Developer Expert",
@@ -156,7 +312,7 @@
       "twitter": "ToddMotto"
     },
     {
-      "avatar": "https://ng-be.org/components/conference-day/img/mink-gechev.jpg",
+      "avatar": "https://ng-be.org/components/conference-day/img/minko-gechev.jpg",
       "description": "Minko runs training courses in JavaScript and Angular. He has developed numerous projects such as AngularJS 1.x and Angular 2 style guides, angular2-seed, codelyzer, aspect.js, angular-aop, and many others.",
       "firstname": "Minko",
       "github": "mgechev",
@@ -201,7 +357,7 @@
       "twitter": "ManfredSteyer"
     },
     {
-      "avatar": "https://ng-be.org/components/conference-day/img/nick-trogh.jpg",
+      "avatar": "https://ng-be.org/components/conference-day/img/nick-trogh.png",
       "description": "Nick is a technical evangelist at Microsoft Belux where he’s helping developers, startups and software companies realize their software dreams on the Microsoft platform. You can find him speaking about cloud, mobile, web and game development at conferences or meetups.",
       "firstname": "Nick",
       "name": "Trogh",
@@ -227,7 +383,7 @@
       "twitter": "CarmenPopoviciu"
     },
     {
-      "avatar": "https://ng-be.org/components/team/img/oliver-zeigermann.jpg",
+      "avatar": "https://ng-be.org/components/conference-day/img/oliver-zeigermann.jpg",
       "description": "Oliver Zeigermann is a developer and architect from Hamburg, Germany. Oliver is the co-author of the best selling German book on React, Redux, React Router, and Universal Rendering. He has also worked in several Angular and React projects using Flow and TypeScript",
       "firstname": "Oliver",
       "github": "DJCordhose",
