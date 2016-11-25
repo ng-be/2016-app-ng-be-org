@@ -20,7 +20,8 @@
       "speakerIds": [
       ],
       "tags": [
-        "food"
+        "food-and-drinks",
+        "socialize"
       ]
     },
     {
@@ -87,7 +88,7 @@
       "speakerIds": [
       ],
       "tags": [
-        "food"
+        "food-and-drinks"
       ]
     },
     {
@@ -114,7 +115,7 @@
       ],
       "tags": [
         "angular",
-        "graphql"
+        "tooling"
       ]
     },
     {
@@ -140,7 +141,7 @@
       "speakerIds": [
       ],
       "tags": [
-        "food"
+        "food-and-drinks"
       ]
     },
     {
@@ -182,7 +183,7 @@
       ],
       "tags": [
         "angular",
-        "devops"
+        "tooling"
       ]
     },
     {
@@ -194,7 +195,7 @@
       "speakerIds": [
       ],
       "tags": [
-        "food"
+        "food-and-drinks"
       ]
     },
     {
@@ -250,8 +251,7 @@
       ],
       "tags": [
         "angular",
-        "canvas",
-        "svg"
+        "canvas"
       ]
     },
     {
@@ -277,8 +277,7 @@
       "speakerIds": [
       ],
       "tags": [
-        "food",
-        "drinks",
+        "food & drinks",
         "socialize"
       ]
     }
