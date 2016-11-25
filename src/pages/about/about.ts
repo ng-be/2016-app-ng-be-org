@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { PopoverController, ViewController } from 'ionic-angular';
+import { PopoverController, ViewController, Events, NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-popover',
@@ -24,7 +24,13 @@ export class PopoverPage {
 })
 export class AboutPage {
 
-  constructor(public popoverCtrl: PopoverController) {
+  constructor(public popoverCtrl: PopoverController,
+              private navCtrl: NavController,
+              private events: Events) {
+  }
+
+  ionViewDidEnter() {
+    this.events.publish("navController:current", this.navCtrl);
   }
 
   presentPopover(event) {

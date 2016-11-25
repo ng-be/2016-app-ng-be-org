@@ -34,13 +34,13 @@
         10
       ],
       "tags": [
-        "angular",
-        "ceremony"
+        "ceremony",
+        "angular"
       ]
     },
     {
       "title": "Keynote about Angular 2",
-      "description": "<p></p>",
+      "description": "<p>Opening keynote by Igor Minar</p>",
       "startDate": "09-12-2016 09:00",
       "endDate": "09-12-2016 09:30",
       "roomId": 1,
@@ -48,13 +48,13 @@
         0
       ],
       "tags": [
-        "angular",
-        "keynote"
+        "keynote",
+        "angular"
       ]
     },
     {
       "title": "Reactive parenting with Angular 2",
-      "description": "<p></p>",
+      "description": "<p>If concepts like View, ViewContainer, TemplateRef or HostView get your head spinning - fear no more! During this talk I'm going to demystify Angular 2 rendering layer.</p><p>To make things practical all key concepts will be illustrated with real-life examples taken from the https://ng-bootstrap.github.io widget library. Spend 30 minutes with me to learn how to handle complex rendering scenarios like a pro! </p>",
       "startDate": "09-12-2016 09:40",
       "endDate": "09-12-2016 10:10",
       "roomId": 1,
@@ -67,7 +67,7 @@
     },
     {
       "title": "Boosting the security of your Angular 2 application",
-      "description": "<p></p>",
+      "description": "<p>Angular 2 is hot, and there is a huge amount of information available on building applications, improving performance, and various other topics. But do you know how to make your Angular 2 applications secure? What kind of security features does Angular 2 offer you, and which additional steps can you take to really boost the security of your applications?In this session, we cover one of the most dangerous attacks in modern web applications: XSS. You will learn how Angular 2 protects you against XSS, and why you shouldn't bypass this protection. We will also dive into the new Content Security Policy, and through a few examples, I will show you how you can use CSP to enhance the security in your client-side context.</p>",
       "startDate": "09-12-2016 10:15",
       "endDate": "09-12-2016 10:45",
       "roomId": 1,
@@ -75,8 +75,8 @@
         9
       ],
       "tags": [
-        "angular",
-        "security"
+        "security",
+        "angular"
       ]
     },
     {
@@ -88,7 +88,8 @@
       "speakerIds": [
       ],
       "tags": [
-        "food-and-drinks"
+        "food-and-drinks",
+        "socialize"
       ]
     },
     {
@@ -100,13 +101,13 @@
       "speakerIds": [
       ],
       "tags": [
-        "angular",
-        "sponsor"
+        "sponsor",
+        "angular"
       ]
     },
     {
       "title": "Unleashing the power of GraphQL using Angular 2",
-      "description": "<p></p>",
+      "description": "<p>GraphQL was developed internally at Facebook in 2012. Its main goal was to allow Native Mobile teams to quickly build new products and collaborate within the large Facebook ecosystem without disrupting existing Data Services. In this talk we are going to introduce GraphQL and how we can use it together with the Apollo Client in Angular 2.</p>",
       "startDate": "09-12-2016 11:20",
       "endDate": "09-12-2016 12:00",
       "roomId": 1,
@@ -114,13 +115,13 @@
         4
       ],
       "tags": [
-        "angular",
-        "tooling"
+        "tooling",
+        "angular"
       ]
     },
     {
       "title": "Scalable Angular Application Architecture",
-      "description": "<p></p>",
+      "description": "<p>Modern web applications have constantly growing requirements and their complexity grows exponentially. Some of the biggest challenges in front of us are state management, testability and flexibility. Given the dynamic business environment we need to make sure our projects' design uses well known patterns most developers are familiar with.</p><p>In this talk I’ll introduce a scalable Angular 2 application architecture, which answers the following requirements</p>:<li>Testability</li><li>Predictable state management</li><li>Scalable communication layer</li><li>Modular and robust design</li></ul>",
       "startDate": "09-12-2016 12:10",
       "endDate": "09-12-2016 12:40",
       "roomId": 1,
@@ -128,8 +129,8 @@
         3
       ],
       "tags": [
-        "angular",
-        "architecture"
+        "architecture",
+        "angular"
       ]
     },
     {
@@ -154,9 +155,9 @@
         1,11
       ],
       "tags": [
-        "angular",
         "react",
-        "architecture"
+        "architecture",
+        "angular"
       ]
     },
     {
@@ -168,13 +169,13 @@
       "speakerIds": [
       ],
       "tags": [
-        "angular",
-        "sponsor"
+        "sponsor",
+        "angular"
       ]
     },
     {
       "title": "Practical AngularJS DevOps",
-      "description": "<p></p>",
+      "description": "<p>From writing the AngularJS sources in your favorite code editor to running the application in a production environment, involves a considerable amount of steps. There are the basic steps of transpiling, packing up your files, minification, etc. And to make sure that we have a quality app, we add some unit testing and code coverage to the mix, optionally performing some performance testing. By the way, we need to perform the actual production deployment too.</p><p>In this session we'll look at a practical example of how to setup a fully automated release pipeline, so that you can focus on writing code rather than operating a deployment infrastructure.</p>",
       "startDate": "09-12-2016 15:00",
       "endDate": "09-12-2016 15:30",
       "roomId": 1,
@@ -182,8 +183,8 @@
         8
       ],
       "tags": [
-        "angular",
-        "tooling"
+        "tooling",
+        "angular"
       ]
     },
     {
@@ -200,7 +201,7 @@
     },
     {
       "title": "Step by Step: Improving Start-up Performance with Lazy Loading in Angular 2",
-      "description": "<p></p>",
+      "description": "<p>Angular 2 applications can lazily load modules to improve start-up performance. This session shows by example how to optimize solutions using this approach. Potential pitfalls are described and information is presented about asynchronously preloading modules with both builtin and user-generated strategies to speed up lazy loading.</p>",
       "startDate": "09-12-2016 16:00",
       "endDate": "09-12-2016 16:40",
       "roomId": 1,
@@ -208,9 +209,8 @@
         7
       ],
       "tags": [
-        "angular",
         "architecture",
-        "routing"
+        "angular"
       ]
     },
     {
@@ -222,8 +222,8 @@
       "speakerIds": [
       ],
       "tags": [
-        "angular",
-        "sponsor"
+        "sponsor",
+        "angular"
       ]
     },
     {
@@ -236,13 +236,13 @@
         2
       ],
       "tags": [
-        "angular",
-        "forms"
+        "forms",
+        "angular"
       ]
     },
     {
       "title": "Making SVG and Canvas Graphics in Angular",
-      "description": "<p></p>",
+      "description": "<p>When it comes to putting stuff on the screen in Angular webapps, HTML+CSS is usually the most appropriate medium. But it’s not the only game in town. Alternative APIs such as SVG and Canvas can provide a lot of extra power when you need it for those dazzling visualizations, UI effects, games, and artistic apps.</p><p>But there are some things we should understand about these technologies before we use them with Angular. SVG DOM can be rendered and animated like HTML DOM but it needs a bit of special care. Canvas is a completely different story with its immediate mode drawing API, but we can still easily integrate it into our Angular components. In this talk we’ll look at how SVG and Canvas graphics can be created with Angular and what we have to keep in mind as we do it.</p>",
       "startDate": "09-12-2016 17:30",
       "endDate": "09-12-2016 18:00",
       "roomId": 0,
@@ -250,13 +250,13 @@
         5
       ],
       "tags": [
-        "angular",
-        "canvas"
+        "canvas",
+        "angular"
       ]
     },
     {
       "title": "Closing ceremony",
-      "description": "<p></p>",
+      "description": "<p>Closing messages</p>",
       "startDate": "09-12-2016 18:00",
       "endDate": "09-12-2016 18:30",
       "roomId": 0,
@@ -270,14 +270,14 @@
     },
     {
       "title": "Socialize & network time",
-      "description": "<p></p>",
+      "description": "<p>Enjoy some quality time with your collegeaus and reflect about the conference!</p>",
       "startDate": "09-12-2016 18:30",
       "endDate": "09-12-2016 19:30",
       "roomId": 1,
       "speakerIds": [
       ],
       "tags": [
-        "food & drinks",
+        "food-and-drinks",
         "socialize"
       ]
     }

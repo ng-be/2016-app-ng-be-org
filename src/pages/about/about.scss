@@ -1,59 +1,63 @@
 page-about {
 
-  .header {
-    background-color: #fafafa;
-    padding: 16px;
-    width: 100%;
-    min-height: 75px;
-    text-align: center;
+  ion-content {
 
-    img {
-      max-width: 200px;
-      max-height: 75px;
-    }
-
-  }
-
-  .info {
-
-    &.full {
-      background-color: #fafafa;;
-    }
-
-    p {
-      color: #444;
-      text-align: left;
-      font-size: 15px;
-      line-height: 18px;
-    }
-
-    ion-list {
-      margin-bottom: 0;
-    }
-
-    ion-icon {
-      color: color($colors, primary);
-      width: 20px;
-    }
-
-  }
-
-  .info
-  .md,
-  .wp {
-    .info [text-right] {
-      margin-right: 0;
-    }
-  }
-
-  .ios {
-    .info {
+    .header {
+      background-color: #fafafa;
+      padding: 16px;
+      width: 100%;
+      min-height: 75px;
       text-align: center;
 
-      ion-icon {
-        width: auto;
-        margin-right: 10px;
+      img {
+        max-width: 200px;
+        max-height: 75px;
       }
+
+    }
+
+    .info {
+
+      &.full {
+        background-color: #fafafa;;
+      }
+
+      p {
+        color: #444;
+        text-align: left;
+        font-size: 15px;
+        line-height: 18px;
+      }
+
+      ion-list {
+        margin-bottom: 0;
+      }
+
+      ion-icon {
+        color: color($colors, primary);
+        width: 20px;
+      }
+
+    }
+
+    .info
+    .md,
+    .wp {
+      .info [text-right] {
+        margin-right: 0;
+      }
+    }
+
+    .ios {
+      .info {
+        text-align: center;
+
+        ion-icon {
+          width: auto;
+          margin-right: 10px;
+        }
+      }
+
     }
 
   }

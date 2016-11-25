@@ -4,8 +4,11 @@ import {
   MenuController,
   Nav,
   Platform,
+  IonicApp,
+  App,
   AlertController,
-  ToastController
+  ToastController,
+  Events
 } from 'ionic-angular';
 import { Splashscreen, StatusBar } from 'ionic-native';
 
@@ -42,14 +45,20 @@ export class ConferenceApp {
   currentUser: any;
   isWeb: boolean;
 
+  private innerNavCtrl: any;
+
   constructor(private authService: AuthService,
               private menu: MenuController,
               private platform: Platform,
+              private ionicApp: IonicApp,
+              private app: App,
               private alertCtrl: AlertController,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private events: Events) {
 
-    this.initApplication();
     this.isWeb = this.platform.is('mobileweb');
+    this.initApplication();
+    this.setupBackButtonBehavior();
 
   }
 
@@ -142,5 +151,60 @@ export class ConferenceApp {
     alert.present();
 
   }
+
+  private setupBackButtonBehavior() {
+
+    // If on web version (browser)
+    if (window.location.protocol !== "file:") {
+
+      // Listen to browser pages
+      this.events.subscribe("navController:current", (navCtrlData) => {
+        this.innerNavCtrl = navCtrlData[0];
+      });
+
+      // Register browser back button action(s)
+      window.onpopstate = (evt) => {
+
+        console.log(evt);
+
+        // Close menu if open
+        if (this.menu.isOpen()) {
+          this.menu.close();
+          return;
+        }
+
+        // Close any active modals or overlays
+        let activePortal = this.ionicApp._loadingPortal.getActive() ||
+          this.ionicApp._modalPortal.getActive() ||
+          this.ionicApp._toastPortal.getActive() ||
+          this.ionicApp._overlayPortal.getActive();
+
+        if (activePortal) {
+          activePortal.dismiss();
+          return;
+        }
+
+        // Navigate back on main active nav if there's a page loaded
+        if (this.app.getActiveNav().canGoBack()) {
+          this.app.getActiveNav().pop();
+        }
+        ;
+
+        // Navigate back on subloaded nav if notified
+        if (this.innerNavCtrl && this.innerNavCtrl.canGoBack()) {
+          this.innerNavCtrl.pop();
+        }
+
+      };
+
+      // Fake browser history on each view enter
+      this.app.viewDidEnter.subscribe((app) => {
+        history.pushState(null, null, "");
+      });
+
+    }
+
+  }
+
 
 }

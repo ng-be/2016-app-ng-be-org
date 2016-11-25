@@ -17,8 +17,6 @@
 <ion-content class="outer-content">
 
   <ion-list>
-    <ion-list-header>Tags</ion-list-header>
-
     <ion-item *ngFor="let tag of tags" [attr.tag]="tag.name | lowercase">
       <span item-left class="dot"></span>
       <ion-label>{{tag.name}}</ion-label>
