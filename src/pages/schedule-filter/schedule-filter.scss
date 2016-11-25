@@ -4,6 +4,10 @@ page-schedule-filter {
     color: color($colors, danger);
   }
 
+  ion-list {
+    margin: 5px 0;
+  }
+
   @each $tag, $value in auxiliary-categories() {
 
     ion-item[tag=#{$tag}] .dot {
