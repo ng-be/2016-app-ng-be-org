@@ -26,7 +26,6 @@ export class SchedulePage implements OnDestroy {
   queryText = '';
   segment = 'all';
   numberOfShownSessions = 0;
-  groups = [];
   shownTags = [];
   loader: Loading;
   isAuthenticated = false;
@@ -72,14 +71,13 @@ export class SchedulePage implements OnDestroy {
             text: 'Cancel',
             handler: () => {
               slidingItem.close();
+              return;
             }
           },
           {
             text: 'Defavorite',
             handler: () => {
-              slidingItem.close();
-              this.conferenceData.removeFavorite(session.favorite.$key);
-              this.toggleFavoriteToast(session, true);
+              this.toggleFavoriteToast(session);
             }
           }
         ]
@@ -90,8 +88,7 @@ export class SchedulePage implements OnDestroy {
 
     } else {
       slidingItem.close();
-      this.toggleFavoriteToast(session, false);
-      this.conferenceData.setFavorite(session.$key);
+      this.toggleFavoriteToast(session);
     }
 
   }
@@ -197,20 +194,48 @@ export class SchedulePage implements OnDestroy {
 
   }
 
-  private toggleFavoriteToast(session, deleted) {
-    let message = 'Session has been favorited';
-    if (deleted) {
-      delete session.favorite;
-      message = 'Session has been defavorited'
+  toggleFavoriteToast(session) {
+
+    if (this.isAuthenticated) {
+      if (!session.favorite) {
+        this.conferenceData.setFavorite(session.$key);
+        this.viewCtrl.dismiss();
+      } else {
+        this.conferenceData.removeFavorite(session.favorite.$key);
+        delete session.favorite;
+      }
+
+      let toast = this.toastCtrl.create({
+        message: session.favorite ? 'Session has been favorited' : 'Session has been defavorited',
+        showCloseButton: true,
+        closeButtonText: 'close',
+        duration: 3000
+      });
+      toast.present();
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'Not logged in',
+        message: 'You need to be logged in to favorite the session.',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+            }
+          },
+          {
+            text: 'Go to login',
+            handler: () => {
+              this.navCtrl.push(LoginPage);
+              alert.dismiss();
+            }
+          }
+        ]
+      });
+
+      // now present the alert on top of all other content
+      alert.present();
     }
 
-    let toast = this.toastCtrl.create({
-      message: message,
-      showCloseButton: true,
-      closeButtonText: 'close',
-      duration: 3000
-    });
-    toast.present();
   }
 
   private presentLoader() {

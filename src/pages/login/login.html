@@ -13,11 +13,11 @@
   </div>
   <div padding class="actions">
 
-    <p *ngIf="isWeb">
+    <p *ngIf="isWeb && previousLoginMethod">
       <strong>Previous login via: </strong> {{previousLoginMethod}}
     </p>
 
-    <form #loginForm="ngForm" novalidate>
+    <form #loginForm="ngForm" novalidate *ngIf="false">
       <ion-item>
         <ion-label floating color="primary">Email</ion-label>
         <ion-input [(ngModel)]="login.email" name="email" type="email" #email="ngModel" spellcheck="false" autocapitalize="off" required>
@@ -39,28 +39,28 @@
     </form>
 
     <ion-row responsive-sm>
-      <ion-col>
+      <ion-col *ngIf="false">
         <button ion-button (click)="onLogin(loginForm)" type="submit" color="primary" block>Login</button>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="false">
         <button ion-button (click)="onSignup()" color="light" block>Signup</button>
       </ion-col>
-      <ion-col *ngIf="isWeb">
+      <ion-col>
         <button ion-button (click)="signInWithFacebook()" class="ngbutton facebook" block>
           Login with Facebook
         </button>
       </ion-col>
-      <ion-col *ngIf="isWeb">
+      <ion-col>
         <button ion-button (click)="signInWithTwitter()" class="ngbutton twitter" block>
           Login with Twitter
         </button>
       </ion-col>
-      <ion-col *ngIf="isWeb">
+      <ion-col>
         <button ion-button (click)="signInWithGoogle()" class="ngbutton google" block>
           Login with Google
         </button>
       </ion-col>
-      <ion-col *ngIf="isWeb">
+      <ion-col>
         <button ion-button (click)="signInWithGithub()" class="ngbutton github" block>
           Login with Github
         </button>
