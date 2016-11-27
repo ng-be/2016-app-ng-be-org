@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavController, Platform, ToastController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, Platform, ToastController, NavParams, ViewController, Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 // app imports
@@ -19,12 +19,13 @@ export class LoginPage {
   submitted = false;
 
   constructor(private platform: Platform,
-              private navCtrl: NavController,
               private navParams: NavParams,
               private authService: AuthService,
               private storage: Storage,
               private viewCtrl: ViewController,
-              private toastCtrl: ToastController) {
+              private toastCtrl: ToastController,
+              private navCtrl: NavController,
+              private events: Events) {
 
     this.getPreviousLoginMethod();
     this.isWeb = this.platform.is('mobileweb');

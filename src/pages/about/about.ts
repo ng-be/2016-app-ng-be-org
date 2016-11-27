@@ -1,10 +1,14 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { PopoverController, ViewController, Events, NavController } from 'ionic-angular';
+import { PopoverController, ViewController, Events, NavController, App } from 'ionic-angular';
 
 @Component({
   selector: 'page-popover',
-  template: ``
+  template: `<ion-list style="margin-bottom:0;">
+    <button ion-item (click)="openUp('https://ng-be.org')">NG-BE 2016 website</button>
+    <button ion-item (click)="openUp('https://github.com/ng-be')">Github repositories</button>
+  </ion-list>`
+
 })
 export class PopoverPage {
 
@@ -13,6 +17,10 @@ export class PopoverPage {
 
   openUp(url) {
     window.open(url, '_system');
+    this.viewCtrl.dismiss();
+  }
+
+  close() {
     this.viewCtrl.dismiss();
   }
 
@@ -26,16 +34,20 @@ export class AboutPage {
 
   constructor(public popoverCtrl: PopoverController,
               private navCtrl: NavController,
+              private app: App,
               private events: Events) {
   }
 
   ionViewDidEnter() {
+    this.app.setTitle('About - NG-BE 2016');
     this.events.publish("navController:current", this.navCtrl);
   }
 
   presentPopover(event) {
     let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({ev: event});
+    popover.present({
+      ev: event
+    });
   }
 
 }

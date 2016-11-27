@@ -188,7 +188,6 @@ export class ConferenceApp {
         if (this.app.getActiveNav().canGoBack()) {
           this.app.getActiveNav().pop();
         }
-        ;
 
         // Navigate back on subloaded nav if notified
         if (this.innerNavCtrl && this.innerNavCtrl.canGoBack()) {

@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { ActionSheet, ActionSheetController, NavController } from 'ionic-angular';
+import { ActionSheet, ActionSheetController, NavController, App, Events } from 'ionic-angular';
 import { ReplaySubject } from 'rxjs';
 
 // app imports
@@ -19,8 +19,15 @@ export class SpeakerListPage {
 
   constructor(private actionSheetCtrl: ActionSheetController,
               private navCtrl: NavController,
-              private conferenceData: ConferenceDataService) {
+              private conferenceData: ConferenceDataService,
+              private app: App,
+              private events: Events) {
 
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle('Speakers - NG-BE 2016');
+    this.events.publish("navController:current", this.navCtrl);
   }
 
   goToSessionDetail(session: Session): void {

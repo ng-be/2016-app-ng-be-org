@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, App, Events } from 'ionic-angular';
 
 // app imports
 import { Speaker } from '../../entities';
@@ -15,8 +15,14 @@ export class SpeakerDetailPage {
   speaker: Speaker;
 
   constructor(private navParams: NavParams,
-              private navCtrl: NavController) {
+              private navCtrl: NavController,
+              private app: App,
+              private events: Events) {
     this.speaker = this.navParams.data;
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle(this.speaker.firstname + ' ' + this.speaker.name + ' - Speakers - NG-BE 2016');
   }
 
   goToSessionDetail(session) {

@@ -3,6 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-title *ngIf="!isAuthenticated">Schedule</ion-title>
 
     <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()" *ngIf="isAuthenticated">
       <ion-segment-button value="all">

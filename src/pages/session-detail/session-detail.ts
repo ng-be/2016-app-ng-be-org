@@ -6,7 +6,9 @@ import {
   ModalController,
   ToastController,
   AlertController,
-  ViewController
+  ViewController,
+  App,
+  Events
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 
@@ -33,12 +35,16 @@ export class SessionDetailPage implements OnDestroy{
               private modalCtrl: ModalController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private app: App) {
 
     this.session = navParams.data.session;
-
     this.setupSubscriptions();
 
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle(this.session.title + ' - Schedule - NG-BE 2016');
   }
 
   toggleFavorite() {

@@ -43,7 +43,7 @@
       "description": "<p>Opening keynote by Igor Minar</p>",
       "startDate": "09-12-2016 09:00",
       "endDate": "09-12-2016 09:30",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         0
       ],
@@ -57,7 +57,7 @@
       "description": "<p>If concepts like View, ViewContainer, TemplateRef or HostView get your head spinning - fear no more! During this talk I'm going to demystify Angular 2 rendering layer.</p><p>To make things practical all key concepts will be illustrated with real-life examples taken from the https://ng-bootstrap.github.io widget library. Spend 30 minutes with me to learn how to handle complex rendering scenarios like a pro! </p>",
       "startDate": "09-12-2016 09:40",
       "endDate": "09-12-2016 10:10",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         6
       ],
@@ -70,7 +70,7 @@
       "description": "<p>Angular 2 is hot, and there is a huge amount of information available on building applications, improving performance, and various other topics. But do you know how to make your Angular 2 applications secure? What kind of security features does Angular 2 offer you, and which additional steps can you take to really boost the security of your applications?In this session, we cover one of the most dangerous attacks in modern web applications: XSS. You will learn how Angular 2 protects you against XSS, and why you shouldn't bypass this protection. We will also dive into the new Content Security Policy, and through a few examples, I will show you how you can use CSP to enhance the security in your client-side context.</p>",
       "startDate": "09-12-2016 10:15",
       "endDate": "09-12-2016 10:45",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         9
       ],
@@ -94,10 +94,10 @@
     },
     {
       "title": "Sponsor: ARHS",
-      "description": "<p></p>",
+      "description": "<p>ARHS, our Gold sponsor partner will give a introductory short talk of their company and how they use Angular 2 in professional environment.</p>",
       "startDate": "09-12-2016 11:10",
       "endDate": "09-12-2016 11:15",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
       ],
       "tags": [
@@ -110,7 +110,7 @@
       "description": "<p>GraphQL was developed internally at Facebook in 2012. Its main goal was to allow Native Mobile teams to quickly build new products and collaborate within the large Facebook ecosystem without disrupting existing Data Services. In this talk we are going to introduce GraphQL and how we can use it together with the Apollo Client in Angular 2.</p>",
       "startDate": "09-12-2016 11:20",
       "endDate": "09-12-2016 12:00",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         4
       ],
@@ -124,7 +124,7 @@
       "description": "<p>Modern web applications have constantly growing requirements and their complexity grows exponentially. Some of the biggest challenges in front of us are state management, testability and flexibility. Given the dynamic business environment we need to make sure our projects' design uses well known patterns most developers are familiar with.</p><p>In this talk I’ll introduce a scalable Angular 2 application architecture, which answers the following requirements</p>:<li>Testability</li><li>Predictable state management</li><li>Scalable communication layer</li><li>Modular and robust design</li></ul>",
       "startDate": "09-12-2016 12:10",
       "endDate": "09-12-2016 12:40",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         3
       ],
@@ -150,7 +150,7 @@
       "description": "<p>React and Angular 2 share a lot of architectural decisions and have inspired each other as well. They are both component oriented, have automated changed detection and can render both on the server as well as on the client side. However, there are also quite a few differences in how they work and which philosophy they follow.</p><p>Based on advanced practical examples we will look at the most interesting differences between those two frameworks. This can help you understand your Angular 2 framework even better and gives you insights into what strengths and what weaknesses it has in certain scenarios.</p>",
       "startDate": "09-12-2016 14:05",
       "endDate": "09-12-2016 14:40",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         1,11
       ],
@@ -162,10 +162,10 @@
     },
     {
       "title": "Sponsor: Ordina",
-      "description": "<p></p>",
+      "description": "<p>Ordina, our Platinum sponsor partner will give a introductory short talk of their company and how they use Angular 2 in professional environment.</p>",
       "startDate": "09-12-2016 14:45",
       "endDate": "09-12-2016 14:55",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
       ],
       "tags": [
@@ -178,7 +178,7 @@
       "description": "<p>From writing the AngularJS sources in your favorite code editor to running the application in a production environment, involves a considerable amount of steps. There are the basic steps of transpiling, packing up your files, minification, etc. And to make sure that we have a quality app, we add some unit testing and code coverage to the mix, optionally performing some performance testing. By the way, we need to perform the actual production deployment too.</p><p>In this session we'll look at a practical example of how to setup a fully automated release pipeline, so that you can focus on writing code rather than operating a deployment infrastructure.</p>",
       "startDate": "09-12-2016 15:00",
       "endDate": "09-12-2016 15:30",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         8
       ],
@@ -204,7 +204,7 @@
       "description": "<p>Angular 2 applications can lazily load modules to improve start-up performance. This session shows by example how to optimize solutions using this approach. Potential pitfalls are described and information is presented about asynchronously preloading modules with both builtin and user-generated strategies to speed up lazy loading.</p>",
       "startDate": "09-12-2016 16:00",
       "endDate": "09-12-2016 16:40",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
         7
       ],
@@ -215,10 +215,10 @@
     },
     {
       "title": "Sponsor: aariXa",
-      "description": "<p></p>",
+      "description": "<p>aariXa, our Gold sponsor partner will give a introductory short talk of their company and how they use Angular 2 in professional environment.</p>",
       "startDate": "09-12-2016 16:40",
       "endDate": "09-12-2016 16:45",
-      "roomId": 1,
+      "roomId": 0,
       "speakerIds": [
       ],
       "tags": [

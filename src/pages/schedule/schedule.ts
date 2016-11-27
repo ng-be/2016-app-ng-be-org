@@ -8,7 +8,9 @@ import {
   NavController,
   LoadingController,
   Loading,
-  ToastController
+  ToastController,
+  ViewController,
+  Events
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 
@@ -42,9 +44,11 @@ export class SchedulePage implements OnDestroy {
               private modalCtrl: ModalController,
               private navCtrl: NavController,
               private loadingCtrl: LoadingController,
+              private viewCtrl: ViewController,
               private conferenceData: ConferenceDataService,
               private toastCtrl: ToastController,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private events: Events) {
 
     this.setupSubscriptions();
     this.presentLoader();
@@ -52,7 +56,8 @@ export class SchedulePage implements OnDestroy {
   }
 
   ionViewDidEnter() {
-    this.app.setTitle('Schedule');
+    this.app.setTitle('Schedule - NG-BE 2016');
+    this.events.publish("navController:current", this.navCtrl);
     this.closeLoader();
     if (this.sessionGroups) {
       this.updateSchedule();

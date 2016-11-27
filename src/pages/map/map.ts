@@ -1,5 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
+import { NavController, App, Events } from 'ionic-angular';
 
 // app imports
 
@@ -26,7 +27,14 @@ export class MapPage {
     }
   ];
 
-  constructor() {
+  constructor(private navCtrl: NavController,
+              private app: App,
+              private events: Events) {
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle('Map - NG-BE 2016');
+    this.events.publish("navController:current", this.navCtrl);
   }
 
   ionViewDidLoad() {
