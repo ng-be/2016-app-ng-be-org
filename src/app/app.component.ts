@@ -185,11 +185,12 @@ export class ConferenceApp {
         // Navigate back on main active nav if there's a page loaded
         if (this.app.getActiveNav().canGoBack()) {
           this.app.getActiveNav().pop();
-        }
+        } else {
+          // Navigate back on subloaded nav if notified
+          if (this.innerNavCtrl && this.innerNavCtrl.canGoBack()) {
+            this.innerNavCtrl.pop();
 
-        // Navigate back on subloaded nav if notified
-        if (this.innerNavCtrl && this.innerNavCtrl.canGoBack()) {
-          this.innerNavCtrl.pop();
+          }
         }
 
       };

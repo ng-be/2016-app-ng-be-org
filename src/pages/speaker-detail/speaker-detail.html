@@ -1,38 +1,40 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>{{speaker.firstname}} {{speaker.name}}</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>{{speaker.firstname}} {{speaker.name}}</ion-title>
+    </ion-navbar>
 </ion-header>
 <ion-content padding>
 
-  <div>
+    <div>
 
-    <img [src]="speaker.avatar" [alt]="speaker.firstname + ' ' + speaker.name">
+        <img [src]="speaker.avatar" [alt]="speaker.firstname + ' ' + speaker.name">
 
-    <button ion-button clear twitter class="social twitter"
-            *ngIf="speaker.twitter">
-      <ion-icon name="logo-twitter"></ion-icon>
-    </button>
+        <button ion-button clear twitter class="social twitter"
+                *ngIf="speaker.twitter"
+                (click)="openUp(speaker.twitter, 'twitter')">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </button>
 
-    <button ion-button clear github class="social github"
-            *ngIf="speaker.github">
-      <ion-icon name="logo-github"></ion-icon>
-    </button>
+        <button ion-button clear github class="social github"
+                *ngIf="speaker.github"
+                (click)="openUp(speaker.github, 'github')">
+            <ion-icon name="logo-github"></ion-icon>
+        </button>
 
-  </div>
+    </div>
 
-  <h2>{{speaker.role}}</h2>
-  <p>{{speaker.description}}</p>
+    <h2>{{speaker.role}}</h2>
+    <p>{{speaker.description}}</p>
 
-  <div *ngIf="speaker.sessions && speaker.sessions.length > 0">
-    <h3>Sessions</h3>
+    <div *ngIf="speaker.sessions && speaker.sessions.length > 0">
+        <h3>Sessions</h3>
 
-    <ion-list inset>
-      <ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
-        <ion-icon name="chatboxes" item-left></ion-icon>
-        {{session.title}}
-      </ion-item>
-    </ion-list>
-  </div>
+        <ion-list inset>
+            <ion-item *ngFor="let session of speaker.sessions" (click)="goToSessionDetail(session)">
+                <ion-icon name="chatboxes" item-left></ion-icon>
+                {{session.title}}
+            </ion-item>
+        </ion-list>
+    </div>
 
 </ion-content>

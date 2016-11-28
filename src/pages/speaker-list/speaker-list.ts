@@ -36,45 +36,14 @@ export class SpeakerListPage {
     this.navCtrl.push(SpeakerDetailPage, speaker);
   }
 
-  goToSpeakerTwitter(speaker) {
-    // TODO FIX
-    // let app = new InAppBrowser(`https://twitter.com/${speaker.twitter}`, '_blank');
-    // app.on('loadstop').subscribe(
-    //   (ev) => {
-    //     console.log('InAppBrowser loaded!');
-    //   });
-  }
-
-  openSpeakerShare(speaker) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Share ' + speaker.name,
-      buttons: [
-        {
-          text: 'Copy Link',
-          handler: () => {
-            console.log('Copy link clicked on https://twitter.com/' + speaker.twitter);
-            if (window['cordova'] && window['cordova'].plugins.clipboard) {
-              window['cordova'].plugins.clipboard.copy('https://twitter.com/' + speaker.twitter);
-            }
-          }
-        },
-        {
-          text: 'Share via ...',
-          handler: () => {
-            console.log('Share via clicked');
-          }
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-
-    actionSheet.present();
+  openUp(url, type) {
+    if (type === 'twitter') {
+      url = 'https://twitter.com/' + url;
+    }
+    if (type === 'github') {
+      url = 'https://github.com/' + url;
+    }
+    window.open(url, '_system');
   }
 
 }

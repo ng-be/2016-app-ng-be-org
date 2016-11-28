@@ -9,8 +9,7 @@ import {
   LoadingController,
   Loading,
   ToastController,
-  ViewController,
-  Events
+  ViewController
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 
@@ -140,14 +139,14 @@ export class SchedulePage implements OnDestroy {
       sessionGroup.sessions.forEach((session: Session) => {
 
         delete session.favorite;
-        this.favorites.forEach((favorite)=> {
+        this.favorites.forEach((favorite) => {
           if (favorite.sessionId === session.$key) {
             session.favorite = favorite;
           }
         });
 
         delete session.rating;
-        this.ratings.forEach((rating)=> {
+        this.ratings.forEach((rating) => {
           if (rating.sessionId === session.$key) {
             session.rating = rating;
           }
@@ -195,7 +194,7 @@ export class SchedulePage implements OnDestroy {
 
   }
 
-  toggleFavoriteToast(session, slidingItem) {
+  toggleFavoriteToast(session, slidingItem: ItemSliding) {
 
     if (this.isAuthenticated) {
       if (!session.favorite) {
@@ -214,6 +213,7 @@ export class SchedulePage implements OnDestroy {
       });
       toast.present();
       slidingItem.close();
+
     } else {
       let alert = this.alertCtrl.create({
         title: 'Not logged in',

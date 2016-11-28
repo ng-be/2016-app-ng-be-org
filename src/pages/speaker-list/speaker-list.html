@@ -37,13 +37,13 @@
     </ion-card-content>
 
     <ion-item>
-      <button ion-button icon-left (click)="goToSpeakerTwitter(speaker)" clear item-left>
+      <button ion-button icon-left (click)="openUp(speaker.twitter, 'twitter')" clear item-left>
         <ion-icon name="logo-twitter"></ion-icon>
         Tweet
       </button>
-      <button ion-button icon-left (click)="openSpeakerShare(speaker)" clear item-right>
-        <ion-icon name="share"></ion-icon>
-        Share
+      <button ion-button icon-left (click)="openUp(speaker.github, 'github')" clear item-right>
+        <ion-icon name="logo-github"></ion-icon>
+        Follow
       </button>
     </ion-item>
 

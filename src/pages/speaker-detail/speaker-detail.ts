@@ -32,4 +32,14 @@ export class SpeakerDetailPage {
     });
   }
 
+  openUp(url, type) {
+    if (type === 'twitter') {
+      url = 'https://twitter.com/' + url;
+    }
+    if (type === 'github') {
+      url = 'https://github.com/' + url;
+    }
+    window.open(url, '_system');
+  }
+
 }
