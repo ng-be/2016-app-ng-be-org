@@ -1,7 +1,7 @@
 {
   "name": "NG-BE 2016",
   "short_name": "NG-BE 2016",
-  "start_url": "\/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#000",
   "theme_color": "#000",

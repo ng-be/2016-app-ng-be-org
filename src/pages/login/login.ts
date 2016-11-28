@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavController, Platform, ToastController, NavParams, ViewController, Events } from 'ionic-angular';
+import { NavController, Platform, ToastController, NavParams, ViewController, Events, App } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 // app imports
@@ -25,6 +25,7 @@ export class LoginPage {
               private viewCtrl: ViewController,
               private toastCtrl: ToastController,
               private navCtrl: NavController,
+              private app: App,
               private events: Events) {
 
     this.getPreviousLoginMethod();
@@ -38,6 +39,11 @@ export class LoginPage {
       this.viewCtrl.dismiss();
     });
 
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle('Login - NG-BE 2016');
+    this.events.publish("navController:current", this.navCtrl);
   }
 
   signInWithFacebook(): void {

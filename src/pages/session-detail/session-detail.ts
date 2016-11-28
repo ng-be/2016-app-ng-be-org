@@ -7,8 +7,7 @@ import {
   ToastController,
   AlertController,
   ViewController,
-  App,
-  Events
+  App
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 

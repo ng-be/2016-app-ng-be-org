@@ -165,8 +165,6 @@ export class ConferenceApp {
       // Register browser back button action(s)
       window.onpopstate = (evt) => {
 
-        console.log(evt);
-
         // Close menu if open
         if (this.menu.isOpen()) {
           this.menu.close();
@@ -176,7 +174,7 @@ export class ConferenceApp {
         // Close any active modals or overlays
         let activePortal = this.ionicApp._loadingPortal.getActive() ||
           this.ionicApp._modalPortal.getActive() ||
-          this.ionicApp._toastPortal.getActive() ||
+          //this.ionicApp._toastPortal.getActive() ||
           this.ionicApp._overlayPortal.getActive();
 
         if (activePortal) {

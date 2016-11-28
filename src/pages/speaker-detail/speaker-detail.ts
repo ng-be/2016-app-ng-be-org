@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavController, NavParams, App, Events } from 'ionic-angular';
+import { NavController, NavParams, App } from 'ionic-angular';
 
 // app imports
 import { Speaker } from '../../entities';
@@ -16,8 +16,7 @@ export class SpeakerDetailPage {
 
   constructor(private navParams: NavParams,
               private navCtrl: NavController,
-              private app: App,
-              private events: Events) {
+              private app: App) {
     this.speaker = this.navParams.data;
   }
 

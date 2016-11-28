@@ -47,8 +47,7 @@ export class SchedulePage implements OnDestroy {
               private viewCtrl: ViewController,
               private conferenceData: ConferenceDataService,
               private toastCtrl: ToastController,
-              private authService: AuthService,
-              private events: Events) {
+              private authService: AuthService) {
 
     this.setupSubscriptions();
     this.presentLoader();
@@ -57,8 +56,6 @@ export class SchedulePage implements OnDestroy {
 
   ionViewDidEnter() {
     this.app.setTitle('Schedule - NG-BE 2016');
-    this.events.publish("navController:current", this.navCtrl);
-    this.closeLoader();
     if (this.sessionGroups) {
       this.updateSchedule();
     }
@@ -82,7 +79,7 @@ export class SchedulePage implements OnDestroy {
           {
             text: 'Defavorite',
             handler: () => {
-              this.toggleFavoriteToast(session);
+              this.toggleFavoriteToast(session, slidingItem);
             }
           }
         ]
@@ -92,8 +89,7 @@ export class SchedulePage implements OnDestroy {
       alert.present();
 
     } else {
-      slidingItem.close();
-      this.toggleFavoriteToast(session);
+      this.toggleFavoriteToast(session, slidingItem);
     }
 
   }
@@ -199,7 +195,7 @@ export class SchedulePage implements OnDestroy {
 
   }
 
-  toggleFavoriteToast(session) {
+  toggleFavoriteToast(session, slidingItem) {
 
     if (this.isAuthenticated) {
       if (!session.favorite) {
@@ -217,6 +213,7 @@ export class SchedulePage implements OnDestroy {
         duration: 3000
       });
       toast.present();
+      slidingItem.close();
     } else {
       let alert = this.alertCtrl.create({
         title: 'Not logged in',
@@ -239,6 +236,7 @@ export class SchedulePage implements OnDestroy {
 
       // now present the alert on top of all other content
       alert.present();
+      slidingItem.close();
     }
 
   }
@@ -262,6 +260,7 @@ export class SchedulePage implements OnDestroy {
 
         this.sessionGroups = data;
         this.updateSchedule();
+        this.closeLoader();
 
       })
     );
@@ -292,6 +291,7 @@ export class SchedulePage implements OnDestroy {
         this.ratings = [];
         if (this.sessionGroups) {
           this.updateSchedule();
+          this.closeLoader();
         }
       })
     );
