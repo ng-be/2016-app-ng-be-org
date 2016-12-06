@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { ActionSheet, ActionSheetController, NavController, App } from 'ionic-angular';
+import { ActionSheet, NavController, App } from 'ionic-angular';
 import { ReplaySubject } from 'rxjs';
 
 // app imports
@@ -17,8 +17,7 @@ export class SpeakerListPage {
   actionSheet: ActionSheet;
   speakers$: ReplaySubject<any> = this.conferenceData.rpSpeakers$;
 
-  constructor(private actionSheetCtrl: ActionSheetController,
-              private navCtrl: NavController,
+  constructor(private navCtrl: NavController,
               private conferenceData: ConferenceDataService,
               private app: App) {
 

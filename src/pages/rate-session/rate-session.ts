@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavParams, ViewController, ToastController } from 'ionic-angular';
+import { NavParams, ViewController, ToastController, App } from 'ionic-angular';
 
 // app imports
 import { Session, Rating } from '../../entities';
@@ -18,11 +18,16 @@ export class RateSessionPage {
   constructor(private params: NavParams,
               private viewCtrl: ViewController,
               private toastCtrl: ToastController,
-              private conferenceData: ConferenceDataService) {
+              private conferenceData: ConferenceDataService,
+              private app: App) {
 
     this.session = params.data.session;
     this.populateRating();
 
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle('Rate ' + this.session.title + ' - Schedule - NG-BE 2016');
   }
 
   dismiss() {

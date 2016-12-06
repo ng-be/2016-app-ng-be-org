@@ -228,7 +228,7 @@
     },
     {
       "title": "Angular 2 Forms, the hero we need but not the one we deserve.",
-      "description": "<p></p>",
+      "description": "<p>In this talk we’ll take a deeper dive into Angular 2 Reactive forms and utilise the powerful APIs Angular 2 offers for complex forms, validation and much more.</p>",
       "startDate": "09-12-2016 16:50",
       "endDate": "09-12-2016 17:20",
       "roomId": 0,
@@ -307,7 +307,7 @@
       "firstname": "Todd",
       "github": "toddmotto",
       "name": "Motto",
-      "role": "Developer Advocate @Telerik. Founder of Voux, Google Developer Expert",
+      "role": "Developer Advocate @Telerik. Founder of Ultimate Angular, Google Developer Expert",
       "twitter": "ToddMotto"
     },
     {
