@@ -96,7 +96,7 @@ export class RateSessionPage {
       this.sessionRating = {
         sessionId: this.session.$key,
         remarks: '',
-        rating: 1,
+        rating: 5,
         speakers: []
       };
       this.session.speakers.forEach((speaker)=> {
@@ -105,7 +105,7 @@ export class RateSessionPage {
           firstname: speaker.firstname,
           name: speaker.name,
           avatar: speaker.avatar,
-          rating: 1
+          rating: 5
         })
       })
     }
