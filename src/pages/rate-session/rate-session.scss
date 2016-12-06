@@ -51,4 +51,13 @@ page-rate-session {
     }
     margin-bottom: 20px;
   }
+
+  .removerating {
+    text-align: center;
+    a {
+      border-bottom: 1px dotted #aaa;
+      text-decoration: none;
+      color: #777;
+    }
+  }
 }

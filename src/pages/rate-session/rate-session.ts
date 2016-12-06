@@ -34,6 +34,19 @@ export class RateSessionPage {
     this.viewCtrl.dismiss();
   }
 
+  removeRating(event){
+    event.preventDefault();
+    this.conferenceData.removeRating(this.sessionRating.$key);
+    this.viewCtrl.dismiss();
+    let toast = this.toastCtrl.create({
+      message: 'Your rating has been removed!',
+      showCloseButton: true,
+      closeButtonText: 'close',
+      duration: 3000
+    });
+    toast.present();
+  }
+
   saveRating() {
     let rawRating = JSON.parse(JSON.stringify(this.sessionRating));
     rawRating.speakers.forEach((speaker)=> {
@@ -41,7 +54,6 @@ export class RateSessionPage {
       delete speaker.name;
       delete speaker.avatar;
     });
-    console.log(rawRating);
     if(rawRating.$key){
       this.conferenceData.updateRating(rawRating);
     } else {
