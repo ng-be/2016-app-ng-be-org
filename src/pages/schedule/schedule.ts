@@ -199,7 +199,6 @@ export class SchedulePage implements OnDestroy {
     if (this.isAuthenticated) {
       if (!session.favorite) {
         this.conferenceData.setFavorite(session.$key);
-        this.viewCtrl.dismiss();
       } else {
         this.conferenceData.removeFavorite(session.favorite.$key);
         delete session.favorite;
