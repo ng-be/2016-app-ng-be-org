@@ -81,6 +81,8 @@ export class RateSessionPage {
   private populateRating() {
 
     if (this.session.rating) {
+      this.session.rating.speakers = this.session.rating.speakers || [];
+
       delete this.session.rating.$exists;
       this.sessionRating = this.session.rating;
       this.session.rating.speakers.forEach((speakerA) => {
