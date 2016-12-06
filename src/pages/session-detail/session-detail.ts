@@ -83,7 +83,6 @@ export class SessionDetailPage implements OnDestroy{
     if (this.isAuthenticated) {
       if (!this.session.favorite) {
         this.conferenceData.setFavorite(this.session.$key);
-        this.viewCtrl.dismiss();
       } else {
         this.conferenceData.removeFavorite(this.session.favorite.$key);
         delete this.session.favorite;
