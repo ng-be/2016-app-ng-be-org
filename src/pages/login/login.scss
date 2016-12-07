@@ -51,6 +51,19 @@ page-login {
 
     }
 
+    .no-internet {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      background-color: red;
+      color: white;
+
+      p {
+        margin: 0;
+      }
+    }
+
     form {
       ion-item {
         padding-left: 8px !important;

@@ -14,7 +14,7 @@ import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
 import { LoginPage, TabsPage, SignupPage } from '../pages';
-import { AuthService } from '../services';
+import { AuthService, ConnectionService } from '../services';
 
 export interface PageObj {
   title: string;
@@ -48,6 +48,7 @@ export class ConferenceApp {
   private innerNavCtrl: any;
 
   constructor(private authService: AuthService,
+              private connectionService: ConnectionService,
               private menu: MenuController,
               private platform: Platform,
               private ionicApp: IonicApp,

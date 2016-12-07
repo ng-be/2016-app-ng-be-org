@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 import moment from 'moment';
 import { Observable, ReplaySubject } from 'rxjs';
+import { Storage } from '@ionic/storage';
 
 // app imports
 import { Room, Speaker, Session, SessionGroup, Favorite, Rating } from '../entities';
@@ -20,9 +21,9 @@ export class ConferenceDataService {
   private currentUser;
 
   // basic entities
-  private rooms$: Observable<Array<Room>> = this.af.database.list(`rooms`);
-  private speakers$: Observable<Array<Speaker>> = this.af.database.list(`speakers`);
-  private sessions$: Observable<Array<Session>> = this.af.database.list(`sessions`).map((sessions: Array<any>) => {
+  private rooms$: Observable<Array<Room>> = this.loadEntity('rooms');
+  private speakers$: Observable<Array<Speaker>> = this.loadEntity('speakers');
+  private sessions$: Observable<Array<Session>> = this.loadEntity('sessions').map((sessions: Array<any>) => {
     return sessions.map((session: any) => {
       // map dates
       let startDate = moment(session.startDate, 'DD-MM-YYYY, h:mm');
@@ -59,6 +60,7 @@ export class ConferenceDataService {
     (speakers: Array<Speaker>, sessions: Array<Session>) => {
 
       speakers.forEach((speaker: Speaker) => {
+        this.prefetch(speaker.avatar);
 
         speaker.sessions = sessions.filter((session: Session) => {
           return session.speakerIds && session.speakerIds.indexOf(Number(speaker.$key)) > -1;
@@ -94,7 +96,8 @@ export class ConferenceDataService {
 
   // for every public stream we had to create a replay subject (otherwise it would only listen to it once)
   constructor(private af: AngularFire,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private storage: Storage) {
 
     this.speakersWithSessions$.subscribe((speakers: Array<Speaker>) => {
       this.rpSpeakers$.next(speakers);
@@ -111,10 +114,10 @@ export class ConferenceDataService {
     this.authService.rpCurrentUser$.subscribe((currentUser) => {
       this.currentUser = currentUser;
       if (currentUser) {
-        this.af.database.list(`favorites/${this.currentUser.uid}`).subscribe((favorites: Array<Favorite>) => {
+        this.loadEntity(`favorites/${this.currentUser.uid}`).subscribe((favorites: Array<Favorite>) => {
           this.rpFavorites$.next(favorites);
         });
-        this.af.database.list(`ratings/${this.currentUser.uid}`).subscribe((ratings: Array<Rating>) => {
+        this.loadEntity(`ratings/${this.currentUser.uid}`).subscribe((ratings: Array<Rating>) => {
           this.rpRatings$.next(ratings);
         });
       }
@@ -306,6 +309,30 @@ export class ConferenceDataService {
 
   private get uid(): string {
     return this.af.auth.getAuth().uid;
+  }
+
+  private loadEntity(entity: string) {
+    return Observable.merge(
+      this.loadRemoteEntity(entity),
+      this.loadLocalEntity(entity)
+    ).filter(Boolean);
+  }
+
+  private loadRemoteEntity(entity: string) {
+    return this.af.database.list(entity)
+      .do(result => {
+        this.storage.set(entity, JSON.stringify(result));
+      });
+  }
+
+  private loadLocalEntity(entity: string) {
+    return this.storage.get(entity)
+      .then(result => result && JSON.parse(result));
+  }
+
+  private prefetch(url: string) {
+    const img = new Image()
+    img.src = url;
   }
 
 }

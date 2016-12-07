@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 // app imports
 import { Session, Speaker } from '../../entities';
 import { SpeakerDetailPage, RateSessionPage, LoginPage } from '../';
-import { ConferenceDataService, AuthService } from '../../services';
+import { ConferenceDataService, AuthService, ConnectionService } from '../../services';
 
 @Component({
   selector: 'page-session-detail',
@@ -35,6 +35,7 @@ export class SessionDetailPage implements OnDestroy{
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
               private authService: AuthService,
+              private connectionService: ConnectionService,
               private app: App) {
 
     this.session = navParams.data.session;
@@ -80,7 +81,15 @@ export class SessionDetailPage implements OnDestroy{
 
   toggleFavoriteToast() {
 
-    if (this.isAuthenticated) {
+    if (!this.connectionService.isConnected()) {
+      const toast = this.toastCtrl.create({
+        message: `You need an internet connection to ${this.session.favorite ? 'defavorite' : 'favorite'} the session.`,
+        showCloseButton: true,
+        closeButtonText: 'close',
+        duration: 3000
+      });
+      toast.present();
+    } else if (this.isAuthenticated) {
       if (!this.session.favorite) {
         this.conferenceData.setFavorite(this.session.$key);
       } else {
@@ -127,7 +136,15 @@ export class SessionDetailPage implements OnDestroy{
 
   openRatingModal() {
 
-    if (this.isAuthenticated) {
+    if (!this.connectionService.isConnected()) {
+      const toast = this.toastCtrl.create({
+        message: `You need an internet connection to rate the session.`,
+        showCloseButton: true,
+        closeButtonText: 'close',
+        duration: 3000
+      });
+      toast.present();
+    } else if (this.isAuthenticated) {
       let modal = this.modalCtrl.create(RateSessionPage, {
         session: this.session
       });

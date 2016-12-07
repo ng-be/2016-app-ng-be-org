@@ -38,6 +38,12 @@
 
     </form>
 
+    <div class="no-internet" padding *ngIf="!isConnected">
+      <p>
+        You do not have an active internet connection.
+      </p>
+    </div>
+
     <ion-row responsive-sm>
       <ion-col *ngIf="false">
         <button ion-button (click)="onLogin(loginForm)" type="submit" color="primary" block>Login</button>
@@ -46,22 +52,22 @@
         <button ion-button (click)="onSignup()" color="light" block>Signup</button>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="signInWithFacebook()" class="ngbutton facebook" block>
+        <button ion-button (click)="signInWithFacebook()" class="ngbutton facebook" block [disabled]="!isConnected">
           Login with Facebook
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="signInWithTwitter()" class="ngbutton twitter" block>
+        <button ion-button (click)="signInWithTwitter()" class="ngbutton twitter" block [disabled]="!isConnected">
           Login with Twitter
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="signInWithGoogle()" class="ngbutton google" block>
+        <button ion-button (click)="signInWithGoogle()" class="ngbutton google" block [disabled]="!isConnected">
           Login with Google
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button (click)="signInWithGithub()" class="ngbutton github" block>
+        <button ion-button (click)="signInWithGithub()" class="ngbutton github" block [disabled]="!isConnected">
           Login with Github
         </button>
       </ion-col>
