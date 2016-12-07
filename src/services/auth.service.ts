@@ -90,10 +90,6 @@ export class AuthService {
       if (state.provider == AuthProviders.Twitter && state.twitter.displayName) {
         this.rpCurrentUser$.next(state.twitter);
         this.isAuthenticated$.next(true);
-      }
-      if (state.provider == AuthProviders.Twitter && state.twitter.displayName) {
-        this.rpCurrentUser$.next(state.twitter);
-        this.isAuthenticated$.next(true);
         this.storage.set('previousLoginMethod', 'Twitter');
       }
       if (state.provider == AuthProviders.Github && state.github.displayName) {
