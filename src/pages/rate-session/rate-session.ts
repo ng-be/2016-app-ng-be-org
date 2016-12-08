@@ -34,7 +34,7 @@ export class RateSessionPage {
     this.viewCtrl.dismiss();
   }
 
-  removeRating(event){
+  removeRating(event) {
     event.preventDefault();
     this.conferenceData.removeRating(this.sessionRating.$key);
     this.viewCtrl.dismiss();
@@ -49,12 +49,12 @@ export class RateSessionPage {
 
   saveRating() {
     let rawRating = JSON.parse(JSON.stringify(this.sessionRating));
-    rawRating.speakers.forEach((speaker)=> {
+    rawRating.speakers.forEach((speaker) => {
       delete speaker.firstname;
       delete speaker.name;
       delete speaker.avatar;
     });
-    if(rawRating.$key){
+    if (rawRating.$key) {
       this.conferenceData.updateRating(rawRating);
     } else {
       this.conferenceData.saveRating(rawRating);
@@ -87,7 +87,7 @@ export class RateSessionPage {
       this.sessionRating = this.session.rating;
       this.session.rating.speakers.forEach((speakerA) => {
         this.session.speakers.forEach((speakerB) => {
-          if(speakerA.speakerId === speakerB.$key){
+          if (speakerA.speakerId === speakerB.$key) {
             speakerA.firstname = speakerB.firstname;
             speakerA.name = speakerB.name;
             speakerA.avatar = speakerB.avatar;
@@ -101,7 +101,7 @@ export class RateSessionPage {
         rating: 5,
         speakers: []
       };
-      this.session.speakers.forEach((speaker)=> {
+      this.session.speakers.forEach((speaker) => {
         this.sessionRating.speakers.push({
           speakerId: speaker.$key,
           firstname: speaker.firstname,

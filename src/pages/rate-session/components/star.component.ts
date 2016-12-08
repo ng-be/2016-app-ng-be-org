@@ -15,6 +15,7 @@ export class AcStar {
   }
 
   handleRate(event) {
+    event.preventDefault();
     this.rate.emit(this.position);
   }
 }

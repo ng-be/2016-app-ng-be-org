@@ -5,8 +5,7 @@ import {
   NavController,
   ModalController,
   ToastController,
-  AlertController,
-  ViewController,
+  AlertController
   App
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';
@@ -29,7 +28,6 @@ export class SessionDetailPage implements OnDestroy{
 
   constructor(private navParams: NavParams,
               private navCtrl: NavController,
-              private viewCtrl: ViewController,
               private conferenceData: ConferenceDataService,
               private modalCtrl: ModalController,
               private toastCtrl: ToastController,

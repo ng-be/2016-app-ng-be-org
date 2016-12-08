@@ -1,6 +1,6 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { NavController, App } from 'ionic-angular';
+import { App } from 'ionic-angular';
 
 // app imports
 declare var google;
@@ -26,8 +26,7 @@ export class MapPage {
     }
   ];
 
-  constructor(private navCtrl: NavController,
-              private app: App) {
+  constructor(private app: App) {
   }
 
   ionViewDidEnter() {

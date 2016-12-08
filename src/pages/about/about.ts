@@ -33,7 +33,6 @@ export class PopoverPage {
 export class AboutPage {
 
   constructor(public popoverCtrl: PopoverController,
-              private navCtrl: NavController,
               private app: App) {
   }
 
