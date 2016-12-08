@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 
 // app imports
 import { TabsPage, SignupPage } from '../';
-import { AuthService } from '../../services';
+import { AuthService, ConnectionService } from '../../services';
 
 @Component({
   selector: 'page-login',
@@ -17,10 +17,12 @@ export class LoginPage {
   isWeb: boolean;
   login: {email?: string, password?: string} = {};
   submitted = false;
+  isConnected: boolean;
 
   constructor(private platform: Platform,
               private navParams: NavParams,
               private authService: AuthService,
+              private connectionService: ConnectionService,
               private storage: Storage,
               private viewCtrl: ViewController,
               private toastCtrl: ToastController,
@@ -37,6 +39,10 @@ export class LoginPage {
 
     this.authService.rpCurrentUser$.subscribe(() => {
       this.viewCtrl.dismiss();
+    });
+
+    this.connectionService.connection$.subscribe((isConnected: boolean) => {
+      this.isConnected = isConnected;
     });
 
   }

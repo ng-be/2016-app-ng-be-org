@@ -14,7 +14,7 @@ import {
 import { Subscription } from 'rxjs';
 
 // app imports
-import { ConferenceDataService, AuthService } from '../../services';
+import { ConferenceDataService, AuthService, ConnectionService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage, LoginPage } from '../';
 import { SessionGroup, Session, Favorite, Rating } from '../../entities';
 
@@ -46,7 +46,8 @@ export class SchedulePage implements OnDestroy {
               private viewCtrl: ViewController,
               private conferenceData: ConferenceDataService,
               private toastCtrl: ToastController,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private connectionService: ConnectionService) {
 
     this.setupSubscriptions();
     this.presentLoader();
@@ -196,7 +197,15 @@ export class SchedulePage implements OnDestroy {
 
   toggleFavoriteToast(session, slidingItem: ItemSliding) {
 
-    if (this.isAuthenticated) {
+    if (!this.connectionService.isConnected()) {
+      const toast = this.toastCtrl.create({
+        message: `You need an internet connection to ${session.favorite ? 'defavorite' : 'favorite'} the session.`,
+        showCloseButton: true,
+        closeButtonText: 'close',
+        duration: 3000
+      });
+      toast.present();
+    } else if (this.isAuthenticated) {
       if (!session.favorite) {
         this.conferenceData.setFavorite(session.$key);
       } else {
@@ -211,8 +220,6 @@ export class SchedulePage implements OnDestroy {
         duration: 3000
       });
       toast.present();
-      slidingItem.close();
-
     } else {
       let alert = this.alertCtrl.create({
         title: 'Not logged in',
@@ -235,9 +242,9 @@ export class SchedulePage implements OnDestroy {
 
       // now present the alert on top of all other content
       alert.present();
-      slidingItem.close();
     }
 
+    slidingItem.close();
   }
 
   private presentLoader() {
