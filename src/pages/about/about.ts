@@ -1,12 +1,13 @@
 // 3d party imports
 import { Component } from '@angular/core';
-import { PopoverController, ViewController, NavController, App } from 'ionic-angular';
+import { PopoverController, ViewController, App } from 'ionic-angular';
 
 @Component({
   selector: 'page-popover',
   template: `<ion-list style="margin-bottom:0;">
+    <button ion-item (click)="openUp('https://ng-be.org/code-of-conduct')">Code Of Conduct</button>
     <button ion-item (click)="openUp('https://ng-be.org')">NG-BE 2016 website</button>
-    <button ion-item (click)="openUp('https://github.com/ng-be')">Github repositories</button>
+    <button ion-item (click)="openUp('https://github.com/ng-be')">Github</button>
   </ion-list>`
 
 })
