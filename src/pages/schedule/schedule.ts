@@ -43,7 +43,6 @@ export class SchedulePage implements OnDestroy {
               private modalCtrl: ModalController,
               private navCtrl: NavController,
               private loadingCtrl: LoadingController,
-              private viewCtrl: ViewController,
               private conferenceData: ConferenceDataService,
               private toastCtrl: ToastController,
               private authService: AuthService,

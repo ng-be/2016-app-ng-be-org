@@ -14,7 +14,7 @@ import { Splashscreen, StatusBar } from 'ionic-native';
 
 // app imports
 import { LoginPage, TabsPage, SignupPage } from '../pages';
-import { AuthService, ConnectionService } from '../services';
+import { AuthService } from '../services';
 
 export interface PageObj {
   title: string;
@@ -47,22 +47,6 @@ export class ConferenceApp {
 
   private innerNavCtrl: any;
 
-  constructor(private authService: AuthService,
-              private connectionService: ConnectionService,
-              private menu: MenuController,
-              private platform: Platform,
-              private ionicApp: IonicApp,
-              private app: App,
-              private alertCtrl: AlertController,
-              private toastCtrl: ToastController,
-              private events: Events) {
-
-    this.isWeb = this.platform.is('mobileweb');
-    this.initApplication();
-    this.setupBackButtonBehavior();
-
-  }
-
   initApplication() {
     this.platform.ready().then(() => {
       StatusBar.styleDefault();
@@ -83,6 +67,21 @@ export class ConferenceApp {
         this.enableMenu(currentUser);
       }
     });
+
+  }
+
+  constructor(private authService: AuthService,
+              private menu: MenuController,
+              private platform: Platform,
+              private ionicApp: IonicApp,
+              private app: App,
+              private alertCtrl: AlertController,
+              private toastCtrl: ToastController,
+              private events: Events) {
+
+    this.isWeb = this.platform.is('mobileweb');
+    this.initApplication();
+    this.setupBackButtonBehavior();
 
   }
 
