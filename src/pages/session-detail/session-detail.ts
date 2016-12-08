@@ -5,7 +5,7 @@ import {
   NavController,
   ModalController,
   ToastController,
-  AlertController
+  AlertController,
   App
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';

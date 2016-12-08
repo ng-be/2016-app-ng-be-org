@@ -8,8 +8,7 @@ import {
   NavController,
   LoadingController,
   Loading,
-  ToastController,
-  ViewController
+  ToastController
 } from 'ionic-angular';
 import { Subscription } from 'rxjs';
 
