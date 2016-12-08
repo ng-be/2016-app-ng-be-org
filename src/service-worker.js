@@ -1,5 +1,5 @@
 // tick this to make the cache invalidate and update
-const CACHE_VERSION = 1612080010;
+const CACHE_VERSION = 1612081547;
 const CURRENT_CACHES = {
     'read-through': 'read-through-cache-v' + CACHE_VERSION
 };
