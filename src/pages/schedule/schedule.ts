@@ -93,7 +93,7 @@ export class SchedulePage implements OnDestroy {
   }
 
   openLogin() {
-    this.navCtrl.push(LoginPage);
+    this.app.getRootNav().push(LoginPage);
   }
 
   presentFilter() {
