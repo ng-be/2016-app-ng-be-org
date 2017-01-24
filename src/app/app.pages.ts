@@ -5,7 +5,6 @@ import {
   LoginPage,
   SignupPage,
   MapPage,
-  SchedulePage,
   ScheduleFilterPage,
   SessionDetailPage,
   SpeakerDetailPage,
@@ -14,13 +13,16 @@ import {
   RateSessionPage
 } from '../pages';
 
+export {
+  ScheduleModule
+} from '../pages';
+
 export const APP_PAGES = [
   AboutPage,
   PopoverPage,
   LoginPage,
   SignupPage,
   MapPage,
-  SchedulePage,
   ScheduleFilterPage,
   SessionDetailPage,
   SpeakerDetailPage,
