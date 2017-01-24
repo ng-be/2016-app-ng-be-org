@@ -1,0 +1,19 @@
+<ion-list>
+
+  <ion-item-group *ngFor="let group of groups" [hidden]="group.hidden">
+
+    <ion-item-divider sticky>
+      {{group.startHour}}:00h
+    </ion-item-divider>
+
+    <session-item
+      *ngFor="let session of group.sessions"
+      [session]="session"
+      [options]="options"
+      (details)="details.next(session)"
+      (toggle)="toggleFavorite($event, session)">
+    </session-item>
+
+  </ion-item-group>
+
+</ion-list>

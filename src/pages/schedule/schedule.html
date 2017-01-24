@@ -38,69 +38,22 @@
     Login to favorite & rate sessions!
   </button>
 
-  <ion-card *ngIf="shownTags.length > 0" class="currentFilter">
+  <filter-card
+     *ngIf="shownTags.length > 0"
+     [tags]="shownTags"
+     (reset)="resetFilters()">
+  </filter-card>
 
-    <ion-card-header>
-      <strong>Current tag filters</strong> (<a href="" (click)="resetFilters($event)">clear</a>):
-    </ion-card-header>
-
-    <ion-card-content>
-      <ul class="tags">
-        <li *ngFor="let tag of shownTags" [attr.tag]="tag" class="tag">
-          {{tag}}
-        </li>
-      </ul>
-    </ion-card-content>
-
-  </ion-card>
-
-  <ion-list *ngIf="numberOfShownSessions !== 0 && !loading">
-
-    <ion-item-group *ngFor="let group of sessionGroups" [hidden]="group.hidden">
-
-      <ion-item-divider sticky>
-        {{group.startHour}}:00h
-      </ion-item-divider>
-
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.tag]="session.tags[0]"
-                        [hidden]="session.hidden">
-
-        <ion-item (click)="goToSessionDetail(session)">
-          <h3>{{session.title}}</h3>
-          <p>
-            {{session.startDate.format('HH:mm')}} &mdash;
-            {{session.endDate.format('HH:mm')}}:
-            {{session.room.name}}
-          </p>
-
-          <ul class="tags">
-            <li *ngFor="let tag of session.tags" [attr.tag]="tag" class="tag">
-              {{tag}}
-            </li>
-          </ul>
-
-          <ion-icon name="bookmark" item-right color="primary" *ngIf="!session.favorite && segment ==='all'"></ion-icon>
-          <ion-icon name="bookmark" item-right color="secondary"
-                    *ngIf="session.favorite && segment ==='all'"></ion-icon>
-
-        </ion-item>
-
-        <ion-item-options>
-          <button ion-button color="favorite" (click)="toggleFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            <span *ngIf="!session.favorite">Favorite session</span>
-            <span *ngIf="session.favorite">Defavorite session</span>
-          </button>
-        </ion-item-options>
-
-      </ion-item-sliding>
-
-    </ion-item-group>
-
-  </ion-list>
+  <session-list
+    *ngIf="numberOfShownSessions !== 0 && !loading"
+    [groups]="sessionGroups"
+    [options]="segment === 'all'"
+    (toggle)="toggleFavorite($event)"
+    (details)="goToSessionDetail($event)">
+  </session-list>
 
   <ion-list-header *ngIf="numberOfShownSessions === 0 && !loading">
     No Sessions Found
   </ion-list-header>
-
 
 </ion-content>

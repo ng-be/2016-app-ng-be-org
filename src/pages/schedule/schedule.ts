@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { ConferenceDataService, AuthService, ConnectionService } from '../../services';
 import { ScheduleFilterPage, SessionDetailPage, LoginPage } from '../';
 import { SessionGroup, Session, Favorite, Rating } from '../../entities';
+import { ToggleResult } from './entities';
 
 @Component({
   selector: 'page-schedule',
@@ -59,7 +60,7 @@ export class SchedulePage implements OnDestroy {
     }
   }
 
-  toggleFavorite(slidingItem: ItemSliding, session) {
+  toggleFavorite({slidingItem, session}: ToggleResult) {
 
     if (session.favorite) {
 
@@ -112,10 +113,7 @@ export class SchedulePage implements OnDestroy {
 
   }
 
-  resetFilters(event?: any) {
-    if (event) {
-      event.preventDefault();
-    }
+  resetFilters() {
     this.shownTags = [];
     this.updateSchedule();
   }
