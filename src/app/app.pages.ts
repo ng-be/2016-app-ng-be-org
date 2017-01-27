@@ -5,7 +5,6 @@ import {
   LoginPage,
   SignupPage,
   MapPage,
-  ScheduleFilterPage,
   SessionDetailPage,
   SpeakerDetailPage,
   SpeakerListPage,
@@ -13,8 +12,9 @@ import {
   RateSessionPage
 } from '../pages';
 
-export {
-  ScheduleModule
+import {
+  ScheduleModule,
+  ScheduleFilterModule
 } from '../pages';
 
 export const APP_PAGES = [
@@ -23,10 +23,14 @@ export const APP_PAGES = [
   LoginPage,
   SignupPage,
   MapPage,
-  ScheduleFilterPage,
   SessionDetailPage,
   SpeakerDetailPage,
   SpeakerListPage,
   TabsPage,
   RateSessionPage
+];
+
+export const APP_PAGE_MODULES = [
+  ScheduleModule,
+  ScheduleFilterModule
 ];

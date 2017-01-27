@@ -1,0 +1,5 @@
+<ion-item [attr.tag]="title | lowercase">
+  <span item-left class="dot"></span>
+  <ion-label>{{title}}</ion-label>
+  <ion-toggle color="secondary" [ngModel]="checked" (ngModelChange)="toggle.emit($event)"></ion-toggle>
+</ion-item>

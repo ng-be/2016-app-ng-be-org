@@ -6,7 +6,7 @@ import { AngularFireModule } from 'angularfire2';
 
 // app imports
 import { ConferenceApp } from './app.component';
-import { APP_PAGES, ScheduleModule } from './app.pages';
+import { APP_PAGES, APP_PAGE_MODULES } from './app.pages';
 import { APP_PROVIDERS } from './app.providers';
 import { firebaseConfig, firebaseAuthConfig } from './app.firebase';
 
@@ -26,7 +26,7 @@ const APP_COMPONENTS = [
   imports: [
     IonicModule.forRoot(ConferenceApp),
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    ScheduleModule
+    ...APP_PAGE_MODULES
   ],
   bootstrap: [IonicApp],
   entryComponents: [
