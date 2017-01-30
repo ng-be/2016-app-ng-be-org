@@ -3,7 +3,7 @@ export * from './login/login';
 export * from './signup/signup';
 export * from './map/map';
 export * from './schedule';
-export * from './schedule-filter/schedule-filter';
+export * from './schedule-filter';
 export * from './session-detail/session-detail';
 export * from './speaker-detail/speaker-detail';
 export * from './speaker-list/speaker-list';

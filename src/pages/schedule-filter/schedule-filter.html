@@ -1,29 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">Cancel</button>
-    </ion-buttons>
-
-    <ion-title>
-      Filter Sessions
-    </ion-title>
-
-    <ion-buttons end>
-      <button ion-button (click)="applyFilters()">Done</button>
-    </ion-buttons>
-  </ion-toolbar>
+  <filter-toolbar
+    (confirm)="applyFilters()"
+    (cancel)="dismiss()">
+  </filter-toolbar>
 </ion-header>
 
 <ion-content class="outer-content">
 
-  <ion-list>
-    <ion-item *ngFor="let tag of tags" [attr.tag]="tag.name | lowercase">
-      <span item-left class="dot"></span>
-      <ion-label>{{tag.name}}</ion-label>
-      <ion-toggle [(ngModel)]="tag.isChecked" color="secondary"></ion-toggle>
-    </ion-item>
-
-  </ion-list>
+  <filter-list [tags]="tags" (toggle)="onToggle($event)"></filter-list>
 
   <ion-list>
     <button ion-item (click)="resetFilters()" detail-none class="reset-filters">
