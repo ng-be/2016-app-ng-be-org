@@ -1,50 +1,55 @@
 // 3d party imports
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
+import { Subscription } from 'rxjs/Subscription';
 
 // app imports
 import { ConferenceDataService } from '../../services';
+import { Tag } from './entities';
 
 @Component({
   selector: 'page-schedule-filter',
   templateUrl: 'schedule-filter.html'
 })
-export class ScheduleFilterPage {
+export class ScheduleFilterPage implements OnDestroy {
 
-  tags: Array<{name: string, isChecked: boolean}> = [];
+  tags: Tag[] = [];
+
+  private subscriptions: Subscription[] = [];
 
   constructor(private conferenceData: ConferenceDataService,
               private navParams: NavParams,
               private viewCtrl: ViewController) {
 
     // passed in array of track names that should be shown (check)
-    let shownTags = this.navParams.data.shownTags;
+    const shownTags = this.navParams.data.shownTags;
 
-    this.conferenceData.rpTags$.subscribe((tagNames: string[]) => {
-
-      let newTags = [];
-      tagNames.forEach(tagName => {
-        newTags.push({
-          name: tagName,
-          isChecked: (shownTags.indexOf(tagName) > -1)
-        });
+    const subscription = this.conferenceData.rpTags$
+      .subscribe((tagNames: string[]) => {
+        this.tags = tagNames.map(name => ({
+          name,
+          isChecked: shownTags.indexOf(name) !== -1
+        }));
       });
-      this.tags = newTags;
 
-    });
+    // Keep track of the subscriptions
+    this.subscriptions.push(subscription);
+  }
 
+  onToggle({checked, tag}: {checked: boolean, tag: Tag}) {
+    tag.isChecked = checked;
   }
 
   resetFilters() {
     // reset all of the toggles to be checked
-    this.tags.forEach(track => {
-      track.isChecked = false;
+    this.tags.forEach(tag => {
+      tag.isChecked = false;
     });
   }
 
   applyFilters() {
     // Pass back a new array of tags to show
-    let shownTags = this.tags.filter(c => c.isChecked).map(c => c.name);
+    const shownTags = this.tags.filter(c => c.isChecked).map(c => c.name);
     this.dismiss(shownTags);
   }
 
@@ -52,5 +57,11 @@ export class ScheduleFilterPage {
     // using the injected ViewController this page
     // can "dismiss" itself and pass back data
     this.viewCtrl.dismiss(data);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 }

@@ -1,0 +1,14 @@
+page-schedule-filter {
+  filter-item {
+    @each $tag, $value in auxiliary-categories() {
+      ion-item[tag=#{$tag}] .dot {
+        height: 10px;
+        display: inline-block;
+        width: 10px;
+        background-color: $value;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

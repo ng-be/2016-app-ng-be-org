@@ -1,0 +1,8 @@
+<ion-list>
+  <filter-item
+    *ngFor="let tag of tags"
+    [title]="tag.name"
+    [checked]="tag.isChecked"
+    (toggle)="onToggle($event, tag)">
+  </filter-item>
+</ion-list>

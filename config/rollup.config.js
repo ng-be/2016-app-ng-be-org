@@ -12,13 +12,13 @@ var rollupConfig = {
    * be included, along with the minimum necessary code
    * from its dependencies
    */
-  entry: 'src/app/main.dev.ts',
+  entry: process.env.IONIC_APP_ENTRY_POINT,
 
   /**
    * sourceMap: If true, a separate sourcemap file will
    * be created.
    */
-  sourceMap: true,
+  sourceMap: process.env.IONIC_GENERATE_SOURCE_MAP ? true : false,
 
   /**
    * format: The format of the generated bundle
@@ -28,7 +28,7 @@ var rollupConfig = {
   /**
    * dest: the output filename for the bundle in the buildDir
    */
-  dest: 'main.js',
+  dest: process.env.IONIC_OUTPUT_JS_FILE_NAME,
 
   useStrict: false,
 
@@ -56,13 +56,5 @@ var rollupConfig = {
   ]
 
 };
-
-
-if (process.env.IONIC_ENV == 'prod') {
-  // production mode
-  rollupConfig.entry = '{{TMP}}/app/main.prod.ts';
-  rollupConfig.sourceMap = false;
-}
-
 
 module.exports = rollupConfig;
