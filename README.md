@@ -1,5 +1,9 @@
 # Ionic 2 Conference Application
 
+## Project deprecated disclaimer:
+**This project is deprecated and no longer maintained**
+
+
 This is purely a demo of Ionic 2 with TypeScript. It is still in development.
 
 
