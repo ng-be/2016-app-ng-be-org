@@ -17,27 +17,6 @@
       <strong>Previous login via: </strong> {{previousLoginMethod}}
     </p>
 
-    <form #loginForm="ngForm" novalidate *ngIf="false">
-      <ion-item>
-        <ion-label floating color="primary">Email</ion-label>
-        <ion-input [(ngModel)]="login.email" name="email" type="email" #email="ngModel" spellcheck="false" autocapitalize="off" required>
-        </ion-input>
-      </ion-item>
-      <p [hidden]="email.valid || submitted == false" color="danger" padding-left class="validation">
-        Valid email is required
-      </p>
-
-      <ion-item>
-        <ion-label floating color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
-        </ion-input>
-      </ion-item>
-      <p [hidden]="password.valid || submitted == false" color="danger" padding-left class="validation">
-        Password is required
-      </p>
-
-    </form>
-
     <div class="no-internet" padding *ngIf="!isConnected">
       <p>
         You do not have an active internet connection.
@@ -45,30 +24,9 @@
     </div>
 
     <ion-row responsive-sm>
-      <ion-col *ngIf="false">
-        <button ion-button (click)="onLogin(loginForm)" type="submit" color="primary" block>Login</button>
-      </ion-col>
-      <ion-col *ngIf="false">
-        <button ion-button (click)="onSignup()" color="light" block>Signup</button>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="signInWithFacebook()" class="ngbutton facebook" block [disabled]="!isConnected">
-          Login with Facebook
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="signInWithTwitter()" class="ngbutton twitter" block [disabled]="!isConnected">
-          Login with Twitter
-        </button>
-      </ion-col>
       <ion-col>
         <button ion-button (click)="signInWithGoogle()" class="ngbutton google" block [disabled]="!isConnected">
           Login with Google
-        </button>
-      </ion-col>
-      <ion-col>
-        <button ion-button (click)="signInWithGithub()" class="ngbutton github" block [disabled]="!isConnected">
-          Login with Github
         </button>
       </ion-col>
     </ion-row>
